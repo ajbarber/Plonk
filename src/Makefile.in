@@ -105,9 +105,11 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = main.$(OBJEXT) Sprite.$(OBJEXT)
+am_plonk_OBJECTS = Sprite.$(OBJEXT) Game.$(OBJEXT) MainGL.$(OBJEXT) \
+	main.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
+plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -200,7 +202,7 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-LDFLAGS = 
+LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LTLIBOBJS = @LTLIBOBJS@
@@ -274,7 +276,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-plonk_SOURCES = main.cpp Sprite.cpp
+plonk_SOURCES = Sprite.cpp Game.cpp MainGL.cpp main.cpp  
+LDADD = ../lib/soil/lib/libSOIL.a
 all: all-am
 
 .SUFFIXES:
@@ -361,6 +364,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Game.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MainGL.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Sprite.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 

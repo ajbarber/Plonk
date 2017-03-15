@@ -1,5 +1,6 @@
 #include "Sprite.h"
 
+
 Sprite::Sprite(const unsigned int numberOfTextures) 
 {
     textures=new GLuint[numberOfTextures];
@@ -21,6 +22,30 @@ Sprite::Sprite(const unsigned int numberOfTextures)
     isActive = false;
     isSpriteSheet = false;    
 }
+
+const bool Sprite::AddTexture(const char* fileName, const bool useTransparency)
+{
+    
+    GLuint texture = SOIL_load_OGL_texture(fileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, 0);
+    if (texture == 0)
+    {
+        return false;
+    }
+    
+    textures[textureIndex] = texture;
+    textureIndex++;
+    if (textureIndex == 1 && numberOfFrames > 1) 
+    {
+        isSpriteSheet=true;
+    }
+    else 
+    {
+        isSpriteSheet=false;
+    }
+    this->useTransparency=useTransparency;
+    return true;
+}
+
 
 Sprite::~Sprite() 
 {

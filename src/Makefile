@@ -105,9 +105,11 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = main.$(OBJEXT) Sprite.$(OBJEXT)
+am_plonk_OBJECTS = Sprite.$(OBJEXT) Game.$(OBJEXT) MainGL.$(OBJEXT) \
+	main.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
+plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -165,12 +167,12 @@ ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/adam/adam/plonk/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/adam/git/plonk/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/adam/adam/plonk/missing autoconf
-AUTOHEADER = ${SHELL} /home/adam/adam/plonk/missing autoheader
-AUTOMAKE = ${SHELL} /home/adam/adam/plonk/missing automake-1.15
+AUTOCONF = ${SHELL} /home/adam/git/plonk/missing autoconf
+AUTOHEADER = ${SHELL} /home/adam/git/plonk/missing autoheader
+AUTOMAKE = ${SHELL} /home/adam/git/plonk/missing automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -204,7 +206,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = -lglut -lGLU -lGL   -lGL   
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/adam/adam/plonk/missing makeinfo
+MAKEINFO = ${SHELL} /home/adam/git/plonk/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = plonk
@@ -222,10 +224,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/adam/adam/plonk/src
-abs_srcdir = /home/adam/adam/plonk/src
-abs_top_builddir = /home/adam/adam/plonk
-abs_top_srcdir = /home/adam/adam/plonk
+abs_builddir = /home/adam/git/plonk/src
+abs_srcdir = /home/adam/git/plonk/src
+abs_top_builddir = /home/adam/git/plonk
+abs_top_srcdir = /home/adam/git/plonk
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -253,7 +255,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/adam/adam/plonk/install-sh
+install_sh = ${SHELL} /home/adam/git/plonk/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -274,7 +276,8 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-plonk_SOURCES = main.cpp Sprite.cpp
+plonk_SOURCES = Sprite.cpp Game.cpp MainGL.cpp main.cpp  
+LDADD = ../lib/soil/lib/libSOIL.a
 all: all-am
 
 .SUFFIXES:
@@ -361,6 +364,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/Game.Po
+include ./$(DEPDIR)/MainGL.Po
 include ./$(DEPDIR)/Sprite.Po
 include ./$(DEPDIR)/main.Po
 

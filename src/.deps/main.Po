@@ -29,7 +29,7 @@ main.o: main.cpp /usr/include/stdc-predef.h gl.h /usr/include/GL/gl.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h MainGL.h
 
 /usr/include/stdc-predef.h:
 
@@ -120,3 +120,5 @@ gl.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
+
+MainGL.h:

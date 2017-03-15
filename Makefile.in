@@ -314,7 +314,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src 
+SUBDIRS = src
 ACLOCAL_AMFLAGS = -I m4
 all: all-recursive
 

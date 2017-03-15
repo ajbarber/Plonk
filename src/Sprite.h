@@ -2,6 +2,9 @@
 #define SPRITE_H
 
 #include "gl.h"
+#include "../lib/soil/src/SOIL.h"
+
+
 
 class Sprite {
 public: 

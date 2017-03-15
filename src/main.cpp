@@ -1,5 +1,6 @@
 
 #include "gl.h"
+#include "MainGL.h"
 
 void initGL()
 {  
@@ -23,16 +24,15 @@ void update()
     glFlush();
 }
 
+
+
 int main(int argc, char **argv)
 {
-    glutInit(&argc,argv);
-    glutCreateWindow("Plonk");
-    glutInitWindowSize(320, 320);
-    glutInitWindowPosition(50, 50);
-    glutDisplayFunc(update);
     initGL();
+    glutTimerFunc(100, MainGL::drawGame, 0);	
     glutMainLoop();
     return 0;
 }
+
 
 

@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="plonk" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
+  </Plugins>
+  <VirtualDirectory Name="lib">
+    <VirtualDirectory Name="soil">
+      <VirtualDirectory Name="projects">
+        <VirtualDirectory Name="makefile">
+          <File Name="lib/soil/projects/makefile/makefile"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+      <VirtualDirectory Name="src">
+        <VirtualDirectory Name="original">
+          <File Name="lib/soil/src/original/stb_image-1.16.c"/>
+          <File Name="lib/soil/src/original/stb_image-1.09.c"/>
+        </VirtualDirectory>
+        <File Name="lib/soil/src/stb_image_aug.h"/>
+        <File Name="lib/soil/src/stbi_DDS_aug_c.h"/>
+        <File Name="lib/soil/src/SOIL.c"/>
+        <File Name="lib/soil/src/test_SOIL.cpp"/>
+        <File Name="lib/soil/src/stb_image_aug.c"/>
+        <File Name="lib/soil/src/image_DXT.h"/>
+        <File Name="lib/soil/src/SOIL.h"/>
+        <File Name="lib/soil/src/stbi_DDS_aug.h"/>
+        <File Name="lib/soil/src/image_helper.c"/>
+        <File Name="lib/soil/src/image_helper.h"/>
+        <File Name="lib/soil/src/image_DXT.c"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
@@ -9,7 +40,13 @@
     <File Name="src/Sprite.h"/>
     <File Name="src/Sprite.cpp"/>
     <File Name="src/Makefile.am"/>
+    <File Name="src/MainGL.cpp"/>
+    <File Name="src/MainGL.h"/>
+    <File Name="src/Game.h"/>
+    <File Name="src/Game.cpp"/>
   </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -26,7 +63,7 @@
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="" IntermediateDirectory="./src" Command="/home/adam/adam/plonk/src/plonk" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)/src" PauseExecWhenProcTerminates="yes" IsGUIProgram="yes" IsEnabled="yes"/>
+      <General OutputFile="" IntermediateDirectory="./src" Command="/home/adam/git/plonk/src/plonk" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)/src" PauseExecWhenProcTerminates="yes" IsGUIProgram="yes" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
@@ -46,7 +83,7 @@
         <SingleFileCommand/>
         <MakefileGenerationCommand/>
         <ThirdPartyToolName>None</ThirdPartyToolName>
-        <WorkingDirectory>$(WorkspacePath)/plonk</WorkingDirectory>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
       </CustomBuild>
       <AdditionalRules>
         <CustomPostBuild/>
