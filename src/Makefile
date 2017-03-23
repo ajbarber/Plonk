@@ -173,10 +173,10 @@ AM_DEFAULT_VERBOSITY = 1
 AUTOCONF = ${SHELL} /home/adam/git/plonk/missing autoconf
 AUTOHEADER = ${SHELL} /home/adam/git/plonk/missing autoheader
 AUTOMAKE = ${SHELL} /home/adam/git/plonk/missing automake-1.15
-AWK = gawk
+AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = --pedantic -Wall -std=c99 -O2
+CFLAGS = --pedantic -Wall -std=c99 -g3 -gdwarf2
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
@@ -192,10 +192,10 @@ EGREP = /bin/grep -E
 EXEEXT = 
 GLUT_CFLAGS = 
 GLUT_LIBS = -lglut
-GLU_CFLAGS = -I/usr/include/libdrm  
-GLU_LIBS = -lGLU -lGL  
-GL_CFLAGS = -I/usr/include/libdrm  
-GL_LIBS = -lGL  
+GLU_CFLAGS = -I/usr/include/libdrm
+GLU_LIBS = -lGLU -lGL
+GL_CFLAGS = -I/usr/include/libdrm
+GL_LIBS = -lGL
 GREP = /bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -204,7 +204,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lglut -lGLU -lGL   -lGL   
+LIBS = -lglut -lGLU -lGL -lGL 
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/adam/git/plonk/missing makeinfo
 MKDIR_P = /bin/mkdir -p

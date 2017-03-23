@@ -136,4 +136,9 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="data">
+    <VirtualDirectory Name="png">
+      <File Name="data/png/shipsprite.png"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
 </CodeLite_Project>

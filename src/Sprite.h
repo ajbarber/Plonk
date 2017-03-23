@@ -49,11 +49,11 @@ public:
     Sprite(const unsigned int numberOfTextures);
     ~Sprite();
     
-    void Update(const float deltaTime);
-    void Render();
+    void update(const float deltaTime);
+    void render();
     
-    const bool AddTexture(const char* fileName, const bool useTransparency=true);
-    const GLuint GetCurrentFrame() { 
+    const bool addTexture(const char* fileName, const bool useTransparency=true);
+    const GLuint getCurrentFrame() { 
         if (isSpriteSheet) 
         {
             return textures[0];
@@ -64,59 +64,59 @@ public:
         }            
     }
     
-    void SetPosition(const GLfloat x,const GLfloat y) {
+    void setPosition(const GLfloat x,const GLfloat y) {
         this->position.x=x;
         this->position.y=y; 
     }
     
-    void SetPosition(const Point pos) {
+    void setPosition(const Point pos) {
         position = pos;
     }
     
-    const Point GetPosition () {
+    const Point getPosition () {
         return position;
     }
     
-    const Size GetSize() const {
+    const Size getSize() const {
         return size;
     }
     
-    void SetFrameSize(const GLfloat width, const GLfloat height) {
+    void setFrameSize(const GLfloat width, const GLfloat height) {
         size.width = width;
         size.height = height;
     }
     
-    void SetVelocity(const GLfloat velocity) {
+    void setVelocity(const GLfloat velocity) {
         this->velocity=velocity;        
     }
     
-    void SetNumberOfFrames(const unsigned int nframes) {
+    void setNumberOfFrames(const unsigned int nframes) {
         numberOfFrames=nframes;
     }
     
-    const bool IsCollideable() const { return isCollideable; }
+    const bool getIsCollideable() const { return isCollideable; }
     
-    void IsCollideable(const bool value) {
+    void getIsCollideable(const bool value) {
         this->isCollideable=value;
     }
     
-    void FlipHorizontal(bool value) {
+    void setFlipHorizontal(bool value) {
         this->flipHorizontal=value;
     }
     
-    void IsActive(const bool value) {
+    void getIsActive(const bool value) {
         this->isActive = value; 
     }
     
-    const bool IsActive() const {
+    const bool getIsActive() const {
         return isActive; 
     }
     
-    void IsVisible(const bool value) { isVisible = value; }
+    void setIsVisible(const bool value) { isVisible = value; }
     
-    const bool IsVisible() const { return isVisible; }
+    const bool getIsVisible() const { return isVisible; }
     
-    void UseTransparency(const bool value) { useTransparency = value; }
+    void setUseTransparency(const bool value) { useTransparency = value; }
         
 };
 

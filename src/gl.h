@@ -1,3 +1,6 @@
+#ifndef gl_h
+#define gl_h
+
 #ifdef HAVE_GL_GL_H
 #include <GL/gl.h>
 #elif defined(HAVE_OPENGL_GL_H)
@@ -19,3 +22,5 @@
 #else
 #include <GL/glut.h>
 #endif
+
+#endif // gl_h

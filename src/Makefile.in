@@ -176,7 +176,7 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-CFLAGS = --pedantic -Wall -std=c99 -O2
+CFLAGS = --pedantic -Wall -std=c99 -g3 -gdwarf2
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
