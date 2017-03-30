@@ -110,6 +110,8 @@ am_plonk_OBJECTS = Sprite.$(OBJEXT) Game.$(OBJEXT) MainGL.$(OBJEXT) \
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
 plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
+plonk_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(plonk_LDFLAGS) \
+	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -204,7 +206,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lglut -lGLU -lGL -lGL 
+LIBS = -lglut -lGLU -lGL -lGL  -lpng12
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/adam/git/plonk/missing makeinfo
 MKDIR_P = /bin/mkdir -p
@@ -258,6 +260,8 @@ infodir = ${datarootdir}/info
 install_sh = ${SHELL} /home/adam/git/plonk/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
+libpng_CFLAGS = -I/usr/include/libpng12
+libpng_LIBS = -lpng12
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
 mandir = ${datarootdir}/man
@@ -277,7 +281,8 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 plonk_SOURCES = Sprite.cpp Game.cpp MainGL.cpp main.cpp  
-LDADD = ../lib/soil/lib/libSOIL.a
+LDADD = ../lib/soil/lib/libSOIL.a 
+plonk_LDFLAGS = -lpng -lz 
 all: all-am
 
 .SUFFIXES:
@@ -356,7 +361,7 @@ clean-binPROGRAMS:
 
 plonk$(EXEEXT): $(plonk_OBJECTS) $(plonk_DEPENDENCIES) $(EXTRA_plonk_DEPENDENCIES) 
 	@rm -f plonk$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(plonk_OBJECTS) $(plonk_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(plonk_LINK) $(plonk_OBJECTS) $(plonk_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

@@ -1,32 +1,33 @@
 #include "Sprite.h"
 
 
-Sprite::Sprite(const unsigned int numberOfTextures) 
-{
-    textures=new GLuint[numberOfTextures];
-    textureIndex = 0;
-    currentFrame = 0;
-    numberOfFrames = 0;
-    animationDelay = 0.25f;
-    animationElapsed = 0.0f;
-    position.x = 0.0f;
-    position.y = 0.0f;
-    size.height = 0.0f;
+Sprite::Sprite(const unsigned int numberOfTextures): 
+	textureIndex(0),
+    currentFrame(0),
+    numberOfFrames(0),
+    animationDelay(0.25f),
+    animationElapsed(0.0f),  
+    velocity(0.0f),    
+    isCollideable(true),
+    flipHorizontal(false),
+    flipVertical(false),
+    isVisible(false),
+    isActive(false),
+    isSpriteSheet(false) { 
+	
+	position.x = 0.0f;
+    position.y = 1000.0f;
+	size.height = 0.0f;
     size.width = 0.0f;
-    velocity = 0.0f;
-    
-    isCollideable = true;
-    flipHorizontal = false;
-    flipVertical = false;
-    isVisible = true;
-    isActive = false;
-    isSpriteSheet = false;    
+    textures=new GLuint[numberOfTextures];
+      
 }
 
 const bool Sprite::addTexture(const char* fileName, const bool useTransparency)
 {
-    
-    GLuint texture = SOIL_load_OGL_texture(fileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, 0);
+    fprintf(stderr, "Loading png texture from %s.\n", fileName);
+    GLuint texture = SOIL_load_OGL_texture(fileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+	
     if (texture == 0)
     {
         return false;
@@ -78,7 +79,7 @@ void Sprite::render() {
 		glTexCoord2f(u + texWidth,v); glVertex2f(x + w,y);
 		glTexCoord2f(u + texWidth,v + texHeight); glVertex2f(x + w,y + h);
 		glTexCoord2f(u,v + texHeight); glVertex2f(x,y  + h);
-
+				
 		glEnd();
 		
 		if (useTransparency) 

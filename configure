@@ -626,6 +626,8 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+libpng_LIBS
+libpng_CFLAGS
 GLUT_LIBS
 GLUT_CFLAGS
 GLU_LIBS
@@ -762,7 +764,9 @@ CPP
 GLU_CFLAGS
 GLU_LIBS
 GLUT_CFLAGS
-GLUT_LIBS'
+GLUT_LIBS
+libpng_CFLAGS
+libpng_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1429,6 +1433,9 @@ Some influential environment variables:
   GLU_LIBS    Linker flags for GLU, overriding system check
   GLUT_CFLAGS C compiler flags for GLUT, overriding configure script defaults
   GLUT_LIBS   Linker flags for GLUT, overriding configure script defaults
+  libpng_CFLAGS
+              C compiler flags for libpng, overriding pkg-config
+  libpng_LIBS linker flags for libpng, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -7126,6 +7133,81 @@ else
 fi
 
 
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libpng" >&5
+$as_echo_n "checking for libpng... " >&6; }
+
+if test -n "$libpng_CFLAGS"; then
+    pkg_cv_libpng_CFLAGS="$libpng_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpng12\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpng12") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_libpng_CFLAGS=`$PKG_CONFIG --cflags "libpng12" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$libpng_LIBS"; then
+    pkg_cv_libpng_LIBS="$libpng_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpng12\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpng12") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_libpng_LIBS=`$PKG_CONFIG --libs "libpng12" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        libpng_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libpng12" 2>&1`
+        else
+	        libpng_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libpng12" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$libpng_PKG_ERRORS" >&5
+
+	HAVE_LIBPNG=0
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_LIBPNG=0
+else
+	libpng_CFLAGS=$pkg_cv_libpng_CFLAGS
+	libpng_LIBS=$pkg_cv_libpng_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_LIBPNG=1
+fi
+
+# CXXFLAGS="$CXXFLAGS $libpng_CFLAGS"
+LIBS="$LIBS $libpng_LIBS"
 
 # Checks for header files.
 

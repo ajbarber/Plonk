@@ -20,10 +20,11 @@ public:
     
 private:
 
-    void initGL(int argc = 0, char **argv = 0);
+    void initGL(int argc = 0, char **argv = 0);	
     void loadTextures();
     void deleteTextures();
     void render();
+	static bool checkErrors();
 
     Sprite *hero;
     

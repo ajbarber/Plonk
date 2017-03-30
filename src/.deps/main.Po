@@ -35,7 +35,7 @@ main.o: main.cpp /usr/include/stdc-predef.h MainGL.h gl.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
  /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h Sprite.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h Sprite.h Image.h \
  ../lib/soil/src/SOIL.h
 
 /usr/include/stdc-predef.h:
@@ -149,5 +149,7 @@ Game.h:
 /usr/include/x86_64-linux-gnu/bits/stdio2.h:
 
 Sprite.h:
+
+Image.h:
 
 ../lib/soil/src/SOIL.h:

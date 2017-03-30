@@ -2,7 +2,9 @@
 #define SPRITE_H
 
 #include "gl.h"
+#include "Image.h"
 #include "../lib/soil/src/SOIL.h"
+#include <stdio.h>
 
 
 
@@ -65,8 +67,8 @@ public:
     }
     
     void setPosition(const GLfloat x,const GLfloat y) {
-        this->position.x=x;
-        this->position.y=y; 
+        position.x=x;
+        position.y=y; 
     }
     
     void setPosition(const Point pos) {
@@ -104,7 +106,7 @@ public:
         this->flipHorizontal=value;
     }
     
-    void getIsActive(const bool value) {
+    void setIsActive(const bool value) {
         this->isActive = value; 
     }
     

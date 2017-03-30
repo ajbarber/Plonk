@@ -1,3 +1,125 @@
+m4trace:/usr/share/aclocal/pkg.m4:58: -1- AC_DEFUN([PKG_PROG_PKG_CONFIG], [m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+AC_ARG_VAR([PKG_CONFIG], [path to pkg-config utility])
+AC_ARG_VAR([PKG_CONFIG_PATH], [directories to add to pkg-config's search path])
+AC_ARG_VAR([PKG_CONFIG_LIBDIR], [path overriding pkg-config's built-in search path])
+
+if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
+	AC_PATH_TOOL([PKG_CONFIG], [pkg-config])
+fi
+if test -n "$PKG_CONFIG"; then
+	_pkg_min_version=m4_default([$1], [0.9.0])
+	AC_MSG_CHECKING([pkg-config is at least version $_pkg_min_version])
+	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
+		AC_MSG_RESULT([yes])
+	else
+		AC_MSG_RESULT([no])
+		PKG_CONFIG=""
+	fi
+fi[]dnl
+])
+m4trace:/usr/share/aclocal/pkg.m4:92: -1- AC_DEFUN([PKG_CHECK_EXISTS], [AC_REQUIRE([PKG_PROG_PKG_CONFIG])dnl
+if test -n "$PKG_CONFIG" && \
+    AC_RUN_LOG([$PKG_CONFIG --exists --print-errors "$1"]); then
+  m4_default([$2], [:])
+m4_ifvaln([$3], [else
+  $3])dnl
+fi])
+m4trace:/usr/share/aclocal/pkg.m4:121: -1- AC_DEFUN([_PKG_SHORT_ERRORS_SUPPORTED], [AC_REQUIRE([PKG_PROG_PKG_CONFIG])
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi[]dnl
+])
+m4trace:/usr/share/aclocal/pkg.m4:139: -1- AC_DEFUN([PKG_CHECK_MODULES], [AC_REQUIRE([PKG_PROG_PKG_CONFIG])dnl
+AC_ARG_VAR([$1][_CFLAGS], [C compiler flags for $1, overriding pkg-config])dnl
+AC_ARG_VAR([$1][_LIBS], [linker flags for $1, overriding pkg-config])dnl
+
+pkg_failed=no
+AC_MSG_CHECKING([for $1])
+
+_PKG_CONFIG([$1][_CFLAGS], [cflags], [$2])
+_PKG_CONFIG([$1][_LIBS], [libs], [$2])
+
+m4_define([_PKG_TEXT], [Alternatively, you may set the environment variables $1[]_CFLAGS
+and $1[]_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.])
+
+if test $pkg_failed = yes; then
+   	AC_MSG_RESULT([no])
+        _PKG_SHORT_ERRORS_SUPPORTED
+        if test $_pkg_short_errors_supported = yes; then
+	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "$2" 2>&1`
+        else 
+	        $1[]_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$2" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$$1[]_PKG_ERRORS" >&AS_MESSAGE_LOG_FD
+
+	m4_default([$4], [AC_MSG_ERROR(
+[Package requirements ($2) were not met:
+
+$$1_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+_PKG_TEXT])[]dnl
+        ])
+elif test $pkg_failed = untried; then
+     	AC_MSG_RESULT([no])
+	m4_default([$4], [AC_MSG_FAILURE(
+[The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+_PKG_TEXT
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.])[]dnl
+        ])
+else
+	$1[]_CFLAGS=$pkg_cv_[]$1[]_CFLAGS
+	$1[]_LIBS=$pkg_cv_[]$1[]_LIBS
+        AC_MSG_RESULT([yes])
+	$3
+fi[]dnl
+])
+m4trace:/usr/share/aclocal/pkg.m4:208: -1- AC_DEFUN([PKG_CHECK_MODULES_STATIC], [AC_REQUIRE([PKG_PROG_PKG_CONFIG])dnl
+_save_PKG_CONFIG=$PKG_CONFIG
+PKG_CONFIG="$PKG_CONFIG --static"
+PKG_CHECK_MODULES($@)
+PKG_CONFIG=$_save_PKG_CONFIG[]dnl
+])
+m4trace:/usr/share/aclocal/pkg.m4:226: -1- AC_DEFUN([PKG_INSTALLDIR], [m4_pushdef([pkg_default], [m4_default([$1], ['${libdir}/pkgconfig'])])
+m4_pushdef([pkg_description],
+    [pkg-config installation directory @<:@]pkg_default[@:>@])
+AC_ARG_WITH([pkgconfigdir],
+    [AS_HELP_STRING([--with-pkgconfigdir], pkg_description)],,
+    [with_pkgconfigdir=]pkg_default)
+AC_SUBST([pkgconfigdir], [$with_pkgconfigdir])
+m4_popdef([pkg_default])
+m4_popdef([pkg_description])
+])
+m4trace:/usr/share/aclocal/pkg.m4:248: -1- AC_DEFUN([PKG_NOARCH_INSTALLDIR], [m4_pushdef([pkg_default], [m4_default([$1], ['${datadir}/pkgconfig'])])
+m4_pushdef([pkg_description],
+    [pkg-config arch-independent installation directory @<:@]pkg_default[@:>@])
+AC_ARG_WITH([noarch-pkgconfigdir],
+    [AS_HELP_STRING([--with-noarch-pkgconfigdir], pkg_description)],,
+    [with_noarch_pkgconfigdir=]pkg_default)
+AC_SUBST([noarch_pkgconfigdir], [$with_noarch_pkgconfigdir])
+m4_popdef([pkg_default])
+m4_popdef([pkg_description])
+])
+m4trace:/usr/share/aclocal/pkg.m4:267: -1- AC_DEFUN([PKG_CHECK_VAR], [AC_REQUIRE([PKG_PROG_PKG_CONFIG])dnl
+AC_ARG_VAR([$1], [value of $3 for $2, overriding pkg-config])dnl
+
+_PKG_CONFIG([$1], [variable="][$3]["], [$2])
+AS_VAR_COPY([$1], [pkg_cv_][$1])
+
+AS_VAR_IF([$1], [""], [$5], [$4])dnl
+])
 m4trace:/usr/share/aclocal-1.15/amversion.m4:14: -1- AC_DEFUN([AM_AUTOMAKE_VERSION], [am__api_version='1.15'
 dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
 dnl require some minimum version.  Point them to the right macro.
@@ -750,6 +872,357 @@ m4_if([$1], [v7],
 AC_SUBST([am__tar])
 AC_SUBST([am__untar])
 ])
+m4trace:m4/ax_check_gl.m4:108: -1- AC_DEFUN([_AX_CHECK_GL_INCLUDES_DEFAULT], [
+  AC_INCLUDES_DEFAULT
+  [
+  # if defined(HAVE_WINDOWS_H) && defined(_WIN32)
+  #   include <windows.h>
+  # endif
+  ]
+])
+m4trace:m4/ax_check_gl.m4:128: -1- AC_DEFUN([_AX_CHECK_GL_SAVE_FLAGS], [
+ AX_SAVE_FLAGS_WITH_PREFIX([GL],[$1])
+ AC_LANG_PUSH([C])
+])
+m4trace:m4/ax_check_gl.m4:140: -1- AC_DEFUN([_AX_CHECK_GL_RESTORE_FLAGS], [
+ AX_RESTORE_FLAGS_WITH_PREFIX([GL],[$1])
+ AC_LANG_POP([C])
+])
+m4trace:m4/ax_check_gl.m4:146: -1- AC_DEFUN([_AX_CHECK_GL_COMPILE], [dnl
+ _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+ AC_COMPILE_IFELSE([_AX_CHECK_GL_PROGRAM],
+                   [ax_check_gl_compile_opengl="yes"],
+                   [ax_check_gl_compile_opengl="no"])
+ _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+])
+m4trace:m4/ax_check_gl.m4:156: -1- AC_DEFUN([_AX_CHECK_GL_COMPILE_CV], [dnl
+ AC_CACHE_CHECK([for compiling a minimal OpenGL program],[ax_cv_check_gl_compile_opengl],
+                [_AX_CHECK_GL_COMPILE()
+                 ax_cv_check_gl_compile_opengl="${ax_check_gl_compile_opengl}"])
+ ax_check_gl_compile_opengl="${ax_cv_check_gl_compile_opengl}"
+])
+m4trace:m4/ax_check_gl.m4:165: -1- AC_DEFUN([_AX_CHECK_GL_LINK], [dnl
+ _AX_CHECK_GL_SAVE_FLAGS([[CFLAGS],[LIBS]])
+ AC_LINK_IFELSE([_AX_CHECK_GL_PROGRAM],
+                [ax_check_gl_link_opengl="yes"],
+                [ax_check_gl_link_opengl="no"])
+ _AX_CHECK_GL_RESTORE_FLAGS([[CFLAGS],[LIBS],[LDFLAGS]])
+])
+m4trace:m4/ax_check_gl.m4:175: -1- AC_DEFUN([_AX_CHECK_GL_LINK_CV], [dnl
+ AC_CACHE_CHECK([for linking a minimal OpenGL program],[ax_cv_check_gl_link_opengl],
+                [_AX_CHECK_GL_LINK()
+                 ax_cv_check_gl_link_opengl="${ax_check_gl_link_opengl}"])
+ ax_check_gl_link_opengl="${ax_cv_check_gl_link_opengl}"
+])
+m4trace:m4/ax_check_gl.m4:187: -1- AC_DEFUN([_AX_CHECK_GL_MANUAL_LIBS_GENERIC], [
+  AS_IF([test -n "$GL_LIBS"],[], [
+    ax_check_gl_manual_libs_generic_extra_libs="$1"
+    AS_IF([test "X$ax_check_gl_manual_libs_generic_extra_libs" = "X"],
+          [AC_MSG_ERROR([AX_CHECK_GL_MANUAL_LIBS_GENERIC argument must no be empty])])
+
+    _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+    AC_SEARCH_LIBS([glBegin],[$ax_check_gl_manual_libs_generic_extra_libs], [
+                   ax_check_gl_lib_opengl="yes"
+                   break
+                   ])
+    AS_IF([test "X$ax_check_gl_lib_opengl"="Xyes"],
+          [GL_LIBS="${ac_cv_search_glBegin}"])
+    _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+ ])
+])
+m4trace:m4/ax_check_gl.m4:209: -1- AC_DEFUN_ONCE([_WITH_XQUARTZ_GL], [
+  AC_ARG_WITH([xquartz-gl],
+   [AS_HELP_STRING([--with-xquartz-gl@<:@=DIR@:>@],
+                   [On Mac OSX, use opengl provided by X11/XQuartz instead of the built-in framework.
+                    If enabled, the default location is @<:@DIR=/opt/X11@:>@.
+                    This option is default to false.])],
+   [AS_IF([test "X$with_xquartz_gl"="Xyes"],
+          [with_xquartz_gl="/opt/X11"])],
+   [with_xquartz_gl=no])
+  AS_IF([test "X$with_xquartz_gl" != "Xno"],
+        [AC_MSG_CHECKING([OSX X11 path])
+         AS_IF([test -e "$with_xquartz_gl"],
+               [AC_MSG_RESULT(["$with_xquartz_gl"])
+                CFLAGS="-I$with_xquartz_gl/include $CFLAGS"
+                LIBS="-L$with_xquartz_gl/lib $LIBS"
+               ],
+               [with_xquartz_gl=no
+                AC_MSG_RESULT([no])
+                AC_MSG_WARN([--with-xquartz-gl was given, but test for X11 failed. Fallback to system framework])
+               ])
+        ])
+])
+m4trace:m4/ax_check_gl.m4:233: -1- AC_DEFUN([_AX_CHECK_DARWIN_GL], [
+ AC_REQUIRE([_WITH_XQUARTZ_GL])
+ AS_IF([test "x$with_xquartz_gl" != "xno"],
+       [GL_LIBS="${GL_LIBS:--lGL}"],
+       [GL_LIBS="${GL_LIBS:--framework OpenGL}"])
+])
+m4trace:m4/ax_check_gl.m4:254: -1- AC_DEFUN([AX_CHECK_GL], [AC_REQUIRE([AC_CANONICAL_HOST])
+ AC_REQUIRE([PKG_PROG_PKG_CONFIG])
+ AC_ARG_VAR([GL_CFLAGS],[C compiler flags for GL, overriding configure script defaults])
+ AC_ARG_VAR([GL_LIBS],[Linker flags for GL, overriding configure script defaults])
+
+ dnl --with-gl or not can be implemented outside of check-gl
+ AS_CASE([${host}],
+         [*-darwin*],[_AX_CHECK_DARWIN_GL],
+         dnl some windows may support X11 opengl, and should be able to linked
+         dnl by -lGL. However I have no machine to test it.
+         [*-cygwin*|*-mingw*],[
+          _AX_CHECK_GL_MANUAL_LIBS_GENERIC([opengl32 GL gl])
+          AC_CHECK_HEADERS([windows.h])
+          ],
+         [PKG_PROG_PKG_CONFIG
+          PKG_CHECK_MODULES([GL],[gl],
+          [],
+          [_AX_CHECK_GL_MANUAL_LIBS_GENERIC([GL gl])])
+         ]) dnl host specific checks
+
+ dnl this was cache
+ _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+ AC_CHECK_HEADERS([GL/gl.h OpenGL/gl.h],
+   [ax_check_gl_have_headers="yes";break])
+ _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+
+ AS_IF([test "X$ax_check_gl_have_headers" = "Xyes"],
+       [_AX_CHECK_GL_COMPILE_CV()],
+       [no_gl=yes])
+ AS_IF([test "X$ax_check_gl_compile_opengl" = "Xyes"],
+       [_AX_CHECK_GL_LINK_CV()],
+       [no_gl=yes])
+ AS_IF([test "X$no_gl" = "X"],
+   [AC_DEFINE([HAVE_GL], [1], [Defined if a valid OpenGL implementation is found.])
+    m4_ifval([$1],
+      [$1],
+      [CFLAGS="$GL_CFLAGS $CFLAGS"
+       LIBS="$GL_LIBS $LIBS"])
+   ],
+   [m4_ifval([$2],
+     [$2],
+     [AC_MSG_ERROR([Could not find a valid OpenGL implementation])])
+   ])
+])
+m4trace:m4/ax_check_glu.m4:109: -1- AC_DEFUN([_AX_CHECK_GLU_INCLUDES_DEFAULT], [
+  AC_INCLUDES_DEFAULT
+  [
+  # if defined(HAVE_WINDOWS_H) && defined(_WIN32)
+  #   include <windows.h>
+  # endif
+  ]
+])
+m4trace:m4/ax_check_glu.m4:148: -1- AC_DEFUN([_AX_CHECK_GLU_SAVE_FLAGS], [
+ m4_ifval([$2],
+          [AC_LANG_PUSH([$2])],
+          [AC_LANG_PUSH([C])])
+ AX_SAVE_FLAGS_WITH_PREFIX([GLU],[$1]) dnl defined in ax_check_gl
+])
+m4trace:m4/ax_check_glu.m4:163: -1- AC_DEFUN([_AX_CHECK_GLU_RESTORE_FLAGS], [
+ AX_RESTORE_FLAGS_WITH_PREFIX([GLU],[$1]) dnl defined in ax_check_gl
+ m4_ifval([$2],
+          [AC_LANG_POP([$2])],
+          [AC_LANG_POP([C])])
+])
+m4trace:m4/ax_check_glu.m4:172: -1- AC_DEFUN([_AX_CHECK_GLU_HEADERS], [
+  _AX_CHECK_GLU_SAVE_FLAGS([CFLAGS])
+  AC_CHECK_HEADERS([$1],
+                   [ax_check_glu_have_headers="yes";],
+                   [],
+                   [_AX_CHECK_GLU_INCLUDES_DEFAULT()])
+  _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS])
+])
+m4trace:m4/ax_check_glu.m4:186: -1- AC_DEFUN([_AX_CHECK_GLU_SEARCH_LIBS], [
+ _AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+ AC_SEARCH_LIBS([gluBeginCurve],[$1],
+ 	        [GLU_LIBS="${GLU_LIBS:-$ac_cv_search_gluBeginCurve}"])
+  _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+])
+m4trace:m4/ax_check_glu.m4:194: -1- AC_DEFUN([_AX_CHECK_DARWIN_GLU], [
+  AC_REQUIRE([_WITH_XQUARTZ_GL])
+  AS_IF([test "x$with_xquartz_gl" != "xno"],
+        [GLU_LIBS="${GLU_LIBS:--lGLU}"],
+        [GLU_LIBS="${GLU_LIBS:--framework OpenGL}"])
+])
+m4trace:m4/ax_check_glu.m4:204: -1- AC_DEFUN([AX_CHECK_GLU], [
+  AC_REQUIRE([AC_CANONICAL_HOST])
+  AC_REQUIRE([_WITH_XQUARTZ_GL])
+  AC_REQUIRE([PKG_PROG_PKG_CONFIG])
+  AC_ARG_VAR([GLU_CFLAGS],[C compiler flags for GLU, overriding system check])
+  AC_ARG_VAR([GLU_LIBS],[Linker flags for GLU, overriding system check])
+
+  dnl Setup GLU_CFLAGS and GLU_LIBS
+  AS_CASE([${host}],
+          [*-darwin*],[_AX_CHECK_DARWIN_GLU],
+          [*-cygwin*],[_AX_CHECK_GLU_SEARCH_LIBS([GLU glu MesaGLU glu32])
+                       AC_CHECK_HEADERS([windows.h])],
+          # try first native
+ 	  [*-mingw*],[_AX_CHECK_GLU_SEARCH_LIBS([glu32 GLU glu MesaGLU])
+                      AC_CHECK_HEADERS([windows.h])],
+          [PKG_PROG_PKG_CONFIG
+           PKG_CHECK_MODULES([GLU],[glu],
+           [],
+           [_AX_CHECK_GLU_SEARCH_LIBS([GLU glu MesaGLU])])
+          ])
+
+  AS_CASE([$host],
+          [*-darwin*],
+            [AS_IF([test "X$with_xquartz_gl" = "Xno"],
+                   [_AX_CHECK_GLU_HEADERS([OpenGL/glu.h])],
+                   [_AX_CHECK_GLU_HEADERS([GL/glu.h])]
+                   )],
+          [_AX_CHECK_GLU_HEADERS([GL/glu.h])])
+
+  dnl compile test
+  AS_IF([test "X$ax_check_glu_have_headers" = "Xyes"],
+        [AC_CACHE_CHECK([for compiling a minimal OpenGL Utility (GLU) program],
+                        [ax_cv_check_glu_compile],
+                        [_AX_CHECK_GLU_SAVE_FLAGS([CFLAGS])
+                         AC_COMPILE_IFELSE([_AX_CHECK_GLU_PROGRAM],
+                                           [ax_cv_check_glu_compile="yes"],
+                                           [ax_cv_check_glu_compile="no"])
+                         _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS])])
+         ])
+
+  dnl link test
+  AS_IF([test "X$ax_cv_check_glu_compile" = "Xyes"],
+        [AC_CACHE_CHECK([for linking a minimal GLU program],
+                        [ax_cv_check_glu_link],
+                        [_AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+                         AC_LINK_IFELSE([_AX_CHECK_GLU_PROGRAM],
+                                        [ax_cv_check_glu_link="yes"],
+                                        [ax_cv_check_glu_link="no"])
+                         _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])])
+        ])
+
+#
+# Some versions of Mac OS X include a broken interpretation of the GLU
+# tesselation callback function signature.
+  AS_IF([test "X$ax_cv_check_glu_link" = "Xyes"],
+        [AC_CACHE_CHECK([if GLU varargs tesselator is using non-standard form],
+                        [ax_cv_varargs_glu_tesscb],
+                        [_AX_CHECK_GLU_SAVE_FLAGS([CFLAGS],[C++])
+                         AC_COMPILE_IFELSE([_AX_CHECK_GLU_VARARGS_TESSVB_PROGRAM],
+                                           [ax_cv_varargs_glu_tesscb="yes"],
+                                           [ax_cv_varargs_glu_tesscb="no"])
+                         _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS],[C++])])
+        AS_IF([test "X$ax_cv_varargs_glu_tesscb" = "yes"],
+              [AC_DEFINE([HAVE_VARARGS_GLU_TESSCB], [1],
+                         [Use nonstandard varargs form for the GLU tesselator callback])])
+        ])
+
+  dnl hook
+  AS_IF([test "X$ax_cv_check_glu_link" = "Xyes"],
+        [AC_DEFINE([HAVE_GLU],[1],[Defined if a valid GLU implementation is found.])
+         m4_ifval([$1],
+                  [$1],
+                  [CFLAGS="$GLU_CFLAGS $CFLAGS"
+                   LIBS="$GLU_LIBS $LIBS"])],
+        [m4_ifval([$2],
+                  [$2],
+                  [AC_MSG_ERROR([Could not find a valid GLU implementation])])
+        ])
+])
+m4trace:m4/ax_check_glut.m4:85: -1- AC_DEFUN([_AX_CHECK_GLUT_SAVE_FLAGS], [
+ AX_SAVE_FLAGS_WITH_PREFIX([GLUT],[$1]) dnl defined in ax_check_gl
+ AC_LANG_PUSH([C])
+])
+m4trace:m4/ax_check_glut.m4:90: -1- AC_DEFUN([_AX_CHECK_GLUT_RESTORE_FLAGS], [
+ AX_RESTORE_FLAGS_WITH_PREFIX([GLUT],[$1]) dnl defined in ax_check_gl
+ AC_LANG_POP([C])
+])
+m4trace:m4/ax_check_glut.m4:98: -1- AC_DEFUN([_AX_CHECK_GLUT_INCLUDES_DEFAULT], [
+  AC_INCLUDES_DEFAULT
+  [
+  # if defined(HAVE_WINDOWS_H) && defined(_WIN32)
+  #   include <windows.h>
+  # endif
+  ]
+])
+m4trace:m4/ax_check_glut.m4:127: -1- AC_DEFUN([_AX_CHECK_GLUT_MANUAL_LIBS_GENERIC], [
+ _AX_CHECK_GLUT_SAVE_FLAGS([[CFLAGS],[LIBS]])
+ AC_SEARCH_LIBS([glutMainLoop],[$1],
+                [GLUT_LIBS="${GLUT_LIBS:-$ac_cv_search_glutMainLoop}"])
+ _AX_CHECK_GLUT_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+])
+m4trace:m4/ax_check_glut.m4:136: -1- AC_DEFUN([_AX_CHECK_GLUT_HEADER], [
+  _AX_CHECK_GLUT_SAVE_FLAGS([CFLAGS])
+  AC_CHECK_HEADERS([$1],
+                   [ax_check_glut_have_headers=yes])
+  _AX_CHECK_GLUT_RESTORE_FLAGS([CFLAGS])
+])
+m4trace:m4/ax_check_glut.m4:147: -1- AC_DEFUN([AX_CHECK_GLUT], [AC_REQUIRE([AC_CANONICAL_HOST])
+ AC_REQUIRE([_WITH_XQUARTZ_GL])
+ AC_ARG_VAR([GLUT_CFLAGS],[C compiler flags for GLUT, overriding configure script defaults])
+ AC_ARG_VAR([GLUT_LIBS],[Linker flags for GLUT, overriding configure script defaults])
+
+ AS_CASE([${host}],
+         [*-darwin*],[AS_IF([test "x$with_xquartz_gl" != "xno"],
+                            [GLUT_LIBS="${GLUT_LIBS:--lGLUT}"],
+                            [GLUT_LIBS="${GLUT_LIBS:--framework GLUT}"])],
+         [*-cygwin*|*-mingw*],[
+            _AX_CHECK_GLUT_MANUAL_LIBS_GENERIC([glut32 glut])
+            AC_CHECK_HEADERS([windows.h])
+          ],
+         [_AX_CHECK_GLUT_MANUAL_LIBS_GENERIC([glut])
+         ]) dnl host specific checks
+
+ dnl checks header
+ AS_CASE([${host}],
+   [*-darwin*],[AS_IF([test "x$with_xquartz_gl" = "xno"],
+                      [_AX_CHECK_GLUT_HEADER([GLUT/glut.h])],
+                      [_AX_CHECK_GLUT_HEADER([GL/glut.h])]
+                      )],
+   [_AX_CHECK_GLUT_HEADER([GL/glut.h])])
+
+ dnl compile
+ AS_IF([test "X$ax_check_glut_have_headers" = "Xyes"],
+       [AC_CACHE_CHECK([for compiling a minimal GLUT program],
+                       [ax_cv_check_glut_compile],
+                       [_AX_CHECK_GLUT_SAVE_FLAGS([CFLAGS])
+                        AC_COMPILE_IFELSE([_AX_CHECK_GLUT_PROGRAM],
+                                          [ax_cv_check_glut_compile="yes"],
+                                          [ax_cv_check_glut_compile="no"])
+                        _AX_CHECK_GLUT_RESTORE_FLAGS([CFLAGS])
+                       ])
+      ])
+
+ dnl link
+ AS_IF([test "X$ax_cv_check_glut_compile" = "Xyes"],
+       [AC_CACHE_CHECK([for linking a minimal GLUT program],
+                       [ax_cv_check_glut_link],
+                       [_AX_CHECK_GLUT_SAVE_FLAGS([[CFLAGS],[LIBS]])
+                        AC_LINK_IFELSE([_AX_CHECK_GLUT_PROGRAM],
+                                       [ax_cv_check_glut_link="yes"],
+                                       [ax_cv_check_glut_link="no"])
+                        _AX_CHECK_GLUT_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+                       ])
+       ])
+
+ dnl hook
+ AS_IF([test "X$ax_cv_check_glut_link" = "Xyes"],
+   [AC_DEFINE([HAVE_GLUT], [1], [Defined if a valid GLUT implementation is found])
+    m4_ifval([$1],
+     [$1],
+     [CFLAGS="$GLUT_CFLAGS $CFLAGS"
+      LIBS="$GLUT_LIBS $LIBS"])
+   ],
+   [m4_ifval([$2],
+     [$2],
+     [AC_MSG_ERROR([Could not find a valid GLUT implementation])]
+     )
+   ])
+
+])
+m4trace:m4/ax_restore_flags_with_prefix.m4:62: -1- AC_DEFUN([AX_RESTORE_FLAGS_WITH_PREFIX], [
+m4_ifval([$2], [
+m4_car($2)="$_ax_[]m4_tolower($1)_saved_flag_[]m4_tolower(m4_car($2))"
+$0($1, m4_cdr($2))])
+])
+m4trace:m4/ax_save_flags_with_prefix.m4:67: -1- AC_DEFUN([AX_SAVE_FLAGS_WITH_PREFIX], [
+m4_ifval([$2], [
+_ax_[]m4_tolower($1)_saved_flag_[]m4_tolower(m4_car($2))="$m4_car($2)"
+m4_car($2)="$$1_[]m4_car($2) $m4_car($2)"
+$0($1, m4_cdr($2))
+])])
 m4trace:configure.ac:5: -1- m4_pattern_forbid([^_?A[CHUM]_])
 m4trace:configure.ac:5: -1- m4_pattern_forbid([_AC_])
 m4trace:configure.ac:5: -1- m4_pattern_forbid([^LIBOBJS$], [do not use LIBOBJS directly, use AC_LIBOBJ (see section `AC_LIBOBJ vs LIBOBJS'])
@@ -918,13 +1391,301 @@ m4trace:configure.ac:12: -1- m4_pattern_allow([^am__fastdepCXX_TRUE$])
 m4trace:configure.ac:12: -1- m4_pattern_allow([^am__fastdepCXX_FALSE$])
 m4trace:configure.ac:12: -1- _AM_SUBST_NOTMAKE([am__fastdepCXX_TRUE])
 m4trace:configure.ac:12: -1- _AM_SUBST_NOTMAKE([am__fastdepCXX_FALSE])
-m4trace:configure.ac:25: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
+m4trace:configure.ac:16: -1- AX_CHECK_GL
+m4trace:configure.ac:16: -1- m4_pattern_allow([^build$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^build_cpu$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^build_vendor$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^build_os$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^host$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^host_cpu$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^host_vendor$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^host_os$])
+m4trace:configure.ac:16: -1- PKG_PROG_PKG_CONFIG
+m4trace:configure.ac:16: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^GL_CFLAGS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^GL_LIBS$])
+m4trace:configure.ac:16: -1- _AX_CHECK_DARWIN_GL
+m4trace:configure.ac:16: -1- _WITH_XQUARTZ_GL
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_MANUAL_LIBS_GENERIC([opengl32 GL gl])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CFLAGS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^LDFLAGS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^LIBS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CPPFLAGS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^ac_ct_CC$])
+m4trace:configure.ac:16: -1- _AM_PROG_CC_C_O
+m4trace:configure.ac:16: -1- AM_RUN_LOG([$CC -c conftest.$ac_ext -o conftest2.$ac_objext])
+m4trace:configure.ac:16: -1- _AM_DEPENDENCIES([CC])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CCDEPMODE$])
+m4trace:configure.ac:16: -1- AM_CONDITIONAL([am__fastdepCC], [
+  test "x$enable_dependency_tracking" != xno \
+  && test "$am_cv_CC_dependencies_compiler_type" = gcc3])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^am__fastdepCC_TRUE$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^am__fastdepCC_FALSE$])
+m4trace:configure.ac:16: -1- _AM_SUBST_NOTMAKE([am__fastdepCC_TRUE])
+m4trace:configure.ac:16: -1- _AM_SUBST_NOTMAKE([am__fastdepCC_FALSE])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CPP$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CPPFLAGS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^CPP$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^GREP$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^EGREP$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^STDC_HEADERS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^HAVE_WINDOWS_H$])
+m4trace:configure.ac:16: -1- PKG_PROG_PKG_CONFIG
+m4trace:configure.ac:16: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:16: -1- PKG_CHECK_MODULES([GL], [gl], [], [_AX_CHECK_GL_MANUAL_LIBS_GENERIC([GL gl])])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^GL_CFLAGS$])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^GL_LIBS$])
+m4trace:configure.ac:16: -1- PKG_CHECK_EXISTS([gl], [pkg_cv_[]GL_CFLAGS=`$PKG_CONFIG --[]cflags "gl" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:16: -1- PKG_CHECK_EXISTS([gl], [pkg_cv_[]GL_LIBS=`$PKG_CONFIG --[]libs "gl" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:16: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_MANUAL_LIBS_GENERIC([GL gl])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_MANUAL_LIBS_GENERIC([GL gl])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_COMPILE_CV([])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_COMPILE([])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [CFLAGS])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_LINK_CV([])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_LINK([])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [[LIBS]])
+m4trace:configure.ac:16: -1- AX_SAVE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- _AX_CHECK_GL_RESTORE_FLAGS([[CFLAGS],[LIBS],[LDFLAGS]])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [[CFLAGS],[LIBS],[LDFLAGS]])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [[LIBS],[LDFLAGS]])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [[LDFLAGS]])
+m4trace:configure.ac:16: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GL], [])
+m4trace:configure.ac:16: -1- m4_pattern_allow([^HAVE_GL$])
+m4trace:configure.ac:17: -1- AX_CHECK_GLU
+m4trace:configure.ac:17: -1- m4_pattern_allow([^GLU_CFLAGS$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^GLU_LIBS$])
+m4trace:configure.ac:17: -1- _AX_CHECK_DARWIN_GLU
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SEARCH_LIBS([GLU glu MesaGLU glu32])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_WINDOWS_H$])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SEARCH_LIBS([glu32 GLU glu MesaGLU])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_WINDOWS_H$])
+m4trace:configure.ac:17: -1- PKG_PROG_PKG_CONFIG
+m4trace:configure.ac:17: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:17: -1- PKG_CHECK_MODULES([GLU], [glu], [], [_AX_CHECK_GLU_SEARCH_LIBS([GLU glu MesaGLU])])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^GLU_CFLAGS$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^GLU_LIBS$])
+m4trace:configure.ac:17: -1- PKG_CHECK_EXISTS([glu], [pkg_cv_[]GLU_CFLAGS=`$PKG_CONFIG --[]cflags "glu" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:17: -1- PKG_CHECK_EXISTS([glu], [pkg_cv_[]GLU_LIBS=`$PKG_CONFIG --[]libs "glu" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:17: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SEARCH_LIBS([GLU glu MesaGLU])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SEARCH_LIBS([GLU glu MesaGLU])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_HEADERS([OpenGL/glu.h])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_INCLUDES_DEFAULT([])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_OPENGL_GLU_H$])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_HEADERS([GL/glu.h])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_INCLUDES_DEFAULT([])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_GL_GLU_H$])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_HEADERS([GL/glu.h])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_INCLUDES_DEFAULT([])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_GL_GLU_H$])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [[LIBS]])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_SAVE_FLAGS([CFLAGS], [C++])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- _AX_CHECK_GLU_RESTORE_FLAGS([CFLAGS], [C++])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [CFLAGS])
+m4trace:configure.ac:17: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLU], [])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_VARARGS_GLU_TESSCB$])
+m4trace:configure.ac:17: -1- m4_pattern_allow([^HAVE_GLU$])
+m4trace:configure.ac:18: -1- AX_CHECK_GLUT
+m4trace:configure.ac:18: -1- m4_pattern_allow([^GLUT_CFLAGS$])
+m4trace:configure.ac:18: -1- m4_pattern_allow([^GLUT_LIBS$])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_MANUAL_LIBS_GENERIC([glut32 glut])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- m4_pattern_allow([^HAVE_WINDOWS_H$])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_MANUAL_LIBS_GENERIC([glut])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_HEADER([GLUT/glut.h])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- m4_pattern_allow([^HAVE_GLUT_GLUT_H$])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_HEADER([GL/glut.h])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- m4_pattern_allow([^HAVE_GL_GLUT_H$])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_HEADER([GL/glut.h])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- m4_pattern_allow([^HAVE_GL_GLUT_H$])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [CFLAGS])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_SAVE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
+m4trace:configure.ac:18: -1- AX_SAVE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- _AX_CHECK_GLUT_RESTORE_FLAGS([[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
+m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
+m4trace:configure.ac:18: -1- m4_pattern_allow([^HAVE_GLUT$])
+m4trace:configure.ac:20: -1- PKG_CHECK_MODULES([libpng], [libpng12], [HAVE_LIBPNG=1], [HAVE_LIBPNG=0])
+m4trace:configure.ac:20: -1- m4_pattern_allow([^libpng_CFLAGS$])
+m4trace:configure.ac:20: -1- m4_pattern_allow([^libpng_LIBS$])
+m4trace:configure.ac:20: -1- PKG_CHECK_EXISTS([libpng12], [pkg_cv_[]libpng_CFLAGS=`$PKG_CONFIG --[]cflags "libpng12" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:20: -1- PKG_CHECK_EXISTS([libpng12], [pkg_cv_[]libpng_LIBS=`$PKG_CONFIG --[]libs "libpng12" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:20: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:31: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
 You should run autoupdate.], [])
-m4trace:configure.ac:25: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:25: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:25: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
-m4trace:configure.ac:25: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
-m4trace:configure.ac:25: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
-m4trace:configure.ac:25: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
-m4trace:configure.ac:25: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
-m4trace:configure.ac:25: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:31: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:31: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:31: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
+m4trace:configure.ac:31: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
+m4trace:configure.ac:31: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
+m4trace:configure.ac:31: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
+m4trace:configure.ac:31: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
+m4trace:configure.ac:31: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS

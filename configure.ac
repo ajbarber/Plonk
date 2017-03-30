@@ -17,6 +17,11 @@ AX_CHECK_GL
 AX_CHECK_GLU
 AX_CHECK_GLUT
 
+PKG_CHECK_MODULES([libpng], [libpng12], [HAVE_LIBPNG=1], [HAVE_LIBPNG=0])
+
+# CXXFLAGS="$CXXFLAGS $libpng_CFLAGS"
+LIBS="$LIBS $libpng_LIBS"
+
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
