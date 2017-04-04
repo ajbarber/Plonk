@@ -2,9 +2,10 @@
 #define MainGL_h
 
 #include "gl.h"
-#include "Game.h"
-#include "Sprite.h"
+#include "World.h"
+#include "Square.h"
 #include <stdio.h>
+#include "Structs.h"
 
 class MainGL
 {
@@ -14,19 +15,20 @@ public:
     
     bool run();
  
-    static void drawGame(int);
+    static void gameLoop(int);
 	static void drawSolidTriangle();
-	static void update();
+	static void updateAndRender();
+	static void testDisplay();
     
 private:
 
-    void initGL(int argc = 0, char **argv = 0);	
-    void loadTextures();
-    void deleteTextures();
+    void initGL(int argc = 0, char **argv = 0);	 
     void render();
-	static bool checkErrors();
-
-    Sprite *hero;
+	static bool checkErrors();	
+	void setupWindow(GLsizei width, GLsizei height);
+	void testinitfromBook();
+	void testinitFromLittleWorld();
+   
     
     
 };

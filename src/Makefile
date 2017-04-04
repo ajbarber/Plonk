@@ -105,7 +105,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = Sprite.$(OBJEXT) Game.$(OBJEXT) MainGL.$(OBJEXT) \
+am_plonk_OBJECTS = Frustum.$(OBJEXT) Vector3.$(OBJEXT) \
+	Matrix4x4f.$(OBJEXT) Camera.$(OBJEXT) Item.$(OBJEXT) \
+	Square.$(OBJEXT) World.$(OBJEXT) MainGL.$(OBJEXT) \
 	main.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
@@ -280,7 +282,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-plonk_SOURCES = Sprite.cpp Game.cpp MainGL.cpp main.cpp  
+plonk_SOURCES = Frustum.cpp Vector3.cpp Matrix4x4f.cpp Camera.cpp Item.cpp Square.cpp World.cpp MainGL.cpp main.cpp  
 LDADD = ../lib/soil/lib/libSOIL.a 
 plonk_LDFLAGS = -lpng -lz 
 all: all-am
@@ -369,9 +371,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/Game.Po
+include ./$(DEPDIR)/Camera.Po
+include ./$(DEPDIR)/Frustum.Po
+include ./$(DEPDIR)/Item.Po
 include ./$(DEPDIR)/MainGL.Po
-include ./$(DEPDIR)/Sprite.Po
+include ./$(DEPDIR)/Matrix4x4f.Po
+include ./$(DEPDIR)/Square.Po
+include ./$(DEPDIR)/Vector3.Po
+include ./$(DEPDIR)/World.Po
 include ./$(DEPDIR)/main.Po
 
 .cpp.o:

@@ -37,18 +37,34 @@
     <File Name="src/Makefile"/>
     <File Name="src/main.cpp"/>
     <File Name="src/gl.h"/>
-    <File Name="src/Sprite.h"/>
-    <File Name="src/Sprite.cpp"/>
     <File Name="src/Makefile.am"/>
     <File Name="src/MainGL.cpp"/>
     <File Name="src/MainGL.h"/>
-    <File Name="src/Game.h"/>
-    <File Name="src/Game.cpp"/>
-    <File Name="src/Image.h"/>
-    <File Name="src/Image.cpp"/>
+    <File Name="src/Square.h"/>
+    <File Name="src/Square.cpp"/>
+    <File Name="src/Structs.h"/>
+    <File Name="src/World.cpp"/>
+    <File Name="src/World.h"/>
+    <File Name="src/Camera.h"/>
+    <File Name="src/Camera.cpp"/>
+    <File Name="src/Item.h"/>
+    <File Name="src/Item.cpp"/>
+    <File Name="src/Frustum.cpp"/>
+    <File Name="src/Frustum.h"/>
+    <File Name="src/Matrix4x4f.cpp"/>
+    <File Name="src/Matrix4x4f.h"/>
+    <File Name="src/Vector3.cpp"/>
+    <File Name="src/Vector3.h"/>
+    <File Name="src/Vector3Util.cpp"/>
+    <File Name="src/Vector3Util.h"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
+  <VirtualDirectory Name="data">
+    <VirtualDirectory Name="png">
+      <File Name="data/png/shipsprite.png"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -75,7 +91,9 @@
         <PostConnectCommands/>
         <StartupCommands/>
       </Debugger>
-      <PreBuild/>
+      <PreBuild>
+        <Command Enabled="yes">make clean</Command>
+      </PreBuild>
       <PostBuild/>
       <CustomBuild Enabled="yes">
         <RebuildCommand/>
@@ -138,9 +156,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="data">
-    <VirtualDirectory Name="png">
-      <File Name="data/png/shipsprite.png"/>
-    </VirtualDirectory>
-  </VirtualDirectory>
 </CodeLite_Project>
