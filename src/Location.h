@@ -6,6 +6,11 @@ class Location
 public:
 	Location();
 	~Location();
+	
+	float x;
+	float y;
+	float z;
+	
 
 };
 

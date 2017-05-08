@@ -1,5 +1,7 @@
-#pragma once
+#ifndef SKELMOD_H
+#define SKELMOD_H
 
+#include <iostream>
 #include "Types.h"
 
 namespace SA
@@ -121,3 +123,5 @@ namespace SA
 		return -1;
 	}
 }
+
+#endif

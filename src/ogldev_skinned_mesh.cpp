@@ -57,9 +57,6 @@ SkinnedMesh::~SkinnedMesh()
 
 void SkinnedMesh::Clear()
 {
-    for (uint i = 0 ; i < m_Textures.size() ; i++) {
-        SAFE_DELETE(m_Textures[i]);
-    }
 
     if (m_Buffers[0] != 0) {
         glDeleteBuffers(ARRAY_SIZE_IN_ELEMENTS(m_Buffers), m_Buffers);
@@ -107,7 +104,7 @@ bool SkinnedMesh::LoadMesh(const string& Filename)
 bool SkinnedMesh::InitFromScene(const aiScene* pScene, const string& Filename)
 {  
     m_Entries.resize(pScene->mNumMeshes);
-    m_Textures.resize(pScene->mNumMaterials);
+
 
     vector<Vector3f> Positions;
     vector<Vector3f> Normals;
@@ -142,9 +139,7 @@ bool SkinnedMesh::InitFromScene(const aiScene* pScene, const string& Filename)
         InitMesh(i, paiMesh, Positions, Normals, TexCoords, Bones, Indices);
     }
 
-    if (!InitMaterials(pScene, Filename)) {
-        return false;
-    }
+
 
     // Generate and populate the buffers with vertex attributes and the indices
   	glBindBuffer(GL_ARRAY_BUFFER, m_Buffers[POS_VB]);
@@ -238,59 +233,7 @@ void SkinnedMesh::LoadBones(uint MeshIndex, const aiMesh* pMesh, vector<VertexBo
 }
 
 
-bool SkinnedMesh::InitMaterials(const aiScene* pScene, const string& Filename)
-{
-    // Extract the directory part from the file name
-    string::size_type SlashIndex = Filename.find_last_of("/");
-    string Dir;
 
-    if (SlashIndex == string::npos) {
-        Dir = ".";
-    }
-    else if (SlashIndex == 0) {
-        Dir = "/";
-    }
-    else {
-        Dir = Filename.substr(0, SlashIndex);
-    }
-
-    bool Ret = true;
-
-    // Initialize the materials
-    for (uint i = 0 ; i < pScene->mNumMaterials ; i++) {
-        const aiMaterial* pMaterial = pScene->mMaterials[i];
-
-        m_Textures[i] = NULL;
-
-        if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
-            aiString Path;
-
-            if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
-                string p(Path.data);
-                
-                if (p.substr(0, 2) == ".\\") {                    
-                    p = p.substr(2, p.size() - 2);
-                }
-                               
-                string FullPath = Dir + "/" + p;
-                    
-                m_Textures[i] = new Texture(GL_TEXTURE_2D, FullPath.c_str());
-
-                if (!m_Textures[i]->Load()) {
-                    printf("Error loading texture '%s'\n", FullPath.c_str());
-                    delete m_Textures[i];
-                    m_Textures[i] = NULL;
-                    Ret = false;
-                }
-                else {
-                    printf("%d - loaded texture '%s'\n", i, FullPath.c_str());
-                }
-            }
-        }
-    }
-
-    return Ret;
-}
 
 
 void SkinnedMesh::Render()
@@ -298,13 +241,7 @@ void SkinnedMesh::Render()
     glBindVertexArray(m_VAO);
     
     for (uint i = 0 ; i < m_Entries.size() ; i++) {
-        const uint MaterialIndex = m_Entries[i].MaterialIndex;
 
-        assert(MaterialIndex < m_Textures.size());
-        
-        if (m_Textures[MaterialIndex]) {
-            m_Textures[MaterialIndex]->Bind(GL_TEXTURE0);
-        }
 
 		glDrawElementsBaseVertex(GL_TRIANGLES, 
                                  m_Entries[i].NumIndices, 

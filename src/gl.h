@@ -1,6 +1,13 @@
 #ifndef gl_h
 #define gl_h
 
+#ifdef HAVE_GLEW
+#define GLEW_STATIC
+#include <GL/glew.h>
+#else
+#error no glew.h
+#endif
+
 #ifdef HAVE_GL_GL_H
 #include <GL/gl.h>
 #elif defined(HAVE_OPENGL_GL_H)
@@ -22,5 +29,7 @@
 #else
 #include <GL/glut.h>
 #endif
+
+#define GL_CHECK_ERRORS assert(glGetError()== GL_NO_ERROR);
 
 #endif // gl_h

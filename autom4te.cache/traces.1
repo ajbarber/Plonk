@@ -1671,7 +1671,7 @@ m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[CFLAGS],[LIB
 m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [[LIBS]])
 m4trace:configure.ac:18: -1- AX_RESTORE_FLAGS_WITH_PREFIX([GLUT], [])
 m4trace:configure.ac:18: -1- m4_pattern_allow([^HAVE_GLUT$])
-m4trace:configure.ac:20: -1- PKG_CHECK_MODULES([libpng], [libpng12], [HAVE_LIBPNG=1], [HAVE_LIBPNG=0])
+m4trace:configure.ac:20: -1- PKG_CHECK_MODULES([libpng], [libpng12], [HAVE_LIBPNG=yes], [HAVE_LIBPNG=no])
 m4trace:configure.ac:20: -1- m4_pattern_allow([^libpng_CFLAGS$])
 m4trace:configure.ac:20: -1- m4_pattern_allow([^libpng_LIBS$])
 m4trace:configure.ac:20: -1- PKG_CHECK_EXISTS([libpng12], [pkg_cv_[]libpng_CFLAGS=`$PKG_CONFIG --[]cflags "libpng12" 2>/dev/null`
@@ -1679,13 +1679,38 @@ m4trace:configure.ac:20: -1- PKG_CHECK_EXISTS([libpng12], [pkg_cv_[]libpng_CFLAG
 m4trace:configure.ac:20: -1- PKG_CHECK_EXISTS([libpng12], [pkg_cv_[]libpng_LIBS=`$PKG_CONFIG --[]libs "libpng12" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
 m4trace:configure.ac:20: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:31: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
+m4trace:configure.ac:21: -1- PKG_CHECK_MODULES([sfml], [sfml-all], [HAVE_SFML=yes], [HAVE_SFML=no])
+m4trace:configure.ac:21: -1- m4_pattern_allow([^sfml_CFLAGS$])
+m4trace:configure.ac:21: -1- m4_pattern_allow([^sfml_LIBS$])
+m4trace:configure.ac:21: -1- PKG_CHECK_EXISTS([sfml-all], [pkg_cv_[]sfml_CFLAGS=`$PKG_CONFIG --[]cflags "sfml-all" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:21: -1- PKG_CHECK_EXISTS([sfml-all], [pkg_cv_[]sfml_LIBS=`$PKG_CONFIG --[]libs "sfml-all" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:21: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:22: -1- PKG_CHECK_MODULES([glew], [glew], [HAVE_GLEW=yes], [HAVE_GLEW=no])
+m4trace:configure.ac:22: -1- m4_pattern_allow([^glew_CFLAGS$])
+m4trace:configure.ac:22: -1- m4_pattern_allow([^glew_LIBS$])
+m4trace:configure.ac:22: -1- PKG_CHECK_EXISTS([glew], [pkg_cv_[]glew_CFLAGS=`$PKG_CONFIG --[]cflags "glew" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:22: -1- PKG_CHECK_EXISTS([glew], [pkg_cv_[]glew_LIBS=`$PKG_CONFIG --[]libs "glew" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:22: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:23: -1- PKG_CHECK_MODULES([assimp], [assimp], [HAVE_ASSIMP=yes], [HAVE_ASSIMP=no])
+m4trace:configure.ac:23: -1- m4_pattern_allow([^assimp_CFLAGS$])
+m4trace:configure.ac:23: -1- m4_pattern_allow([^assimp_LIBS$])
+m4trace:configure.ac:23: -1- PKG_CHECK_EXISTS([assimp], [pkg_cv_[]assimp_CFLAGS=`$PKG_CONFIG --[]cflags "assimp" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:23: -1- PKG_CHECK_EXISTS([assimp], [pkg_cv_[]assimp_LIBS=`$PKG_CONFIG --[]libs "assimp" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:23: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:27: -1- m4_pattern_allow([^HAVE_GLEW$])
+m4trace:configure.ac:39: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
 You should run autoupdate.], [])
-m4trace:configure.ac:31: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:31: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:31: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
-m4trace:configure.ac:31: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
-m4trace:configure.ac:31: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
-m4trace:configure.ac:31: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
-m4trace:configure.ac:31: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
-m4trace:configure.ac:31: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:39: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:39: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:39: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
+m4trace:configure.ac:39: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
+m4trace:configure.ac:39: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
+m4trace:configure.ac:39: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
+m4trace:configure.ac:39: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
+m4trace:configure.ac:39: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS

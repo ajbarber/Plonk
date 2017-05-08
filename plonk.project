@@ -40,23 +40,20 @@
     <File Name="src/Makefile.am"/>
     <File Name="src/MainGL.cpp"/>
     <File Name="src/MainGL.h"/>
-    <File Name="src/Square.h"/>
-    <File Name="src/Square.cpp"/>
-    <File Name="src/Structs.h"/>
     <File Name="src/World.cpp"/>
     <File Name="src/World.h"/>
     <File Name="src/Camera.h"/>
     <File Name="src/Camera.cpp"/>
     <File Name="src/Item.h"/>
     <File Name="src/Item.cpp"/>
-    <File Name="src/Frustum.cpp"/>
-    <File Name="src/Frustum.h"/>
-    <File Name="src/Matrix4x4f.cpp"/>
-    <File Name="src/Matrix4x4f.h"/>
-    <File Name="src/Vector3.cpp"/>
-    <File Name="src/Vector3.h"/>
-    <File Name="src/Vector3Util.cpp"/>
-    <File Name="src/Vector3Util.h"/>
+    <File Name="src/Location.h"/>
+    <File Name="src/Location.cpp"/>
+    <VirtualDirectory Name="shaders">
+      <File Name="src/shaders/shader.frag"/>
+      <File Name="src/shaders/shader.vert"/>
+    </VirtualDirectory>
+    <File Name="src/GLSLShader.h"/>
+    <File Name="src/GLSLShader.cpp"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>

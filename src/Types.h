@@ -1,4 +1,10 @@
-#pragma once
+#ifndef TYPES
+#define TYPES
+
+#define ASSERT_EX(condition, statement) \
+    do { \
+        if (!(condition)) { statement; assert(condition); } \
+    } while (false)
 
 // GLM
 #include <glm/glm.hpp>
@@ -73,3 +79,4 @@ namespace SA
 		float Duration;
 	};
 }
+#endif // TYPES

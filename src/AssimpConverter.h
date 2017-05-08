@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ASSIMP_H
+#define ASSIMP_H
+
 
 // SkeletalModel
 namespace SA
@@ -13,4 +15,6 @@ namespace AssimpConverter
 {
 	// Converts an Assimp scene to something we can render and animate
 	bool Convert(const aiScene* a_pScene, SA::SkeletalModel& a_OutModel);
-};
+}
+
+#endif

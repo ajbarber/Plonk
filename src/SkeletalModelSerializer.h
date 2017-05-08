@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SKELSER_H
+#define SKELSER_H
 
 #include <string>
 
@@ -11,4 +12,6 @@ namespace SA
 	extern bool         ModelToData(const SkeletalModel& a_Model, std::string& a_OutData);
 	extern unsigned int ModelToData(const SkeletalModel& a_Model, char* a_pOutData);
 	extern bool         DataToModel(const char* a_pData, SkeletalModel& a_OutModel);
-};
+}
+
+#endif

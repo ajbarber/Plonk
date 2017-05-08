@@ -23,13 +23,13 @@
 #include <vector>
 
 #include <GL/glew.h>
-#include <Importer.hpp>      // C++ importer interface
-#include <scene.h>       // Output data structure
-#include <postprocess.h> // Post processing flags
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>       // Output data structure
+#include <assimp/postprocess.h> // Post processing flags
 
 #include "ogldev_util.h"
 #include "ogldev_math_3d.h"
-#include "ogldev_texture.h"
+
 
 using namespace std;
 
@@ -101,8 +101,7 @@ private:
                   vector<Vector2f>& TexCoords,
                   vector<VertexBoneData>& Bones,
                   vector<unsigned int>& Indices);
-    void LoadBones(uint MeshIndex, const aiMesh* paiMesh, vector<VertexBoneData>& Bones);
-    bool InitMaterials(const aiScene* pScene, const string& Filename);
+    void LoadBones(uint MeshIndex, const aiMesh* paiMesh, vector<VertexBoneData>& Bones);   
     void Clear();
 
 #define INVALID_MATERIAL 0xFFFFFFFF
@@ -134,8 +133,7 @@ enum VB_TYPES {
         unsigned int MaterialIndex;
     };
     
-    vector<MeshEntry> m_Entries;
-    vector<Texture*> m_Textures;
+    vector<MeshEntry> m_Entries;   
      
     map<string,uint> m_BoneMapping; // maps a bone name to its index
     uint m_NumBones;

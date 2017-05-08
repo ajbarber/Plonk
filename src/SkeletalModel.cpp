@@ -129,7 +129,11 @@ namespace SA
 				//
 				for (unsigned int i = 0; i < Bone.NumWeights; ++i)
 				{
-					sWeight Weight = Bone.pWeights[i];
+                    sWeight Weight = Bone.pWeights[i];
+
+                    fprintf(stderr, "bone name: %s, index: %d", Bone.Name.c_str(), i);
+                    fprintf(stderr, "weight: %f\n", Weight.Weight, i);
+                    assert(Weight.Weight <= 1.0);
 					//
 					glm::vec3 inVertex = AnimMesh.pVertices[Weight.VertexID];
 					glm::vec3& outVertex = AnimMesh.pTransformedVertices[Weight.VertexID];

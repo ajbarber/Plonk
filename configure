@@ -626,6 +626,12 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+assimp_LIBS
+assimp_CFLAGS
+glew_LIBS
+glew_CFLAGS
+sfml_LIBS
+sfml_CFLAGS
 libpng_LIBS
 libpng_CFLAGS
 GLUT_LIBS
@@ -766,7 +772,13 @@ GLU_LIBS
 GLUT_CFLAGS
 GLUT_LIBS
 libpng_CFLAGS
-libpng_LIBS'
+libpng_LIBS
+sfml_CFLAGS
+sfml_LIBS
+glew_CFLAGS
+glew_LIBS
+assimp_CFLAGS
+assimp_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1436,6 +1448,13 @@ Some influential environment variables:
   libpng_CFLAGS
               C compiler flags for libpng, overriding pkg-config
   libpng_LIBS linker flags for libpng, overriding pkg-config
+  sfml_CFLAGS C compiler flags for sfml, overriding pkg-config
+  sfml_LIBS   linker flags for sfml, overriding pkg-config
+  glew_CFLAGS C compiler flags for glew, overriding pkg-config
+  glew_LIBS   linker flags for glew, overriding pkg-config
+  assimp_CFLAGS
+              C compiler flags for assimp, overriding pkg-config
+  assimp_LIBS linker flags for assimp, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -7193,21 +7212,241 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$libpng_PKG_ERRORS" >&5
 
-	HAVE_LIBPNG=0
+	HAVE_LIBPNG=no
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	HAVE_LIBPNG=0
+	HAVE_LIBPNG=no
 else
 	libpng_CFLAGS=$pkg_cv_libpng_CFLAGS
 	libpng_LIBS=$pkg_cv_libpng_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-	HAVE_LIBPNG=1
+	HAVE_LIBPNG=yes
+fi
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for sfml" >&5
+$as_echo_n "checking for sfml... " >&6; }
+
+if test -n "$sfml_CFLAGS"; then
+    pkg_cv_sfml_CFLAGS="$sfml_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sfml-all\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "sfml-all") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_sfml_CFLAGS=`$PKG_CONFIG --cflags "sfml-all" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$sfml_LIBS"; then
+    pkg_cv_sfml_LIBS="$sfml_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sfml-all\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "sfml-all") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_sfml_LIBS=`$PKG_CONFIG --libs "sfml-all" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        sfml_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "sfml-all" 2>&1`
+        else
+	        sfml_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "sfml-all" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$sfml_PKG_ERRORS" >&5
+
+	HAVE_SFML=no
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_SFML=no
+else
+	sfml_CFLAGS=$pkg_cv_sfml_CFLAGS
+	sfml_LIBS=$pkg_cv_sfml_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_SFML=yes
+fi
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for glew" >&5
+$as_echo_n "checking for glew... " >&6; }
+
+if test -n "$glew_CFLAGS"; then
+    pkg_cv_glew_CFLAGS="$glew_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glew\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glew") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_glew_CFLAGS=`$PKG_CONFIG --cflags "glew" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$glew_LIBS"; then
+    pkg_cv_glew_LIBS="$glew_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glew\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glew") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_glew_LIBS=`$PKG_CONFIG --libs "glew" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        glew_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glew" 2>&1`
+        else
+	        glew_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glew" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$glew_PKG_ERRORS" >&5
+
+	HAVE_GLEW=no
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_GLEW=no
+else
+	glew_CFLAGS=$pkg_cv_glew_CFLAGS
+	glew_LIBS=$pkg_cv_glew_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_GLEW=yes
+fi
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for assimp" >&5
+$as_echo_n "checking for assimp... " >&6; }
+
+if test -n "$assimp_CFLAGS"; then
+    pkg_cv_assimp_CFLAGS="$assimp_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"assimp\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "assimp") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_assimp_CFLAGS=`$PKG_CONFIG --cflags "assimp" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$assimp_LIBS"; then
+    pkg_cv_assimp_LIBS="$assimp_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"assimp\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "assimp") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_assimp_LIBS=`$PKG_CONFIG --libs "assimp" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        assimp_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "assimp" 2>&1`
+        else
+	        assimp_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "assimp" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$assimp_PKG_ERRORS" >&5
+
+	HAVE_ASSIMP=no
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_ASSIMP=no
+else
+	assimp_CFLAGS=$pkg_cv_assimp_CFLAGS
+	assimp_LIBS=$pkg_cv_assimp_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_ASSIMP=yes
+fi
+
+
+if test \( "x$HAVE_GLEW" = xyes \) ; then
+
+$as_echo "#define HAVE_GLEW 1" >>confdefs.h
+
 fi
 
 # CXXFLAGS="$CXXFLAGS $libpng_CFLAGS"
-LIBS="$LIBS $libpng_LIBS"
+LIBS="$LIBS $libpng_LIBS $sfml_LIBS $glew_LIBS $assimp_LIBS"
 
 # Checks for header files.
 

@@ -105,15 +105,15 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = Frustum.$(OBJEXT) Vector3.$(OBJEXT) \
-	Matrix4x4f.$(OBJEXT) Camera.$(OBJEXT) Item.$(OBJEXT) \
-	Square.$(OBJEXT) World.$(OBJEXT) MainGL.$(OBJEXT) \
-	main.$(OBJEXT)
+am_plonk_OBJECTS = GLSLShader.$(OBJEXT) MainGL.$(OBJEXT) \
+	World.$(OBJEXT) Camera.$(OBJEXT) sphere.$(OBJEXT) \
+	drawing.$(OBJEXT) gldrawable.$(OBJEXT) \
+	spheredrawable.$(OBJEXT) cubedrawable.$(OBJEXT) cube.$(OBJEXT) \
+	floordrawable.$(OBJEXT) floor.$(OBJEXT) \
+	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
 plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
-plonk_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(plonk_LDFLAGS) \
-	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -180,14 +180,14 @@ AUTOMAKE = ${SHELL} /home/adam/git/plonk/missing automake-1.15
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = --pedantic -Wall -std=c99 -g3 -gdwarf2
+CFLAGS =  -I/usr/include/libdrm -I/usr/include/libdrm -g -O2
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -g3 -gdwarf -g2 -Og
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"plonk\" -DPACKAGE_TARNAME=\"plonk\" -DPACKAGE_VERSION=\"1.00\" -DPACKAGE_STRING=\"plonk\ 1.00\" -DPACKAGE_BUGREPORT=\"aj_barber@yahoo.com.au\" -DPACKAGE_URL=\"\" -DPACKAGE=\"plonk\" -DVERSION=\"1.0\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_GL_GL_H=1 -DHAVE_GL=1 -DHAVE_GL_GLU_H=1 -DHAVE_GLU=1 -DHAVE_GL_GLUT_H=1 -DHAVE_GLUT=1
+DEFS = -DPACKAGE_NAME=\"plonk\" -DPACKAGE_TARNAME=\"plonk\" -DPACKAGE_VERSION=\"1.00\" -DPACKAGE_STRING=\"plonk\ 1.00\" -DPACKAGE_BUGREPORT=\"aj_barber@yahoo.com.au\" -DPACKAGE_URL=\"\" -DPACKAGE=\"plonk\" -DVERSION=\"1.0\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_GL_GL_H=1 -DHAVE_GL=1 -DHAVE_GL_GLU_H=1 -DHAVE_GLU=1 -DHAVE_GL_GLUT_H=1 -DHAVE_GLUT=1 -DHAVE_GLEW=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
@@ -208,7 +208,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lglut -lGLU -lGL -lGL  -lpng12
+LIBS = -lglut -lGLU -lGL -lGL  -lpng12 -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/adam/git/plonk/missing makeinfo
 MKDIR_P = /bin/mkdir -p
@@ -239,6 +239,8 @@ am__leading_dot = .
 am__quote = 
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
+assimp_CFLAGS = -I/usr/include/assimp
+assimp_LIBS = -lassimp
 bindir = ${exec_prefix}/bin
 build = x86_64-pc-linux-gnu
 build_alias = 
@@ -251,6 +253,8 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+glew_CFLAGS = -I/usr/include/libdrm
+glew_LIBS = -lGLEW -lGLU -lGL
 host = x86_64-pc-linux-gnu
 host_alias = 
 host_cpu = x86_64
@@ -275,6 +279,8 @@ program_transform_name = s,x,x,
 psdir = ${docdir}
 runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
+sfml_CFLAGS = 
+sfml_LIBS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 sharedstatedir = ${prefix}/com
 srcdir = .
 sysconfdir = ${prefix}/etc
@@ -282,9 +288,10 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-plonk_SOURCES = Frustum.cpp Vector3.cpp Matrix4x4f.cpp Camera.cpp Item.cpp Square.cpp World.cpp MainGL.cpp main.cpp  
+AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
+AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
+plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp
 LDADD = ../lib/soil/lib/libSOIL.a 
-plonk_LDFLAGS = -lpng -lz 
 all: all-am
 
 .SUFFIXES:
@@ -363,7 +370,7 @@ clean-binPROGRAMS:
 
 plonk$(EXEEXT): $(plonk_OBJECTS) $(plonk_DEPENDENCIES) $(EXTRA_plonk_DEPENDENCIES) 
 	@rm -f plonk$(EXEEXT)
-	$(AM_V_CXXLD)$(plonk_LINK) $(plonk_OBJECTS) $(plonk_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(plonk_OBJECTS) $(plonk_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -372,14 +379,19 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/Camera.Po
-include ./$(DEPDIR)/Frustum.Po
-include ./$(DEPDIR)/Item.Po
+include ./$(DEPDIR)/GLSLShader.Po
 include ./$(DEPDIR)/MainGL.Po
-include ./$(DEPDIR)/Matrix4x4f.Po
-include ./$(DEPDIR)/Square.Po
-include ./$(DEPDIR)/Vector3.Po
 include ./$(DEPDIR)/World.Po
-include ./$(DEPDIR)/main.Po
+include ./$(DEPDIR)/crosshairdrawable.Po
+include ./$(DEPDIR)/crosshairs.Po
+include ./$(DEPDIR)/cube.Po
+include ./$(DEPDIR)/cubedrawable.Po
+include ./$(DEPDIR)/drawing.Po
+include ./$(DEPDIR)/floor.Po
+include ./$(DEPDIR)/floordrawable.Po
+include ./$(DEPDIR)/gldrawable.Po
+include ./$(DEPDIR)/sphere.Po
+include ./$(DEPDIR)/spheredrawable.Po
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

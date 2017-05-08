@@ -105,15 +105,15 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = Frustum.$(OBJEXT) Vector3.$(OBJEXT) \
-	Matrix4x4f.$(OBJEXT) Camera.$(OBJEXT) Item.$(OBJEXT) \
-	Square.$(OBJEXT) World.$(OBJEXT) MainGL.$(OBJEXT) \
-	main.$(OBJEXT)
+am_plonk_OBJECTS = GLSLShader.$(OBJEXT) MainGL.$(OBJEXT) \
+	World.$(OBJEXT) Camera.$(OBJEXT) sphere.$(OBJEXT) \
+	drawing.$(OBJEXT) gldrawable.$(OBJEXT) \
+	spheredrawable.$(OBJEXT) cubedrawable.$(OBJEXT) cube.$(OBJEXT) \
+	floordrawable.$(OBJEXT) floor.$(OBJEXT) \
+	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
 plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
-plonk_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(plonk_LDFLAGS) \
-	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -180,7 +180,7 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-CFLAGS = --pedantic -Wall -std=c99 -g3 -gdwarf2
+CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -239,6 +239,8 @@ am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
+assimp_CFLAGS = @assimp_CFLAGS@
+assimp_LIBS = @assimp_LIBS@
 bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
@@ -251,6 +253,8 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+glew_CFLAGS = @glew_CFLAGS@
+glew_LIBS = @glew_LIBS@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -275,6 +279,8 @@ program_transform_name = @program_transform_name@
 psdir = @psdir@
 runstatedir = @runstatedir@
 sbindir = @sbindir@
+sfml_CFLAGS = @sfml_CFLAGS@
+sfml_LIBS = @sfml_LIBS@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 sysconfdir = @sysconfdir@
@@ -282,9 +288,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-plonk_SOURCES = Frustum.cpp Vector3.cpp Matrix4x4f.cpp Camera.cpp Item.cpp Square.cpp World.cpp MainGL.cpp main.cpp  
+AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
+AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
+plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp
 LDADD = ../lib/soil/lib/libSOIL.a 
-plonk_LDFLAGS = -lpng -lz 
 all: all-am
 
 .SUFFIXES:
@@ -363,7 +370,7 @@ clean-binPROGRAMS:
 
 plonk$(EXEEXT): $(plonk_OBJECTS) $(plonk_DEPENDENCIES) $(EXTRA_plonk_DEPENDENCIES) 
 	@rm -f plonk$(EXEEXT)
-	$(AM_V_CXXLD)$(plonk_LINK) $(plonk_OBJECTS) $(plonk_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(plonk_OBJECTS) $(plonk_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -372,14 +379,19 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Camera.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Frustum.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Item.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GLSLShader.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MainGL.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Matrix4x4f.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Square.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Vector3.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/World.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crosshairdrawable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crosshairs.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cube.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cubedrawable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/drawing.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/floor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/floordrawable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gldrawable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sphere.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spheredrawable.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
