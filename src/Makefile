@@ -110,7 +110,8 @@ am_plonk_OBJECTS = GLSLShader.$(OBJEXT) MainGL.$(OBJEXT) \
 	drawing.$(OBJEXT) gldrawable.$(OBJEXT) \
 	spheredrawable.$(OBJEXT) cubedrawable.$(OBJEXT) cube.$(OBJEXT) \
 	floordrawable.$(OBJEXT) floor.$(OBJEXT) \
-	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT)
+	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT) \
+	bones.$(OBJEXT) hero.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
 plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
@@ -290,7 +291,7 @@ top_builddir = ..
 top_srcdir = ..
 AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
 AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
-plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp
+plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp hero.cpp
 LDADD = ../lib/soil/lib/libSOIL.a 
 all: all-am
 
@@ -382,6 +383,7 @@ include ./$(DEPDIR)/Camera.Po
 include ./$(DEPDIR)/GLSLShader.Po
 include ./$(DEPDIR)/MainGL.Po
 include ./$(DEPDIR)/World.Po
+include ./$(DEPDIR)/bones.Po
 include ./$(DEPDIR)/crosshairdrawable.Po
 include ./$(DEPDIR)/crosshairs.Po
 include ./$(DEPDIR)/cube.Po
@@ -390,6 +392,7 @@ include ./$(DEPDIR)/drawing.Po
 include ./$(DEPDIR)/floor.Po
 include ./$(DEPDIR)/floordrawable.Po
 include ./$(DEPDIR)/gldrawable.Po
+include ./$(DEPDIR)/hero.Po
 include ./$(DEPDIR)/sphere.Po
 include ./$(DEPDIR)/spheredrawable.Po
 

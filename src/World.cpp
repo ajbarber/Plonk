@@ -51,14 +51,17 @@ void World::loadModel()
 
 
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile("boblampclean.md5mesh",
+    const aiScene *scene = importer.ReadFile("boblampclean.md5mesh",
         aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
+
 
     if(!scene)
     {
        fprintf(stderr, importer.GetErrorString());
        return;
     }
+
+    Hero *hero = new Hero(*scene);
 
 }
 
@@ -67,6 +70,7 @@ void World::setup()
     t_start = std::chrono::high_resolution_clock::now();
 
     World::loadModel();
+
 	World::buildMesh();
 }
 
@@ -431,9 +435,7 @@ void World::update()
 {	
     std::chrono::system_clock::time_point t_now = std::chrono::high_resolution_clock::now();
     float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
-    //t_start = t_now;
-
-    vector<Matrix4f> transforms;
+    //t_start = t_now;   
 
     //mesh.BoneTransform(time, transforms );
 

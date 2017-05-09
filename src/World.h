@@ -18,7 +18,6 @@
 #include <assimp/postprocess.h>
 #include "SkeletalModel.h"
 #include "SkeletalModelSerializer.h"
-#include "ogldev_skinned_mesh.h"
 #include "drawing.h"
 #include "sphere.h"
 #include "spheredrawable.h"
@@ -28,6 +27,7 @@
 #include "floordrawable.h"
 #include "crosshairs.h"
 #include "crosshairdrawable.h"
+#include "hero.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
