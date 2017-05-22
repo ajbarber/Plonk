@@ -27,6 +27,7 @@
 #include "floordrawable.h"
 #include "crosshairs.h"
 #include "crosshairdrawable.h"
+#include "herodrawable.h"
 #include "hero.h"
 
 #include <glm/glm.hpp>
@@ -82,6 +83,7 @@ private:
     std::shared_ptr<GLDrawable> cubeDrawable;
     std::shared_ptr<GLDrawable> floorDrawable;
     std::shared_ptr<GLDrawable> crossHairDrawable;
+    std::shared_ptr<GLDrawable> heroDrawable;
 
     //projection, modelview matrices
     glm::mat4  P = glm::mat4(1);

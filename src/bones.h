@@ -12,13 +12,13 @@ class Bones
 {
 public:
     Bones() {}
-    Bones(const aiMesh& aiMesh);
+    Bones(const aiMesh& aiMesh, const aiNode& aiNode);
 
 private:
-    int load(const aiMesh& aiMesh);
+    int load(const aiMesh& aiMesh,  const aiNode& aiNode);
 
     std::vector<Bone> bones;
-    std::map<std::string, Bone> boneMap;
+    std::vector<float> weights;
 };
 
 #endif // BONES_H

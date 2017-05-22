@@ -1,11 +1,15 @@
 #ifndef HERODRAWABLE_H
 #define HERODRAWABLE_H
 
+#include "gldrawable.h"
 
-class HeroDrawable
+class HeroDrawable : public GLDrawable
 {
 public:
-    HeroDrawable();
+    HeroDrawable(const Drawing& drawing);
+    virtual ~HeroDrawable() {}
+
+    int bind();
 };
 
 #endif // HERODRAWABLE_H

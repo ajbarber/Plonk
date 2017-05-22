@@ -10,8 +10,9 @@ struct Vertex {
 };
 
 struct Bone {
-   glm::mat4 relativeXForm, absoluteXForm;
-   std::string parent; //index of parent
+   glm::mat4 worldToBone;
+   glm::mat4 boneToParent;
+   std::string parent; //index of parent  
 };
 
 #endif // STRUCTS

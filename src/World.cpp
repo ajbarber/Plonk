@@ -61,7 +61,11 @@ void World::loadModel()
        return;
     }
 
-    Hero *hero = new Hero(*scene);
+    shared_ptr<Drawing> hero(new Hero(*scene));
+    heroDrawable = shared_ptr<GLDrawable>(new HeroDrawable(*hero));
+    int err = heroDrawable->bind();
+
+    assert(err == 0);
 
 }
 
@@ -127,6 +131,7 @@ void World::buildMesh()
         shared_ptr<Drawing> crossHair(new CrossHair());
         crossHairDrawable = shared_ptr<GLDrawable>(new CrossHairDrawable(*crossHair));
         err = crossHairDrawable->bind();
+
 
         //get light position from spherical coordinates
         lightPosOS.x = radius * cos(theta)*sin(phi);
@@ -239,6 +244,26 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
             //draw sphere triangles
             glDrawElements(GL_TRIANGLES, sphereDrawable->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
     }
+
+    //render the hero
+
+    glBindVertexArray(heroDrawable->getVaoID()); {
+        //set the sphere's transform
+        glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));
+        glm::mat4 M = T;
+        glm::mat4 MV = View*M;
+        glm::mat4 MVP = Proj*MV;
+        //set the shader uniforms
+        glUniformMatrix4fv(shader("S"), 1, GL_FALSE, glm::value_ptr(S));
+        glUniformMatrix4fv(shader("M"), 1, GL_FALSE, glm::value_ptr(M));
+        glUniformMatrix4fv(shader("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+        glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(MV));
+        glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
+        glUniform3f(shader("diffuse_color"), 0.0f, 0.0f, 1.0f);
+            //draw sphere triangles
+            glDrawElements(GL_TRIANGLES, heroDrawable->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
+    }
+
 
     //unbind shader
     shader.UnUse();

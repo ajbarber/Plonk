@@ -7,14 +7,17 @@
 #include <assimp/postprocess.h>
 
 
-class Hero
+class Hero : public Drawing
 {
 public:
-    Hero(const aiScene &scene);
+    Hero(const aiScene& scene);
 
 private:
-    void fillData(const aiScene &scene);
+    void fillData(const aiScene& scene);
     Bones bones;
+    aiNode* getBoneMapping(aiNode& node, const std::string id);
+    void loadVertices(const aiMesh& mesh);
+
 };
 
 #endif // HERO_H
