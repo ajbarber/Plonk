@@ -1,23 +1,24 @@
-#ifndef HERO_H
-#define HERO_H
+#ifndef HEROBODY_H
+#define HEROBODY_H
 
 #include "drawing.h"
-#include "bones.h"
 #include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "bones.h"
 
 
-class Hero : public Drawing
+class HeroBodyPart : public Drawing
 {
 public:
-    Hero(const aiScene& scene);
+    HeroBodyPart(const aiMesh& mesh, std::string textureFileName);
+    ~HeroBodyPart() {}
 
 private:
-    void fillData(const aiScene& scene);
+    void load(const aiMesh& mesh, std::string textureFileName);
     Bones bones;
     aiNode* getBoneMapping(aiNode& node, const std::string id);
-    void loadVertices(const aiMesh& mesh);
+
+
 
 };
 
-#endif // HERO_H
+#endif // HEROBODY_H

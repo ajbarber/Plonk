@@ -111,7 +111,8 @@ am_plonk_OBJECTS = GLSLShader.$(OBJEXT) MainGL.$(OBJEXT) \
 	spheredrawable.$(OBJEXT) cubedrawable.$(OBJEXT) cube.$(OBJEXT) \
 	floordrawable.$(OBJEXT) floor.$(OBJEXT) \
 	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT) \
-	bones.$(OBJEXT) hero.$(OBJEXT) herodrawable.$(OBJEXT)
+	bones.$(OBJEXT) herobodypart.$(OBJEXT) hero.$(OBJEXT) \
+	herodrawable.$(OBJEXT) soilfactory.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_LDADD = $(LDADD)
 plonk_DEPENDENCIES = ../lib/soil/lib/libSOIL.a
@@ -172,13 +173,13 @@ ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/adam/git/plonk/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/adam/Plonk/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/adam/git/plonk/missing autoconf
-AUTOHEADER = ${SHELL} /home/adam/git/plonk/missing autoheader
-AUTOMAKE = ${SHELL} /home/adam/git/plonk/missing automake-1.15
-AWK = mawk
+AUTOCONF = ${SHELL} /home/adam/Plonk/missing autoconf
+AUTOHEADER = ${SHELL} /home/adam/Plonk/missing autoheader
+AUTOMAKE = ${SHELL} /home/adam/Plonk/missing automake-1.15
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS =  -I/usr/include/libdrm -I/usr/include/libdrm -g -O2
@@ -186,14 +187,14 @@ CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g3 -gdwarf -g2 -Og
+CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"plonk\" -DPACKAGE_TARNAME=\"plonk\" -DPACKAGE_VERSION=\"1.00\" -DPACKAGE_STRING=\"plonk\ 1.00\" -DPACKAGE_BUGREPORT=\"aj_barber@yahoo.com.au\" -DPACKAGE_URL=\"\" -DPACKAGE=\"plonk\" -DVERSION=\"1.0\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_GL_GL_H=1 -DHAVE_GL=1 -DHAVE_GL_GLU_H=1 -DHAVE_GLU=1 -DHAVE_GL_GLUT_H=1 -DHAVE_GLUT=1 -DHAVE_GLEW=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /bin/grep -E
+EGREP = /usr/bin/grep -E
 EXEEXT = 
 GLUT_CFLAGS = 
 GLUT_LIBS = -lglut
@@ -201,7 +202,7 @@ GLU_CFLAGS = -I/usr/include/libdrm
 GLU_LIBS = -lGLU -lGL
 GL_CFLAGS = -I/usr/include/libdrm
 GL_LIBS = -lGL
-GREP = /bin/grep
+GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -209,10 +210,10 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lglut -lGLU -lGL -lGL  -lpng12 -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp
+LIBS = -lglut -lGLU -lGL -lGL   -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/adam/git/plonk/missing makeinfo
-MKDIR_P = /bin/mkdir -p
+MAKEINFO = ${SHELL} /home/adam/Plonk/missing makeinfo
+MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = plonk
 PACKAGE_BUGREPORT = aj_barber@yahoo.com.au
@@ -226,13 +227,13 @@ PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
 PKG_CONFIG_PATH = 
 SET_MAKE = 
-SHELL = /bin/bash
+SHELL = /bin/sh
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/adam/git/plonk/src
-abs_srcdir = /home/adam/git/plonk/src
-abs_top_builddir = /home/adam/git/plonk
-abs_top_srcdir = /home/adam/git/plonk
+abs_builddir = /home/adam/Plonk/src
+abs_srcdir = /home/adam/Plonk/src
+abs_top_builddir = /home/adam/Plonk
+abs_top_srcdir = /home/adam/Plonk
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -256,6 +257,8 @@ dvidir = ${docdir}
 exec_prefix = ${prefix}
 glew_CFLAGS = -I/usr/include/libdrm
 glew_LIBS = -lGLEW -lGLU -lGL
+glm_CFLAGS = 
+glm_LIBS = 
 host = x86_64-pc-linux-gnu
 host_alias = 
 host_cpu = x86_64
@@ -264,11 +267,13 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/adam/git/plonk/install-sh
+install_sh = ${SHELL} /home/adam/Plonk/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
-libpng_CFLAGS = -I/usr/include/libpng12
-libpng_LIBS = -lpng12
+libpng_CFLAGS = 
+libpng_LIBS = 
+libsoil_CFLAGS = 
+libsoil_LIBS = 
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
 mandir = ${datarootdir}/man
@@ -278,7 +283,6 @@ pdfdir = ${docdir}
 prefix = /usr/local
 program_transform_name = s,x,x,
 psdir = ${docdir}
-runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sfml_CFLAGS = 
 sfml_LIBS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
@@ -291,8 +295,8 @@ top_builddir = ..
 top_srcdir = ..
 AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
 AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
-plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp hero.cpp herodrawable.cpp
-LDADD = ../lib/soil/lib/libSOIL.a 
+plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp herobodypart.cpp hero.cpp herodrawable.cpp soilfactory.cpp
+LDADD = ../lib/soil/lib/libSOIL.a
 all: all-am
 
 .SUFFIXES:
@@ -393,7 +397,9 @@ include ./$(DEPDIR)/floor.Po
 include ./$(DEPDIR)/floordrawable.Po
 include ./$(DEPDIR)/gldrawable.Po
 include ./$(DEPDIR)/hero.Po
+include ./$(DEPDIR)/herobodypart.Po
 include ./$(DEPDIR)/herodrawable.Po
+include ./$(DEPDIR)/soilfactory.Po
 include ./$(DEPDIR)/sphere.Po
 include ./$(DEPDIR)/spheredrawable.Po
 

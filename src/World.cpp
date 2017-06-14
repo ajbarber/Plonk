@@ -1,5 +1,25 @@
-
 #include "World.h"
+#include "Camera.h"
+#include "structs.h"
+#include "drawing.h"
+#include "AssimpConverter.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "drawing.h"
+#include "sphere.h"
+#include "spheredrawable.h"
+#include "cube.h"
+#include "cubedrawable.h"
+#include "floor.h"
+#include "floordrawable.h"
+#include "crosshairs.h"
+#include "crosshairdrawable.h"
+#include "herodrawable.h"
+#include "herobodypart.h"
+#include "hero.h"
+
+
 
 using namespace std;
 
@@ -48,12 +68,12 @@ void World::destroy()
 
 void World::loadModel()
 {
-
-
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile("boblampclean.md5mesh",
+    const aiScene *sceneRaw = importer.ReadFile("boblampclean.md5mesh",
         aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
 
+    aiScene* sceneRawnc = const_cast<aiScene*>(sceneRaw);
+    scene = std::shared_ptr<aiScene>(sceneRawnc);
 
     if(!scene)
     {
@@ -61,11 +81,12 @@ void World::loadModel()
        return;
     }
 
-    shared_ptr<Drawing> hero(new Hero(*scene));
-    heroDrawable = shared_ptr<GLDrawable>(new HeroDrawable(*hero));
-    int err = heroDrawable->bind();
 
-    assert(err == 0);
+    Hero* heroRaw = new Hero(scene);
+    hero = shared_ptr<Hero>(heroRaw);
+    std::shared_ptr<HeroBodyPart> hbp = heroRaw->getBodyParts()[0];
+    fprintf(stderr, "Tex: %d: ", hbp->getTexture());
+
 
 }
 
@@ -110,6 +131,7 @@ void World::buildMesh()
             shader.AddUniform("diffuse_color");
             shader.AddUniform("bIsLightPass");
             shader.AddUniform("shadowMap");
+            shader.AddUniform("tex");
             //pass value of constant uniforms at initialization
             glUniform1i(shader("shadowMap"),0);
         shader.UnUse();
@@ -131,7 +153,14 @@ void World::buildMesh()
         shared_ptr<Drawing> crossHair(new CrossHair());
         crossHairDrawable = shared_ptr<GLDrawable>(new CrossHairDrawable(*crossHair));
         err = crossHairDrawable->bind();
+        unsigned int i = 0;
 
+        for (int idx = 0; idx< hero->getBodyParts().size(); idx ++)
+        {
+            HeroBodyPartDrawable* hbpd = new HeroBodyPartDrawable(*hero->getBodyParts()[i]);
+            heroDrawables.push_back(std::unique_ptr<GLDrawable>(hbpd));
+            err = heroDrawables[idx]->bind();
+        }
 
         //get light position from spherical coordinates
         lightPosOS.x = radius * cos(theta)*sin(phi);
@@ -247,7 +276,7 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
 
     //render the hero
 
-    glBindVertexArray(heroDrawable->getVaoID()); {
+    glBindVertexArray(heroDrawables[0]->getVaoID()); {
         //set the sphere's transform
         glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));
         glm::mat4 M = T;
@@ -260,13 +289,16 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
         glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(MV));
         glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
         glUniform3f(shader("diffuse_color"), 0.0f, 0.0f, 1.0f);
-            //draw sphere triangles
-            glDrawElements(GL_TRIANGLES, heroDrawable->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
+        glUniform1i(shader("tex"), 0);
+        //draw sphere triangles
+        glDrawElements(GL_TRIANGLES, heroDrawables[0]->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
     }
 
 
     //unbind shader
     shader.UnUse();
+
+    checkErrors();
 
     GL_CHECK_ERRORS
 }

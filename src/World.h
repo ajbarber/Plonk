@@ -2,34 +2,14 @@
 #define World_h
 
 #include "gl.h"
+#include "gldrawable.h"
+#include "hero.h"
 #include <cstdio>
 #include <list>
 #include <iostream>
 #include <chrono>
 #include <memory>
-
-#include "Camera.h"
 #include "GLSLShader.h"
-#include "structs.h"
-#include "drawing.h"
-#include "AssimpConverter.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include "SkeletalModel.h"
-#include "SkeletalModelSerializer.h"
-#include "drawing.h"
-#include "sphere.h"
-#include "spheredrawable.h"
-#include "cube.h"
-#include "cubedrawable.h"
-#include "floor.h"
-#include "floordrawable.h"
-#include "crosshairs.h"
-#include "crosshairdrawable.h"
-#include "herodrawable.h"
-#include "hero.h"
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
@@ -76,6 +56,8 @@ private:
 
 	static World	*instance;
 
+    std::shared_ptr<aiScene> scene;
+
     //shadowmapping and flat shader
     GLSLShader shader, flatshader;
 
@@ -83,7 +65,9 @@ private:
     std::shared_ptr<GLDrawable> cubeDrawable;
     std::shared_ptr<GLDrawable> floorDrawable;
     std::shared_ptr<GLDrawable> crossHairDrawable;
-    std::shared_ptr<GLDrawable> heroDrawable;
+    std::shared_ptr<Hero> hero;
+    std::vector<std::unique_ptr<GLDrawable>> heroDrawables;
+
 
     //projection, modelview matrices
     glm::mat4  P = glm::mat4(1);

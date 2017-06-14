@@ -30,6 +30,8 @@
 #include <GL/glut.h>
 #endif
 
+#include <SOIL/SOIL.h>
+
 #define GL_CHECK_ERRORS assert(glGetError()== GL_NO_ERROR);
 
 #endif // gl_h

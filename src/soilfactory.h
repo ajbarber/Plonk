@@ -1,11 +1,17 @@
-#ifndef SOILLOADER_H
-#define SOILLOADER_H
+#ifndef SOILFACTOR_H
+#define SOILFACTOR_H
+#include "gl.h"
+#include <memory>
 
-
-class SoilLoader
+class SoilFactory
 {
 public:
-    SoilLoader();
+    static std::shared_ptr<GLuint> load(std::string fileName);
+
+
+private:     
+
+
 };
 
-#endif // SOILLOADER_H
+#endif // SOILFACTOR_H

@@ -1,11 +1,21 @@
-#ifndef HEROFACTORY_H
-#define HEROFACTORY_H
+#ifndef HERO_H
+#define HERO_H
 
+#include "herobodypart.h"
+#include <vector>
 
-class HeroFactory
+class Hero
 {
 public:
-    HeroFactory();
+    Hero(std::shared_ptr<aiScene> scene);
+    std::vector<std::shared_ptr<HeroBodyPart>> getBodyParts();
+    ~Hero() {};
+
+
+private:
+    std::vector<std::shared_ptr<HeroBodyPart>> bodyParts;
+    std::string getMaterial(std::shared_ptr<aiScene> scene, int idx);
+    void fillData(std::shared_ptr<aiScene> scene);
 };
 
-#endif // HEROFACTORY_H
+#endif // HERO_H

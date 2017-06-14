@@ -2,8 +2,7 @@
 #define DRAWING_H
 
 #include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <memory>
 #include "structs.h"
 #include "gl.h"
 
@@ -13,15 +12,17 @@ class Drawing
 public:
 
     virtual ~Drawing();
-    std::vector<Vertex> getVertices() const;
-    std::vector<GLushort> getIndices() const;
-    std::vector<glm::vec3> getPoints() const;
+    virtual std::vector<Vertex> getVertices() const;
+    virtual std::vector<GLushort> getIndices() const;
+    virtual std::vector<glm::vec3> getPoints() const;
+    virtual std::shared_ptr<GLuint> getTexture() const;
 
 protected:
 
     std::vector<Vertex> vertices;
     std::vector<GLushort> indices;
     std::vector<glm::vec3> points;
+    std::shared_ptr<GLuint> texture;
 
     inline void push_indices(int sectors, int r, int s, std::vector<GLushort>& indices) {
         int curRow = r * sectors;

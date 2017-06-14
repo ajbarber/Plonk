@@ -1,4 +1,7 @@
 #include "cubedrawable.h"
+#include "gl.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 CubeDrawable::CubeDrawable(const Drawing& drawing): GLDrawable(drawing) {
 

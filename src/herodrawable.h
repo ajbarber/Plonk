@@ -3,13 +3,15 @@
 
 #include "gldrawable.h"
 
-class HeroDrawable : public GLDrawable
+class HeroBodyPartDrawable : public GLDrawable
 {
 public:
-    HeroDrawable(const Drawing& drawing);
-    virtual ~HeroDrawable() {}
+    HeroBodyPartDrawable(const Drawing& drawing);
+    virtual ~HeroBodyPartDrawable() {}
 
     int bind();
+
+    bool checkErrors();
 };
 
 #endif // HERODRAWABLE_H

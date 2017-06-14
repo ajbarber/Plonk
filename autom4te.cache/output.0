@@ -626,6 +626,10 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIB@&t@OBJS
+libsoil_LIBS
+libsoil_CFLAGS
+glm_LIBS
+glm_CFLAGS
 assimp_LIBS
 assimp_CFLAGS
 glew_LIBS
@@ -723,7 +727,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -778,7 +781,11 @@ sfml_LIBS
 glew_CFLAGS
 glew_LIBS
 assimp_CFLAGS
-assimp_LIBS'
+assimp_LIBS
+glm_CFLAGS
+glm_LIBS
+libsoil_CFLAGS
+libsoil_LIBS'
 
 
 # Initialize some variables set by options.
@@ -817,7 +824,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
@@ -1070,15 +1076,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1216,7 +1213,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1369,7 +1366,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1455,6 +1451,12 @@ Some influential environment variables:
   assimp_CFLAGS 
               C compiler flags for assimp, overriding pkg-config
   assimp_LIBS linker flags for assimp, overriding pkg-config
+  glm_CFLAGS  C compiler flags for glm, overriding pkg-config
+  glm_LIBS    linker flags for glm, overriding pkg-config
+  libsoil_CFLAGS 
+              C compiler flags for libsoil, overriding pkg-config
+  libsoil_LIBS 
+              linker flags for libsoil, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -5129,8 +5131,8 @@ $as_echo "no" >&6; }
 fi
           
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GL" >&5
-$as_echo_n "checking for GL... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gl" >&5
+$as_echo_n "checking for gl... " >&6; }
 
 if test -n "$GL_CFLAGS"; then
     pkg_cv_GL_CFLAGS="$GL_CFLAGS"
@@ -5170,7 +5172,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
         
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -5180,7 +5182,7 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        GL_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gl" 2>&1`
-        else 
+        else
 	        GL_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gl" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -5292,7 +5294,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 fi
 
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	
   if test -n "$GL_LIBS"; then :
@@ -5984,8 +5986,8 @@ $as_echo "no" >&6; }
 fi
            
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GLU" >&5
-$as_echo_n "checking for GLU... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for glu" >&5
+$as_echo_n "checking for glu... " >&6; }
 
 if test -n "$GLU_CFLAGS"; then
     pkg_cv_GLU_CFLAGS="$GLU_CFLAGS"
@@ -6025,7 +6027,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
         
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -6035,7 +6037,7 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        GLU_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glu" 2>&1`
-        else 
+        else
 	        GLU_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glu" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -6137,7 +6139,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	
  
@@ -7155,8 +7157,8 @@ fi
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libpng" >&5
-$as_echo_n "checking for libpng... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libpng12" >&5
+$as_echo_n "checking for libpng12... " >&6; }
 
 if test -n "$libpng_CFLAGS"; then
     pkg_cv_libpng_CFLAGS="$libpng_CFLAGS"
@@ -7196,7 +7198,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
         
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -7206,7 +7208,7 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        libpng_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libpng12" 2>&1`
-        else 
+        else
 	        libpng_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libpng12" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -7214,7 +7216,7 @@ fi
 
 	HAVE_LIBPNG=no
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	HAVE_LIBPNG=no
 else
@@ -7226,8 +7228,8 @@ $as_echo "yes" >&6; }
 fi
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for sfml" >&5
-$as_echo_n "checking for sfml... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for sfml-all" >&5
+$as_echo_n "checking for sfml-all... " >&6; }
 
 if test -n "$sfml_CFLAGS"; then
     pkg_cv_sfml_CFLAGS="$sfml_CFLAGS"
@@ -7267,7 +7269,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
         
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -7277,7 +7279,7 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        sfml_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "sfml-all" 2>&1`
-        else 
+        else
 	        sfml_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "sfml-all" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -7285,7 +7287,7 @@ fi
 
 	HAVE_SFML=no
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	HAVE_SFML=no
 else
@@ -7338,7 +7340,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
         
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -7348,7 +7350,7 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        glew_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glew" 2>&1`
-        else 
+        else
 	        glew_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glew" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -7356,7 +7358,7 @@ fi
 
 	HAVE_GLEW=no
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	HAVE_GLEW=no
 else
@@ -7409,7 +7411,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
         
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -7419,7 +7421,7 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        assimp_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "assimp" 2>&1`
-        else 
+        else
 	        assimp_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "assimp" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -7427,7 +7429,7 @@ fi
 
 	HAVE_ASSIMP=no
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	HAVE_ASSIMP=no
 else
@@ -7438,6 +7440,147 @@ $as_echo "yes" >&6; }
 	HAVE_ASSIMP=yes
 fi
 
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for glm" >&5
+$as_echo_n "checking for glm... " >&6; }
+
+if test -n "$glm_CFLAGS"; then
+    pkg_cv_glm_CFLAGS="$glm_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glm\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glm") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_glm_CFLAGS=`$PKG_CONFIG --cflags "glm" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes 
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$glm_LIBS"; then
+    pkg_cv_glm_LIBS="$glm_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glm\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glm") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_glm_LIBS=`$PKG_CONFIG --libs "glm" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes 
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+        
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        glm_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glm" 2>&1`
+        else
+	        glm_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glm" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$glm_PKG_ERRORS" >&5
+
+	HAVE_GLM=no
+elif test $pkg_failed = untried; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_GLM=no
+else
+	glm_CFLAGS=$pkg_cv_glm_CFLAGS
+	glm_LIBS=$pkg_cv_glm_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_GLM=yes
+fi
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libsoil" >&5
+$as_echo_n "checking for libsoil... " >&6; }
+
+if test -n "$libsoil_CFLAGS"; then
+    pkg_cv_libsoil_CFLAGS="$libsoil_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsoil\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libsoil") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_libsoil_CFLAGS=`$PKG_CONFIG --cflags "libsoil" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes 
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$libsoil_LIBS"; then
+    pkg_cv_libsoil_LIBS="$libsoil_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsoil\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libsoil") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_libsoil_LIBS=`$PKG_CONFIG --libs "libsoil" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes 
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+        
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        libsoil_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsoil" 2>&1`
+        else
+	        libsoil_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsoil" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$libsoil_PKG_ERRORS" >&5
+
+	HAVE_SOIL=no
+elif test $pkg_failed = untried; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_SOIL=no
+else
+	libsoil_CFLAGS=$pkg_cv_libsoil_CFLAGS
+	libsoil_LIBS=$pkg_cv_libsoil_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_SOIL=yes
+fi
 
 if test \( "x$HAVE_GLEW" = xyes \) ; then
 	

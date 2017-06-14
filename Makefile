@@ -204,13 +204,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/adam/git/plonk/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/adam/Plonk/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/adam/git/plonk/missing autoconf
-AUTOHEADER = ${SHELL} /home/adam/git/plonk/missing autoheader
-AUTOMAKE = ${SHELL} /home/adam/git/plonk/missing automake-1.15
-AWK = mawk
+AUTOCONF = ${SHELL} /home/adam/Plonk/missing autoconf
+AUTOHEADER = ${SHELL} /home/adam/Plonk/missing autoheader
+AUTOMAKE = ${SHELL} /home/adam/Plonk/missing automake-1.15
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS =  -I/usr/include/libdrm -I/usr/include/libdrm -g -O2
@@ -218,14 +218,14 @@ CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g3 -gdwarf -g2 -Og
+CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"plonk\" -DPACKAGE_TARNAME=\"plonk\" -DPACKAGE_VERSION=\"1.00\" -DPACKAGE_STRING=\"plonk\ 1.00\" -DPACKAGE_BUGREPORT=\"aj_barber@yahoo.com.au\" -DPACKAGE_URL=\"\" -DPACKAGE=\"plonk\" -DVERSION=\"1.0\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_GL_GL_H=1 -DHAVE_GL=1 -DHAVE_GL_GLU_H=1 -DHAVE_GLU=1 -DHAVE_GL_GLUT_H=1 -DHAVE_GLUT=1 -DHAVE_GLEW=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /bin/grep -E
+EGREP = /usr/bin/grep -E
 EXEEXT = 
 GLUT_CFLAGS = 
 GLUT_LIBS = -lglut
@@ -233,7 +233,7 @@ GLU_CFLAGS = -I/usr/include/libdrm
 GLU_LIBS = -lGLU -lGL
 GL_CFLAGS = -I/usr/include/libdrm
 GL_LIBS = -lGL
-GREP = /bin/grep
+GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -241,10 +241,10 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lglut -lGLU -lGL -lGL  -lpng12 -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp
+LIBS = -lglut -lGLU -lGL -lGL   -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/adam/git/plonk/missing makeinfo
-MKDIR_P = /bin/mkdir -p
+MAKEINFO = ${SHELL} /home/adam/Plonk/missing makeinfo
+MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = plonk
 PACKAGE_BUGREPORT = aj_barber@yahoo.com.au
@@ -258,13 +258,13 @@ PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
 PKG_CONFIG_PATH = 
 SET_MAKE = 
-SHELL = /bin/bash
+SHELL = /bin/sh
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/adam/git/plonk
-abs_srcdir = /home/adam/git/plonk
-abs_top_builddir = /home/adam/git/plonk
-abs_top_srcdir = /home/adam/git/plonk
+abs_builddir = /home/adam/Plonk
+abs_srcdir = /home/adam/Plonk
+abs_top_builddir = /home/adam/Plonk
+abs_top_srcdir = /home/adam/Plonk
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -288,6 +288,8 @@ dvidir = ${docdir}
 exec_prefix = ${prefix}
 glew_CFLAGS = -I/usr/include/libdrm
 glew_LIBS = -lGLEW -lGLU -lGL
+glm_CFLAGS = 
+glm_LIBS = 
 host = x86_64-pc-linux-gnu
 host_alias = 
 host_cpu = x86_64
@@ -296,11 +298,13 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/adam/git/plonk/install-sh
+install_sh = ${SHELL} /home/adam/Plonk/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
-libpng_CFLAGS = -I/usr/include/libpng12
-libpng_LIBS = -lpng12
+libpng_CFLAGS = 
+libpng_LIBS = 
+libsoil_CFLAGS = 
+libsoil_LIBS = 
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
 mandir = ${datarootdir}/man
@@ -310,7 +314,6 @@ pdfdir = ${docdir}
 prefix = /usr/local
 program_transform_name = s,x,x,
 psdir = ${docdir}
-runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sfml_CFLAGS = 
 sfml_LIBS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
@@ -532,7 +535,7 @@ distdir: $(DISTFILES)
 	  ! -type d ! -perm -444 -exec $(install_sh) -c -m a+r {} {} \; \
 	|| chmod -R a+r "$(distdir)"
 dist-gzip: distdir
-	tardir=$(distdir) && $(am__tar) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).tar.gz
+	tardir=$(distdir) && $(am__tar) | eval GZIP= gzip $(GZIP_ENV) -c >$(distdir).tar.gz
 	$(am__post_remove_distdir)
 
 dist-bzip2: distdir
@@ -558,7 +561,7 @@ dist-shar: distdir
 	@echo WARNING: "Support for shar distribution archives is" \
 	               "deprecated." >&2
 	@echo WARNING: "It will be removed altogether in Automake 2.0" >&2
-	shar $(distdir) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).shar.gz
+	shar $(distdir) | eval GZIP= gzip $(GZIP_ENV) -c >$(distdir).shar.gz
 	$(am__post_remove_distdir)
 
 dist-zip: distdir
@@ -576,7 +579,7 @@ dist dist-all:
 distcheck: dist
 	case '$(DIST_ARCHIVES)' in \
 	*.tar.gz*) \
-	  GZIP=$(GZIP_ENV) gzip -dc $(distdir).tar.gz | $(am__untar) ;;\
+	  eval GZIP= gzip $(GZIP_ENV) -dc $(distdir).tar.gz | $(am__untar) ;;\
 	*.tar.bz2*) \
 	  bzip2 -dc $(distdir).tar.bz2 | $(am__untar) ;;\
 	*.tar.lz*) \
@@ -586,7 +589,7 @@ distcheck: dist
 	*.tar.Z*) \
 	  uncompress -c $(distdir).tar.Z | $(am__untar) ;;\
 	*.shar.gz*) \
-	  GZIP=$(GZIP_ENV) gzip -dc $(distdir).shar.gz | unshar ;;\
+	  eval GZIP= gzip $(GZIP_ENV) -dc $(distdir).shar.gz | unshar ;;\
 	*.zip*) \
 	  unzip $(distdir).zip ;;\
 	esac
