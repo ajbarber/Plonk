@@ -6,7 +6,7 @@ HeroBodyPartDrawable::HeroBodyPartDrawable(const Drawing& drawing): GLDrawable(d
 
 }
 
-int HeroBodyPartDrawable::bind()
+int HeroBodyPartDrawable::bindDrawing()
 {
     GLuint verticesVBO;
     GLuint indicesVBO;
@@ -40,9 +40,6 @@ int HeroBodyPartDrawable::bind()
     glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, indicesVBO);
     glBufferData (GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(GLushort), &indices[0], GL_STATIC_DRAW);
 
-    //bind texture
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, *drawing.getTexture());
 
     numTriangles = indices.size();
     fprintf(stderr, "Handle : %d: ", *drawing.getTexture() );
@@ -52,6 +49,15 @@ int HeroBodyPartDrawable::bind()
     return 0;
 
 }
+
+int HeroBodyPartDrawable::bindTexture()
+{
+    //bind texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, *drawing.getTexture());
+
+}
+
 
 bool HeroBodyPartDrawable::checkErrors()
 {

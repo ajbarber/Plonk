@@ -9,7 +9,7 @@ public:
     CubeDrawable(const Drawing& drawing);
     virtual ~CubeDrawable() {}
 
-    int bind();
+    int bindDrawing();
 
 };
 

@@ -8,7 +8,7 @@ class FloorDrawable: public GLDrawable
 public:
     FloorDrawable(const Drawing& drawing);
 
-    int bind();
+    int bindDrawing();
 
 };
 

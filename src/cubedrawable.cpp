@@ -8,7 +8,7 @@ CubeDrawable::CubeDrawable(const Drawing& drawing): GLDrawable(drawing) {
 }
 
 
-int CubeDrawable::bind()
+int CubeDrawable::bindDrawing()
 {
 
     GLuint cubeVerticesVBO;

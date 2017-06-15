@@ -6,7 +6,7 @@
 
 std::shared_ptr<GLuint> SoilFactory::load(std::string fileName)
 { 
-    GLuint* textureHdl;
+    GLuint* textureHdl = new GLuint();
 
     int width, height, channels;
 
@@ -15,7 +15,8 @@ std::shared_ptr<GLuint> SoilFactory::load(std::string fileName)
 
     assert(image != 0);
 
-    glGenTextures(1, textureHdl);    
+    glGenTextures(1, textureHdl);
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

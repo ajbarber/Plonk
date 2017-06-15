@@ -9,7 +9,9 @@ public:
     HeroBodyPartDrawable(const Drawing& drawing);
     virtual ~HeroBodyPartDrawable() {}
 
-    int bind();
+    int bindDrawing();
+
+    int bindTexture();
 
     bool checkErrors();
 };

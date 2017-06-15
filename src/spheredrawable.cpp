@@ -4,7 +4,7 @@ SphereDrawable::SphereDrawable(const Drawing& drawing): GLDrawable(drawing) {
 
 }
 
-int SphereDrawable::bind()
+int SphereDrawable::bindDrawing()
 {
 
     GLuint sphereVerticesVBO;
