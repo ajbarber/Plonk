@@ -16,11 +16,11 @@ std::shared_ptr<GLuint> SoilFactory::load(std::string fileName)
     assert(image != 0);
 
     glGenTextures(1, textureHdl);
+    glBindTexture(GL_TEXTURE_2D, *textureHdl);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
 
     if (image != 0)
         SOIL_free_image_data(image);
