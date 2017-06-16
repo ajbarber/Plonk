@@ -145,7 +145,7 @@ as_fn_error ()
   as_status=$1; test $as_status -eq 0 && as_status=1
   if test "$4"; then
     as_lineno=${as_lineno-"$3"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-    $as_echo "$as_me:${as_lineno-$LINENO}: error: $2" >&$4
+    $as_echo "$as_me:${as_lineno-7945}: error: $2" >&$4
   fi
   $as_echo "$as_me: error: $2" >&2
   as_fn_exit $as_status
@@ -431,11 +431,11 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/adam/Plonk'
+ac_pwd='/home/adam/git/plonk'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
-MKDIR_P='/usr/bin/mkdir -p'
-AWK='gawk'
+MKDIR_P='/bin/mkdir -p'
+AWK='mawk'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
 ac_need_defaults=:
@@ -533,7 +533,7 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
 
-  *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
+  *) as_fn_error $? "invalid argument: \`$ac_config_target'" "8363" 5;;
   esac
 done
 
@@ -571,7 +571,7 @@ $debug ||
 {
   tmp=./conf$$-$RANDOM
   (umask 077 && mkdir "$tmp")
-} || as_fn_error $? "cannot create a temporary directory in ." "$LINENO" 5
+} || as_fn_error $? "cannot create a temporary directory in ." "8401" 5
 ac_tmp=$tmp
 
 # Set up the scripts for CONFIG_FILES section.
@@ -610,14 +610,14 @@ S["glew_LIBS"]="-lGLEW -lGLU -lGL"
 S["glew_CFLAGS"]="-I/usr/include/libdrm"
 S["sfml_LIBS"]="-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system"
 S["sfml_CFLAGS"]=""
-S["libpng_LIBS"]=""
-S["libpng_CFLAGS"]=""
+S["libpng_LIBS"]="-lpng12"
+S["libpng_CFLAGS"]="-I/usr/include/libpng12"
 S["GLUT_LIBS"]="-lglut"
 S["GLUT_CFLAGS"]=""
 S["GLU_LIBS"]="-lGLU -lGL"
 S["GLU_CFLAGS"]="-I/usr/include/libdrm"
-S["EGREP"]="/usr/bin/grep -E"
-S["GREP"]="/usr/bin/grep"
+S["EGREP"]="/bin/grep -E"
+S["GREP"]="/bin/grep"
 S["CPP"]="gcc -E"
 S["am__fastdepCC_FALSE"]="#"
 S["am__fastdepCC_TRUE"]=""
@@ -664,17 +664,17 @@ S["am__tar"]="$${TAR-tar} chof - \"$$tardir\""
 S["AMTAR"]="$${TAR-tar}"
 S["am__leading_dot"]="."
 S["SET_MAKE"]=""
-S["AWK"]="gawk"
+S["AWK"]="mawk"
 S["mkdir_p"]="$(MKDIR_P)"
-S["MKDIR_P"]="/usr/bin/mkdir -p"
+S["MKDIR_P"]="/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]=""
-S["install_sh"]="${SHELL} /home/adam/Plonk/install-sh"
-S["MAKEINFO"]="${SHELL} /home/adam/Plonk/missing makeinfo"
-S["AUTOHEADER"]="${SHELL} /home/adam/Plonk/missing autoheader"
-S["AUTOMAKE"]="${SHELL} /home/adam/Plonk/missing automake-1.15"
-S["AUTOCONF"]="${SHELL} /home/adam/Plonk/missing autoconf"
-S["ACLOCAL"]="${SHELL} /home/adam/Plonk/missing aclocal-1.15"
+S["install_sh"]="${SHELL} /home/adam/git/plonk/install-sh"
+S["MAKEINFO"]="${SHELL} /home/adam/git/plonk/missing makeinfo"
+S["AUTOHEADER"]="${SHELL} /home/adam/git/plonk/missing autoheader"
+S["AUTOMAKE"]="${SHELL} /home/adam/git/plonk/missing automake-1.15"
+S["AUTOCONF"]="${SHELL} /home/adam/git/plonk/missing autoconf"
+S["ACLOCAL"]="${SHELL} /home/adam/git/plonk/missing aclocal-1.15"
 S["VERSION"]="1.0"
 S["PACKAGE"]="plonk"
 S["CYGPATH_W"]="echo"
@@ -685,7 +685,7 @@ S["INSTALL_PROGRAM"]="${INSTALL}"
 S["target_alias"]=""
 S["host_alias"]=""
 S["build_alias"]=""
-S["LIBS"]="-lglut -lGLU -lGL -lGL   -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp"
+S["LIBS"]="-lglut -lGLU -lGL -lGL  -lpng12 -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system -lGLEW -lGLU -lGL -lassimp"
 S["ECHO_T"]=""
 S["ECHO_N"]="-n"
 S["ECHO_C"]=""
@@ -704,6 +704,7 @@ S["infodir"]="${datarootdir}/info"
 S["docdir"]="${datarootdir}/doc/${PACKAGE_TARNAME}"
 S["oldincludedir"]="/usr/include"
 S["includedir"]="${prefix}/include"
+S["runstatedir"]="${localstatedir}/run"
 S["localstatedir"]="${prefix}/var"
 S["sharedstatedir"]="${prefix}/com"
 S["sysconfdir"]="${prefix}/etc"
@@ -755,7 +756,7 @@ if sed "s/$ac_cr//" < /dev/null > /dev/null 2>&1; then
 else
   cat
 fi < "$ac_tmp/subs1.awk" > "$ac_tmp/subs.awk" \
-  || as_fn_error $? "could not setup config files machinery" "$LINENO" 5
+  || as_fn_error $? "could not setup config files machinery" "8533" 5
 fi # test -n "$CONFIG_FILES"
 
 
@@ -768,7 +769,7 @@ do
   esac
   case $ac_mode$ac_tag in
   :[FHL]*:*);;
-  :L* | :C*:*) as_fn_error $? "invalid tag \`$ac_tag'" "$LINENO" 5;;
+  :L* | :C*:*) as_fn_error $? "invalid tag \`$ac_tag'" "8572" 5;;
   :[FH]-) ac_tag=-:-;;
   :[FH]*) ac_tag=$ac_tag:$ac_tag.in;;
   esac
@@ -796,7 +797,7 @@ do
 	   [\\/$]*) false;;
 	   *) test -f "$srcdir/$ac_f" && ac_f="$srcdir/$ac_f";;
 	   esac ||
-	   as_fn_error 1 "cannot find input file: \`$ac_f'" "$LINENO" 5;;
+	   as_fn_error 1 "cannot find input file: \`$ac_f'" "8600" 5;;
       esac
       case $ac_f in *\'*) ac_f=`$as_echo "$ac_f" | sed "s/'/'\\\\\\\\''/g"`;; esac
       as_fn_append ac_file_inputs " '$ac_f'"
@@ -810,7 +811,7 @@ do
 	`' by configure.'
     if test x"$ac_file" != x-; then
       configure_input="$ac_file.  $configure_input"
-      { $as_echo "$as_me:${as_lineno-$LINENO}: creating $ac_file" >&5
+      { $as_echo "$as_me:${as_lineno-8614}: creating $ac_file" >&5
 $as_echo "$as_me: creating $ac_file" >&6;}
     fi
     # Neutralize special characters interpreted by sed in replacement strings.
@@ -823,7 +824,7 @@ $as_echo "$as_me: creating $ac_file" >&6;}
 
     case $ac_tag in
     *:-:* | *:-) cat >"$ac_tmp/stdin" \
-      || as_fn_error $? "could not create $ac_file" "$LINENO" 5 ;;
+      || as_fn_error $? "could not create $ac_file" "8627" 5 ;;
     esac
     ;;
   esac
@@ -918,7 +919,7 @@ ac_sed_dataroot='
 case `eval "sed -n \"\$ac_sed_dataroot\" $ac_file_inputs"` in
 *datarootdir*) ac_datarootdir_seen=yes;;
 *@datadir@*|*@docdir@*|*@infodir@*|*@localedir@*|*@mandir@*)
-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $ac_file_inputs seems to ignore the --datarootdir setting" >&5
+  { $as_echo "$as_me:${as_lineno-8725}: WARNING: $ac_file_inputs seems to ignore the --datarootdir setting" >&5
 $as_echo "$as_me: WARNING: $ac_file_inputs seems to ignore the --datarootdir setting" >&2;}
   ac_datarootdir_hack='
   s&@datadir@&${datarootdir}&g
@@ -962,13 +963,13 @@ s&@MKDIR_P@&$ac_MKDIR_P&;t t
 $ac_datarootdir_hack
 "
 eval sed \"\$ac_sed_extra\" "$ac_file_inputs" | $AWK -f "$ac_tmp/subs.awk" \
-  >$ac_tmp/out || as_fn_error $? "could not create $ac_file" "$LINENO" 5
+  >$ac_tmp/out || as_fn_error $? "could not create $ac_file" "8764" 5
 
 test -z "$ac_datarootdir_hack$ac_datarootdir_seen" &&
   { ac_out=`sed -n '/\${datarootdir}/p' "$ac_tmp/out"`; test -n "$ac_out"; } &&
   { ac_out=`sed -n '/^[	 ]*datarootdir[	 ]*:*=/p' \
       "$ac_tmp/out"`; test -z "$ac_out"; } &&
-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $ac_file contains a reference to the variable \`datarootdir'
+  { $as_echo "$as_me:${as_lineno-8770}: WARNING: $ac_file contains a reference to the variable \`datarootdir'
 which seems to be undefined.  Please make sure it is defined" >&5
 $as_echo "$as_me: WARNING: $ac_file contains a reference to the variable \`datarootdir'
 which seems to be undefined.  Please make sure it is defined" >&2;}
@@ -978,11 +979,11 @@ which seems to be undefined.  Please make sure it is defined" >&2;}
   -) cat "$ac_tmp/out" && rm -f "$ac_tmp/out";;
   *) rm -f "$ac_file" && mv "$ac_tmp/out" "$ac_file";;
   esac \
-  || as_fn_error $? "could not create $ac_file" "$LINENO" 5
+  || as_fn_error $? "could not create $ac_file" "8780" 5
  ;;
 
 
-  :C)  { $as_echo "$as_me:${as_lineno-$LINENO}: executing $ac_file commands" >&5
+  :C)  { $as_echo "$as_me:${as_lineno-8784}: executing $ac_file commands" >&5
 $as_echo "$as_me: executing $ac_file commands" >&6;}
  ;;
   esac
