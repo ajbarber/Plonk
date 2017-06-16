@@ -12,7 +12,7 @@ class SphereDrawable: public GLDrawable
 public:
     SphereDrawable(const Drawing& drawing);
 
-    int bind();
+    int bindDrawing();
 
 };
 

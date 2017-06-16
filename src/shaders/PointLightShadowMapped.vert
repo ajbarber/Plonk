@@ -2,6 +2,7 @@
   
 layout(location=0) in vec3 vVertex;		//per-vertex position
 layout(location=1) in vec3 vNormal;		//per-vertex normal
+layout(location=2) in vec2 texcoord;
  
 //uniforms
 uniform mat4 MVP;	//modelview projection matrix
@@ -10,10 +11,13 @@ uniform mat4 M;		//model matrix
 uniform mat3 N;		//normal matrix
 uniform mat4 S;		//shadow matrix
 
+
+
 //shader outputs to the fragment shader
 smooth out vec3 vEyeSpaceNormal;		//eye space normal
 smooth out vec3 vEyeSpacePosition;		//eye space position
 smooth out vec4 vShadowCoords;			//shadow coordinates
+out vec2 Texcoord;
 
 void main()
 { 	
@@ -28,6 +32,8 @@ void main()
 	//multiply the world space vertex position with the shadow matrix 
 	//to get the shadow coordinates
 	vShadowCoords     = S*(M*vec4(vVertex,1));
+
+        Texcoord = texcoord;
 
 	//multiply the combined modelview projection matrix with the object space vertex
 	//position to get the clip space position

@@ -21,7 +21,8 @@ PKG_CHECK_MODULES([libpng], [libpng12], [HAVE_LIBPNG=yes], [HAVE_LIBPNG=no])
 PKG_CHECK_MODULES([sfml], [sfml-all], [HAVE_SFML=yes], [HAVE_SFML=no])
 PKG_CHECK_MODULES([glew], [glew], [HAVE_GLEW=yes], [HAVE_GLEW=no])
 PKG_CHECK_MODULES([assimp], [assimp], [HAVE_ASSIMP=yes], [HAVE_ASSIMP=no])
-
+PKG_CHECK_MODULES([glm], [glm], [HAVE_GLM=yes], [HAVE_GLM=no])
+PKG_CHECK_MODULES([libsoil], [libsoil], [HAVE_SOIL=yes], [HAVE_SOIL=no])
 
 if test \( "x$HAVE_GLEW" = xyes \) ; then
 	AC_DEFINE(HAVE_GLEW, 1, [define to use glew]) 

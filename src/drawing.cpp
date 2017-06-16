@@ -17,6 +17,11 @@ std::vector<glm::vec3> Drawing::getPoints() const
     return this->points;
 }
 
+std::shared_ptr<GLuint> Drawing::getTexture() const
+{
+    return this->texture;
+}
+
 
 
 

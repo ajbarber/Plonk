@@ -5,15 +5,18 @@ layout(location=0) out vec4 vFragColor;	//fragment shader output
 //uniforms
 uniform mat4 MV;					//modelview matrix
 uniform sampler2DShadow shadowMap;	//shadowmap texture
+uniform sampler2D tex;
 uniform vec3 light_position;		//light position in object space
 uniform vec3 diffuse_color;			//surface's diffuse colour
 uniform bool bIsLightPass;			//flag to indicate the light pass
 									//we donot cast shadows in light pass
 
 //inputs from the vertex shader
+
 smooth in vec3 vEyeSpaceNormal;		//interpolated eye space normal
 smooth in vec3 vEyeSpacePosition;	//interpolated eye space position
 smooth in vec4 vShadowCoords;		//interpolated shadow coordinates
+in vec2 Texcoord;
 
 //shader constants
 const float k0 = 1.0;	//constant attenuation
@@ -56,5 +59,5 @@ void main() {
 	}
 
 	//return the final colour by multiplying the diffuse colour with the diffuse component
-	vFragColor = diffuse*vec4(diffuse_color, 1);	 
+        vFragColor = diffuse*vec4(diffuse_color, 1) * texture(tex, Texcoord);
 }

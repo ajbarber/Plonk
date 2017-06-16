@@ -1,4 +1,5 @@
 #include "crosshairs.h"
+#include <vector>
 
 CrossHair::CrossHair()
 {

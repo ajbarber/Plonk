@@ -5,7 +5,7 @@ FloorDrawable::FloorDrawable(const Drawing& drawing): GLDrawable(drawing)
 
 }
 
-int FloorDrawable::bind()
+int FloorDrawable::bindDrawing()
 {
 
     GLuint planeVerticesVBO;

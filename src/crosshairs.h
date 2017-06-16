@@ -1,7 +1,6 @@
 #ifndef CROSSHAIRS_H
 #define CROSSHAIRS_H
 
-#include <vector>
 #include "drawing.h"
 
 class CrossHair: public Drawing

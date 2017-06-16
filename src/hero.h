@@ -1,23 +1,21 @@
 #ifndef HERO_H
 #define HERO_H
 
-#include "drawing.h"
-#include "bones.h"
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "herobodypart.h"
+#include <vector>
 
-
-class Hero : public Drawing
+class Hero
 {
 public:
-    Hero(const aiScene& scene);
+    Hero(std::shared_ptr<aiScene> scene);
+    std::vector<std::shared_ptr<HeroBodyPart>> getBodyParts();
+    ~Hero() {};
+
 
 private:
-    void fillData(const aiScene& scene);
-    Bones bones;
-    aiNode* getBoneMapping(aiNode& node, const std::string id);
-    void loadVertices(const aiMesh& mesh);
-
+    std::vector<std::shared_ptr<HeroBodyPart>> bodyParts;
+    std::string getMaterial(std::shared_ptr<aiScene> scene, int idx);
+    void fillData(std::shared_ptr<aiScene> scene);
 };
 
 #endif // HERO_H
