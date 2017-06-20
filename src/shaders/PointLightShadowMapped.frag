@@ -59,6 +59,7 @@ void main() {
 	}
 
 	//return the final colour by multiplying the diffuse colour with the diffuse component
+
         //vFragColor = diffuse*vec4(diffuse_color, 1) * texture(tex, Texcoord);
         vFragColor = texture(tex, Texcoord);
 }

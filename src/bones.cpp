@@ -29,8 +29,7 @@ int Bones::load(const aiMesh& aimesh, const aiNode& ainode)
 
         bone.boneToParent = toglm(node->mTransformation);
 
-        node->mParent;
-
+        //node->mParent;
 
 
         for (int j = 0; j < aibone.mNumWeights; j++)

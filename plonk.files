@@ -130,3 +130,5 @@ src/spheredrawable.h
 src/structs.h
 src/structs.h
 src/util.h
+src/skeleton.h
+src/skeleton.cpp
