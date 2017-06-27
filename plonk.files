@@ -1,5 +1,8 @@
+src/Makefile.am
 src/World.cpp
 src/World.h
+src/bone.cpp
+src/bone.h
 src/hero.cpp
 src/hero.h
 src/herobodypart.cpp

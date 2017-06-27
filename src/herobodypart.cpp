@@ -1,21 +1,20 @@
 #include "herobodypart.h"
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <glm/glm.hpp>
+
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include <list>
 #include "soilfactory.h"
+#include "structs.h"
 
 
-HeroBodyPart::HeroBodyPart(const aiMesh& mesh, std::string textureFileName)
+HeroBodyPart::HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName)
 {
     load(mesh, textureFileName);
+    makeSkeleton(scene, mesh);
 }
 
-aiNode* HeroBodyPart::getBoneMapping(aiNode& node, const std::string id)
-{
-    return node.FindNode(aiString(id));
-}
 
 void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
 {
@@ -54,10 +53,30 @@ void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
         indices.push_back(face.mIndices[2]);
     }
 
+}
 
+/*
+ * Return array o
+ *
+ * */
+void HeroBodyPart::makeSkeleton(const aiScene& scene, const aiMesh& mesh)
+{
+    bones = std::unique_ptr<Bones>(new Bones(mesh, *scene.mRootNode));
+}
+
+glm::mat4 HeroBodyPart::getTransform(int index, float seconds)
+{
+    auto bonesList = bones->getBones(index);
+    for (auto &bone: bonesList)
+    {
+        bone.worldToBone * bone.boneToParent;
+
+    }
 
 
 }
+
+
 
 
 

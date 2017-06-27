@@ -10,6 +10,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CXX
+AC_PROG_LIBTOOL
 
 # Checks for OpenGL libraries.
 
@@ -37,5 +38,5 @@ LIBS="$LIBS $libpng_LIBS $sfml_LIBS $glew_LIBS $assimp_LIBS"
 
 # Checks for library functions.
 
-AC_OUTPUT(Makefile src/Makefile)
+AC_OUTPUT(Makefile src/Makefile lib/soil/src/Makefile)
 

@@ -9,7 +9,7 @@ class Hero
 public:
     Hero(std::shared_ptr<aiScene> scene);
     std::vector<std::shared_ptr<HeroBodyPart>> getBodyParts();
-    ~Hero() {};
+    ~Hero() {}
 
 
 private:

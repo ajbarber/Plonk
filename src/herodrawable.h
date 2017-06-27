@@ -3,6 +3,7 @@
 
 #include "gldrawable.h"
 
+
 class HeroBodyPartDrawable : public GLDrawable
 {
 public:
@@ -10,6 +11,7 @@ public:
     virtual ~HeroBodyPartDrawable() {}
 
     int bindDrawing();
+
 
     int bindTexture();
 

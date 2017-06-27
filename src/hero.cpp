@@ -30,7 +30,7 @@ void Hero::fillData(std::shared_ptr<aiScene> scene)
 
     for (auto idx = 0; idx < meshes.size(); idx++)
     {
-        HeroBodyPart* hbp = new HeroBodyPart(*meshes[idx], textureFileNames[idx]);
+        HeroBodyPart* hbp = new HeroBodyPart(*scene, *meshes[idx], textureFileNames[idx]);
         std::shared_ptr<HeroBodyPart> hbp_sp(hbp);
         bodyParts.push_back(hbp_sp);
     }

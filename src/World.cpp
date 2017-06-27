@@ -276,7 +276,6 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
     for (int idx =0 ; idx< heroDrawables.size(); idx++)
     {
 
-
         glBindVertexArray(heroDrawables[idx]->getVaoID()); {
             //set the sphere's transform
             glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));

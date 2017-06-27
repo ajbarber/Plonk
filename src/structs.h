@@ -10,10 +10,6 @@ struct Vertex {
     glm::vec2 tex;
 };
 
-struct Bone {
-   glm::mat4 worldToBone;
-   glm::mat4 boneToParent;
-   std::string parent; //index of parent  
-};
+
 
 #endif // STRUCTS
