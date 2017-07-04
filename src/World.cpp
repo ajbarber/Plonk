@@ -73,18 +73,15 @@ void World::loadModel()
         aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
 
     aiScene* sceneRawnc = const_cast<aiScene*>(sceneRaw);
-    scene = std::shared_ptr<aiScene>(sceneRawnc);
 
-    if(!scene)
+    if(!sceneRaw)
     {
        fprintf(stderr, importer.GetErrorString());
        return;
     }
 
-    Hero* heroRaw = new Hero(scene);
-    hero = shared_ptr<Hero>(heroRaw);
-
-
+    Hero* heroRaw = new Hero(*sceneRaw);
+    hero = unique_ptr<Hero>(heroRaw);
 }
 
 void World::setup()
@@ -135,20 +132,20 @@ void World::buildMesh()
 
         GL_CHECK_ERRORS
 
-        shared_ptr<Drawing> sphere(new Sphere(1.0f,10,10));
-        sphereDrawable = shared_ptr<GLDrawable>(new SphereDrawable(*sphere));
+        unique_ptr<Drawing> sphere(new Sphere(1.0f, 10, 10));
+        sphereDrawable = make_unique<SphereDrawable>(*sphere);
         int err = sphereDrawable->bindDrawing();
 
-        shared_ptr<Drawing> cube(new Cube(2.0f));
-        cubeDrawable = shared_ptr<GLDrawable>(new CubeDrawable(*cube));
+        unique_ptr<Drawing> cube(new Cube(2.0f));
+        cubeDrawable = make_unique<SphereDrawable>(*cube);
         err = cubeDrawable->bindDrawing();
 
-        shared_ptr<Drawing> floor(new Floor(100,100));
-        floorDrawable = shared_ptr<GLDrawable>(new FloorDrawable(*floor));
+        unique_ptr<Drawing> floor(new Floor(100,100));
+        floorDrawable = make_unique<FloorDrawable>(*floor);
         err = floorDrawable->bindDrawing();
 
-        shared_ptr<Drawing> crossHair(new CrossHair());
-        crossHairDrawable = shared_ptr<GLDrawable>(new CrossHairDrawable(*crossHair));
+        unique_ptr<Drawing> crossHair(new CrossHair());
+        crossHairDrawable = make_unique<CrossHairDrawable>(*crossHair);
         err = crossHairDrawable->bindDrawing();
         unsigned int i = 0;
 
@@ -292,6 +289,7 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
             glUniform1i(shader("tex"), 0);
             //draw sphere triangles
             heroDrawables[idx]->bindTexture();
+
             glDrawElements(GL_TRIANGLES, heroDrawables[idx]->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
         }
     }

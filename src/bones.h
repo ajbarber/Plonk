@@ -9,19 +9,23 @@
 #include <list>
 #include "bone.h"
 
+using namespace std;
+
 
 class Bones
 {
 public:
     Bones() {}
+    Bones(Bones* bones);
     Bones(const aiMesh& aiMesh, const aiNode& aiNode);
+    list<shared_ptr<Bone>> getBones(int index);
 
-    std::list<Bone> getBones(int index);
 
 private:
     int load(const aiMesh& aiMesh,  const aiNode& aiNode);
 
-    std::vector<std::list<Bone>> bones;
+    //each vertices list of composing bones
+    vector<list<shared_ptr<Bone>>> bones;
 
 
 };

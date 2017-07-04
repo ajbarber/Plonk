@@ -11,7 +11,11 @@ class Drawing
 
 public:
 
-    virtual ~Drawing();
+    Drawing() {}
+    Drawing(Drawing &&);
+    Drawing(const Drawing& rhs);
+    Drawing& operator= (const Drawing& rhs);
+    virtual ~Drawing() {}
     virtual std::vector<Vertex> getVertices() const;
     virtual std::vector<GLushort> getIndices() const;
     virtual std::vector<glm::vec3> getPoints() const;

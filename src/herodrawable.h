@@ -8,10 +8,8 @@ class HeroBodyPartDrawable : public GLDrawable
 {
 public:
     HeroBodyPartDrawable(const Drawing& drawing);
-    virtual ~HeroBodyPartDrawable() {}
 
     int bindDrawing();
-
 
     int bindTexture();
 

@@ -1,26 +1,26 @@
 #include "hero.h"
 #include "bones.h"
 
-Hero::Hero(std::shared_ptr<aiScene> scene)
+Hero::Hero(const aiScene& scene)
 {
     fillData(scene);
 }
 
-std::vector<std::shared_ptr<HeroBodyPart>> Hero::getBodyParts()
+vector<unique_ptr<HeroBodyPart>>& Hero::getBodyParts()
 {
     return bodyParts;
 }
 
-void Hero::fillData(std::shared_ptr<aiScene> scene)
+void Hero::fillData(const aiScene& scene)
 {
-    std::vector<aiMesh*> meshes;
-    std::vector<std::string> textureFileNames;
+    vector<const aiMesh*> meshes;
+    vector<string> textureFileNames;
 
-    if (scene->HasMeshes())
+    if (scene.HasMeshes())
     {
-        for (uint idx=0; idx < scene->mNumMeshes; idx++)
+        for (uint idx=0; idx < scene.mNumMeshes; idx++)
         {
-            aiMesh* mesh = scene->mMeshes[idx];
+            const aiMesh* mesh = scene.mMeshes[idx];
             //Bones *bones = new Bones(mesh, *scene.mRootNode);
             uint matIdx = mesh->mMaterialIndex;
             meshes.push_back(mesh);
@@ -30,24 +30,26 @@ void Hero::fillData(std::shared_ptr<aiScene> scene)
 
     for (auto idx = 0; idx < meshes.size(); idx++)
     {
-        HeroBodyPart* hbp = new HeroBodyPart(*scene, *meshes[idx], textureFileNames[idx]);
-        std::shared_ptr<HeroBodyPart> hbp_sp(hbp);
-        bodyParts.push_back(hbp_sp);
+        //HeroBodyPart* hbp = new HeroBodyPart(scene, *meshes[idx], textureFileNames[idx]);
+        //auto transform = hbp->getTransform(0,1);
+        //td::unique_ptr<HeroBodyPart> hbp_sp(hbp);
+        bodyParts.push_back(make_unique<HeroBodyPart>(scene, *meshes[idx], textureFileNames[idx]));
+
     }
 }
 
-std::string Hero::getMaterial(std::shared_ptr<aiScene> scene, int idx)
+string Hero::getMaterial(const aiScene& scene, int idx)
 {
-    std::string res;
-    if (scene->HasMaterials())
+    string res;
+    if (scene.HasMaterials())
     {
-        const aiMaterial& mat = *scene->mMaterials[idx];
+        const aiMaterial& mat = *scene.mMaterials[idx];
 
         if (mat.GetTextureCount(aiTextureType_DIFFUSE) > 0) {
             aiString path;
 
             if (mat.GetTexture(aiTextureType_DIFFUSE, 0, &path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
-               std::string p(path.data);
+               string p(path.data);
                res = p;
 
            }

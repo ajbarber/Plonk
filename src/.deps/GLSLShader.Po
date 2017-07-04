@@ -82,11 +82,10 @@ GLSLShader.o: GLSLShader.cpp /usr/include/stdc-predef.h GLSLShader.h \
  /usr/include/sys/types.h /usr/include/sys/select.h \
  /usr/include/bits/select.h /usr/include/bits/sigset.h \
  /usr/include/sys/sysmacros.h /usr/include/bits/sysmacros.h \
- /usr/include/alloca.h /usr/include/bits/stdlib-bsearch.h \
- /usr/include/bits/stdlib-float.h /usr/include/c++/6.3.1/cstdio \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/c++/6.3.1/cerrno \
+ /usr/include/alloca.h /usr/include/bits/stdlib-float.h \
+ /usr/include/c++/6.3.1/cstdio /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/bits/stdio_lim.h \
+ /usr/include/bits/sys_errlist.h /usr/include/c++/6.3.1/cerrno \
  /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
@@ -358,8 +357,6 @@ GLSLShader.h:
 
 /usr/include/alloca.h:
 
-/usr/include/bits/stdlib-bsearch.h:
-
 /usr/include/bits/stdlib-float.h:
 
 /usr/include/c++/6.3.1/cstdio:
@@ -371,8 +368,6 @@ GLSLShader.h:
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
-
-/usr/include/bits/stdio.h:
 
 /usr/include/c++/6.3.1/cerrno:
 

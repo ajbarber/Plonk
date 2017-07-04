@@ -1,6 +1,6 @@
 
-AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
-AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++0x
+AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++14
+AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++14
 
 bin_PROGRAMS = plonk
 

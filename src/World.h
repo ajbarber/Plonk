@@ -61,11 +61,11 @@ private:
     //shadowmapping and flat shader
     GLSLShader shader, flatshader;
 
-    std::shared_ptr<GLDrawable> sphereDrawable;
-    std::shared_ptr<GLDrawable> cubeDrawable;
-    std::shared_ptr<GLDrawable> floorDrawable;
-    std::shared_ptr<GLDrawable> crossHairDrawable;
-    std::shared_ptr<Hero> hero;
+    std::unique_ptr<GLDrawable> sphereDrawable;
+    std::unique_ptr<GLDrawable> cubeDrawable;
+    std::unique_ptr<GLDrawable> floorDrawable;
+    std::unique_ptr<GLDrawable> crossHairDrawable;
+    std::unique_ptr<Hero> hero;
     std::vector<std::unique_ptr<GLDrawable>> heroDrawables;
 
 

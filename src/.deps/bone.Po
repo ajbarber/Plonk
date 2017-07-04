@@ -240,7 +240,12 @@ bone.o: bone.cpp /usr/include/stdc-predef.h bone.h \
  /usr/include/c++/6.3.1/ext/aligned_buffer.h \
  /usr/include/c++/6.3.1/bits/shared_ptr_atomic.h \
  /usr/include/c++/6.3.1/bits/atomic_base.h \
- /usr/include/c++/6.3.1/backward/auto_ptr.h
+ /usr/include/c++/6.3.1/backward/auto_ptr.h util.h \
+ /usr/include/assimp/postprocess.h /usr/include/glm/gtc/type_ptr.hpp \
+ /usr/include/glm/gtc/quaternion.hpp /usr/include/glm/gtc/constants.hpp \
+ /usr/include/glm/gtc/constants.inl /usr/include/glm/gtc/quaternion.inl \
+ /usr/include/glm/gtc/quaternion_simd.inl \
+ /usr/include/glm/gtc/type_ptr.inl
 
 /usr/include/stdc-predef.h:
 
@@ -907,3 +912,21 @@ bone.h:
 /usr/include/c++/6.3.1/bits/atomic_base.h:
 
 /usr/include/c++/6.3.1/backward/auto_ptr.h:
+
+util.h:
+
+/usr/include/assimp/postprocess.h:
+
+/usr/include/glm/gtc/type_ptr.hpp:
+
+/usr/include/glm/gtc/quaternion.hpp:
+
+/usr/include/glm/gtc/constants.hpp:
+
+/usr/include/glm/gtc/constants.inl:
+
+/usr/include/glm/gtc/quaternion.inl:
+
+/usr/include/glm/gtc/quaternion_simd.inl:
+
+/usr/include/glm/gtc/type_ptr.inl:

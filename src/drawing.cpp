@@ -1,6 +1,18 @@
 #include "drawing.h"
 
-Drawing::~Drawing() {}
+
+Drawing::Drawing(const Drawing& rhs): vertices(rhs.vertices),
+    indices(rhs.indices), points(rhs.points), texture(rhs.texture) {}
+
+Drawing::Drawing(Drawing && rhs): vertices(std::move(rhs.vertices)),
+    indices(std::move(rhs.indices)), points(std::move(rhs.points)),
+    texture(std::move(rhs.texture)) {}
+
+Drawing& Drawing::operator= (const Drawing& rhs) {
+    Drawing tmp(rhs);
+    *this = std::move(tmp);
+    return *this;
+}
 
 std::vector<Vertex> Drawing::getVertices() const
 {
