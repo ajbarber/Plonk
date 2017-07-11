@@ -90,9 +90,9 @@ int main(int argx, char **argv)
             }
         }
 
+        float time = World::getInstance()->getTime();
 
-        World::getInstance()->update();
-        World::getInstance()->render();
+        World::getInstance()->render(time);
 
         //World::getInstance()->renderAnimation();
 

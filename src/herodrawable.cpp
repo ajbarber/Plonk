@@ -12,7 +12,7 @@ int HeroBodyPartDrawable::bindDrawing()
     GLuint indicesVBO;
 
     std::vector<Vertex> vertices = drawing.getVertices();
-    std::vector<GLushort> indices = drawing.getIndices();
+    std::vector<GLushort> indices = drawing.getIndices();    
 
     //setup cube vao and vbo stuff
     glGenVertexArrays(1, &vaoID);
@@ -36,10 +36,13 @@ int HeroBodyPartDrawable::bindDrawing()
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,sizeof(Vertex), (const GLvoid*)(offsetof(Vertex, tex)));
     GL_CHECK_ERRORS
+    //enable vertex attribute array for blendweights
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE,sizeof(glm::vec4), 0);
+    GL_CHECK_ERRORS
     //pass cube indices to element array buffer
     glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, indicesVBO);
     glBufferData (GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(GLushort), &indices[0], GL_STATIC_DRAW);
-
 
     numTriangles = indices.size();
     fprintf(stderr, "Handle : %d: ", *drawing.getTexture() );
@@ -75,6 +78,8 @@ bool HeroBodyPartDrawable::checkErrors()
 
     return retVal;
 }
+
+
 
 
 

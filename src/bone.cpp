@@ -2,8 +2,8 @@
 #include "util.h"
 #include <string>
 
-Bone::Bone(Bone *bone): name(bone->name), parentName(bone->parentName),
-                        boneToParent(bone->boneToParent), worldToBone(bone->worldToBone), weight(bone->weight),
+Bone::Bone(Bone* bone): name(bone->name), parentName(bone->parentName),
+                        boneToParent(bone->boneToParent), worldToBone(bone->worldToBone),
                         parent(bone->parent) {}
 
  glm::mat4 Bone::getTransform(float animationTime, const aiAnimation& animation)
@@ -19,7 +19,7 @@ Bone::Bone(Bone *bone): name(bone->name), parentName(bone->parentName),
      auto rotate = calcRotationMatrix(animationTime, channel);
      auto translate = calcTranslationMatrix(animationTime, channel);
 
-     auto currentTx =  glm::mat4(weight) * worldToBone * boneToParent * scale * rotate * translate ;
+     auto currentTx =  inverseGlobal * worldToBone * boneToParent * scale * rotate * translate ;
      auto parentTx = (parent == nullptr) ? glm::mat4(1.0f) : parent->getTransform(animationTime, animation);
      return parentTx * currentTx;
  }
@@ -30,7 +30,9 @@ Bone::Bone(Bone *bone): name(bone->name), parentName(bone->parentName),
      for (auto i = 0 ; i < animation.mNumChannels; i++)
      {
          if (name.compare(animation.mChannels[i]->mNodeName.C_Str())==0)
+         {
              return *animation.mChannels[i];
+         }
      }
      assert(false);
  }

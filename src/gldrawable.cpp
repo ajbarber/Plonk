@@ -20,4 +20,8 @@ GLuint GLDrawable::getNumTriangles()
     return this->numTriangles;
 }
 
+const Drawing& GLDrawable::getDrawing() const {
+    return drawing;
+}
+
 

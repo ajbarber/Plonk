@@ -12,14 +12,12 @@ public:
 
     Bone() : parent(nullptr) {}
 
-    Bone(Bone * bone);
-
-
+    Bone(Bone* bone);
     std::string name;
     std::string parentName;
     glm::mat4 worldToBone;
     glm::mat4 boneToParent;
-    double weight;
+    glm::mat4 inverseGlobal;
     std::shared_ptr<Bone> parent;
 
     glm::mat4 getTransform(float seconds, const aiAnimation& animation);

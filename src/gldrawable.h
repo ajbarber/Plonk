@@ -15,6 +15,7 @@ public:
     virtual int bindTexture() { return 0; }
     virtual GLuint getVaoID();
     virtual GLuint getNumTriangles();
+    virtual const Drawing& getDrawing() const;
 
 
 protected:

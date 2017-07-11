@@ -1,6 +1,7 @@
 #ifndef World_h
 #define World_h
 
+#include <assimp/Importer.hpp>
 #include "gl.h"
 #include "gldrawable.h"
 #include "hero.h"
@@ -40,13 +41,14 @@ public:
 	static World	*init();
 	static World	*getInstance();
 	static void		destroy();	
-    void render();
+    void render(float time);
+    float getTime();
     void renderAnimation();
     void resize(int w, int h);
     void mouseMove(int x, int y);
     void mouseClick(bool left, bool right, bool down, int x, int y);
     void onMouseWheel(int dir);
-	void update();	
+
 	
 private:
 
@@ -56,7 +58,8 @@ private:
 
 	static World	*instance;
 
-    std::shared_ptr<aiScene> scene;
+    Assimp::Importer importer;
+    const aiScene* sceneRaw;
 
     //shadowmapping and flat shader
     GLSLShader shader, flatshader;
@@ -102,7 +105,7 @@ private:
     void buildMesh();
     void fillSphereData(float radius, unsigned int slices, unsigned int stacks, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
     void fillPlaneData(const float width, const float depth, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
-    void drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass = 1);
+    void drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLightPass);
     void fillCubeData(const float& size, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
 	
 		

@@ -3,7 +3,6 @@
 #include "structs.h"
 #include "drawing.h"
 #include "AssimpConverter.h"
-#include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "drawing.h"
@@ -32,7 +31,7 @@ World::World()
 
 World::~World()
 {
-	
+    delete sceneRaw;
 }
 
 World *World::init()
@@ -68,20 +67,19 @@ void World::destroy()
 
 void World::loadModel()
 {
-    Assimp::Importer importer;
-    const aiScene *sceneRaw = importer.ReadFile("boblampclean.md5mesh",
+
+
+    sceneRaw = importer.ReadFile("boblampclean.md5mesh",
         aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
 
-    aiScene* sceneRawnc = const_cast<aiScene*>(sceneRaw);
+    //aiScene* sceneRawnc = const_cast<aiScene*>(sceneRaw);
 
     if(!sceneRaw)
     {
        fprintf(stderr, importer.GetErrorString());
        return;
     }
-
-    Hero* heroRaw = new Hero(*sceneRaw);
-    hero = unique_ptr<Hero>(heroRaw);
+    hero = make_unique<Hero>(*sceneRaw);
 }
 
 void World::setup()
@@ -91,6 +89,13 @@ void World::setup()
     World::loadModel();
 
 	World::buildMesh();
+}
+
+float World::getTime() {
+
+    std::chrono::system_clock::time_point t_now = std::chrono::high_resolution_clock::now();
+    float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
+    return time;
 }
 
 void World::buildMesh()
@@ -212,7 +217,7 @@ void World::buildMesh()
 
 
 //scene rendering function
-void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
+void World::drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLightPass) {
 
     GL_CHECK_ERRORS
 
@@ -274,6 +279,8 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
     {
 
         glBindVertexArray(heroDrawables[idx]->getVaoID()); {
+
+            std::vector<glm::mat4> txs = heroDrawables[idx]->getDrawing().getTransforms(seconds);
             //set the sphere's transform
             glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));
             glm::mat4 M = T;
@@ -284,11 +291,14 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
             glUniformMatrix4fv(shader("M"), 1, GL_FALSE, glm::value_ptr(M));
             glUniformMatrix4fv(shader("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
             glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(MV));
+
             glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
             glUniform3f(shader("diffuse_color"), 1.0f, 1.0f, 1.0f);
             glUniform1i(shader("tex"), 0);
             //draw sphere triangles
             heroDrawables[idx]->bindTexture();
+
+
 
             glDrawElements(GL_TRIANGLES, heroDrawables[idx]->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
         }
@@ -304,7 +314,7 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, int isLightPass) {
 }
 
 
-void World::render() 
+void World::render(float seconds)
 { 
     //get the elapsed time
     GL_CHECK_ERRORS
@@ -328,7 +338,7 @@ void World::render()
         //enable front face culling
         glCullFace(GL_FRONT);
         //draw scene from the point of view of light
-        drawScene(MV_L, P_L);
+        drawScene(MV_L, P_L, seconds, 1);
         //enable back face culling
         glCullFace(GL_BACK);
 
@@ -339,7 +349,7 @@ void World::render()
         glViewport(0,0,WIDTH, HEIGHT);
 
         //2) Render scene from point of view of eye
-        drawScene(MV, P, 0 );
+        drawScene(MV, P, seconds ,0 );
 
         //bind light gizmo vertex array object
         glBindVertexArray(crossHairDrawable->getVaoID()); {
@@ -487,24 +497,6 @@ void World::renderAnimation()
 
 
 
-
-void World::update() 
-{	
-    std::chrono::system_clock::time_point t_now = std::chrono::high_resolution_clock::now();
-    float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
-    //t_start = t_now;   
-
-    //mesh.BoneTransform(time, transforms );
-
-//    for (uint i = 0 ; i < Transforms.size() ; i++) {
-//               m_pEffect->SetBoneTransform(i, Transforms[i]);
-//           }
-
-    //animatedModel->Update(time/1000.0);
-
-	//camera.update()
-	//call in hero + npc update methods here	
-}
 
 
 

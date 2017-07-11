@@ -11,20 +11,15 @@
 class HeroBodyPart : public Drawing
 {
 public:
-
-    HeroBodyPart() {}
-    HeroBodyPart(HeroBodyPart &&other);
-    HeroBodyPart(const HeroBodyPart &other);
-    HeroBodyPart& operator= (const HeroBodyPart& rhs) ;
-    ~HeroBodyPart() {}
     HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName);   
-    glm::mat4 getTransform(int index, float seconds);
+    std::vector<glm::mat4> getTransforms(float seconds) const;
 
 private:
     void load(const aiMesh& mesh, std::string textureFileName);
     std::shared_ptr<aiAnimation> animation;
     std::shared_ptr<Bones> bones;
     void makeSkeleton(const aiScene& scene, const aiMesh& mesh);
+    glm::mat4 inverseGlobal;
 
 
 };

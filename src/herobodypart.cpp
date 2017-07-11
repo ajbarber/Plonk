@@ -8,28 +8,12 @@
 #include "soilfactory.h"
 #include "structs.h"
 
-HeroBodyPart::HeroBodyPart(HeroBodyPart && other):
-    animation(std::move(other.animation)), bones(std::move(other.bones))
-{
-
-}
-
-HeroBodyPart::HeroBodyPart(const HeroBodyPart & other): animation(other.animation), bones(other.bones)
-{
-
-}
 
 HeroBodyPart::HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName)
 {
     load(mesh, textureFileName);
     makeSkeleton(scene, mesh);
     animation = std::shared_ptr<aiAnimation>(scene.mAnimations[0]);
-}
-
-HeroBodyPart& HeroBodyPart::operator= (const HeroBodyPart& rhs) {
-    HeroBodyPart tmp(rhs);
-    *this = std::move(tmp);
-    return *this;
 }
 
 void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
@@ -76,16 +60,12 @@ void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
  * */
 void HeroBodyPart::makeSkeleton(const aiScene& scene, const aiMesh& mesh)
 {
-    bones = std::make_shared<Bones>(new Bones(mesh, *scene.mRootNode));
+    bones = std::make_shared<Bones>(mesh, *scene.mRootNode);
 }
 
-glm::mat4 HeroBodyPart::getTransform(int index, float seconds)
+std::vector<glm::mat4> HeroBodyPart::getTransforms(float seconds) const
 {
-    auto bonesList = bones->getBones(index);
-    for (shared_ptr<Bone> bone: bonesList)
-    {
-        auto trans = bone->getTransform(seconds, *animation);
-    }
+    return bones->getTransform(seconds, *animation);
 }
 
 

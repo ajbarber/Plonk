@@ -3,29 +3,34 @@
 
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <assimp/scene.h>
 #include "structs.h"
 #include "util.h"
 #include <vector>
 #include <list>
 #include "bone.h"
+#include <glm/glm.hpp>
 
 using namespace std;
 
 
 class Bones
 {
+
 public:
-    Bones() {}
+
     Bones(Bones* bones);
     Bones(const aiMesh& aiMesh, const aiNode& aiNode);
-    list<shared_ptr<Bone>> getBones(int index);
-
+    std::vector<glm::mat4> getTransform(float seconds, const aiAnimation& animation);
+    std::vector<glm::vec4> getBlendWeights();
 
 private:
+
     int load(const aiMesh& aiMesh,  const aiNode& aiNode);
+    std::vector<glm::vec4> blendWeights;
 
     //each vertices list of composing bones
-    vector<list<shared_ptr<Bone>>> bones;
+    vector<shared_ptr<Bone>> bones;
 
 
 };

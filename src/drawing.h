@@ -19,7 +19,8 @@ public:
     virtual std::vector<Vertex> getVertices() const;
     virtual std::vector<GLushort> getIndices() const;
     virtual std::vector<glm::vec3> getPoints() const;
-    virtual std::shared_ptr<GLuint> getTexture() const;
+    virtual std::shared_ptr<GLuint> getTexture() const;    
+    virtual std::vector<glm::mat4> getTransforms(float seconds) const;
 
 protected:
 

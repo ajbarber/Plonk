@@ -161,8 +161,31 @@ MainGL.o: MainGL.cpp /usr/include/stdc-predef.h MainGL.h gl.h \
  /usr/include/c++/6.3.1/bits/vector.tcc \
  /usr/include/SFML/Window/Window.hpp \
  /usr/include/SFML/Window/WindowHandle.hpp \
- /usr/include/SFML/Window/WindowStyle.hpp World.h gldrawable.h drawing.h \
- /usr/include/c++/6.3.1/memory \
+ /usr/include/SFML/Window/WindowStyle.hpp World.h \
+ /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
+ /usr/include/c++/6.3.1/math.h /usr/include/c++/6.3.1/cmath \
+ /usr/include/math.h /usr/include/bits/math-vector.h \
+ /usr/include/bits/libm-simd-decl-stubs.h /usr/include/bits/huge_val.h \
+ /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
+ /usr/include/bits/inf.h /usr/include/bits/nan.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h /usr/include/bits/mathcalls.h \
+ /usr/include/bits/iscanonical.h /usr/include/string.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+ /usr/include/assimp/defs.h /usr/include/assimp/vector3.h \
+ /usr/include/assimp/Compiler/pushpack1.h \
+ /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/vector2.h \
+ /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
+ /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
+ /usr/include/c++/6.3.1/cstring /usr/include/assimp/vector2.inl \
+ /usr/include/assimp/vector3.inl /usr/include/assimp/color4.inl \
+ /usr/include/assimp/quaternion.inl /usr/include/assimp/matrix3x3.inl \
+ /usr/include/assimp/matrix4x4.inl /usr/include/assimp/config.h \
+ gldrawable.h drawing.h /usr/include/c++/6.3.1/memory \
  /usr/include/c++/6.3.1/bits/stl_raw_storage_iter.h \
  /usr/include/c++/6.3.1/typeinfo /usr/include/c++/6.3.1/ext/concurrence.h \
  /usr/include/c++/6.3.1/functional \
@@ -175,20 +198,7 @@ MainGL.o: MainGL.cpp /usr/include/stdc-predef.h MainGL.h gl.h \
  /usr/include/c++/6.3.1/bits/atomic_base.h \
  /usr/include/c++/6.3.1/backward/auto_ptr.h structs.h \
  /usr/include/glm/glm.hpp /usr/include/glm/detail/_fixes.hpp \
- /usr/include/c++/6.3.1/cmath /usr/include/math.h \
- /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
- /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
- /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
- /usr/include/bits/nan.h /usr/include/bits/flt-eval-method.h \
- /usr/include/bits/fp-logb.h /usr/include/bits/fp-fast.h \
- /usr/include/bits/mathcalls.h /usr/include/bits/iscanonical.h \
- /usr/include/c++/6.3.1/climits \
- /usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/limits.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
- /usr/include/c++/6.3.1/cfloat \
+ /usr/include/c++/6.3.1/climits /usr/include/c++/6.3.1/cfloat \
  /usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include/float.h \
  /usr/include/c++/6.3.1/cassert /usr/include/assert.h \
  /usr/include/glm/fwd.hpp /usr/include/glm/detail/type_int.hpp \
@@ -294,17 +304,7 @@ MainGL.o: MainGL.cpp /usr/include/stdc-predef.h MainGL.h gl.h \
  /usr/include/glm/detail/func_integer.inl \
  /usr/include/glm/detail/func_integer_simd.inl \
  /usr/include/glm/simd/integer.h hero.h herobodypart.h \
- /usr/include/assimp/scene.h /usr/include/assimp/types.h \
- /usr/include/c++/6.3.1/math.h /usr/include/string.h \
- /usr/include/assimp/defs.h /usr/include/assimp/vector3.h \
- /usr/include/assimp/Compiler/pushpack1.h \
- /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/vector2.h \
- /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
- /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
- /usr/include/c++/6.3.1/cstring /usr/include/assimp/vector2.inl \
- /usr/include/assimp/vector3.inl /usr/include/assimp/color4.inl \
- /usr/include/assimp/quaternion.inl /usr/include/assimp/matrix3x3.inl \
- /usr/include/assimp/matrix4x4.inl /usr/include/assimp/texture.h \
+ /usr/include/assimp/scene.h /usr/include/assimp/texture.h \
  /usr/include/assimp/mesh.h /usr/include/assimp/light.h \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
@@ -785,6 +785,92 @@ gl.h:
 
 World.h:
 
+/usr/include/assimp/Importer.hpp:
+
+/usr/include/assimp/types.h:
+
+/usr/include/c++/6.3.1/math.h:
+
+/usr/include/c++/6.3.1/cmath:
+
+/usr/include/math.h:
+
+/usr/include/bits/math-vector.h:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/flt-eval-method.h:
+
+/usr/include/bits/fp-logb.h:
+
+/usr/include/bits/fp-fast.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/iscanonical.h:
+
+/usr/include/string.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/limits.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+/usr/include/bits/xopen_lim.h:
+
+/usr/include/assimp/defs.h:
+
+/usr/include/assimp/vector3.h:
+
+/usr/include/assimp/Compiler/pushpack1.h:
+
+/usr/include/assimp/Compiler/poppack1.h:
+
+/usr/include/assimp/vector2.h:
+
+/usr/include/assimp/color4.h:
+
+/usr/include/assimp/matrix3x3.h:
+
+/usr/include/assimp/matrix4x4.h:
+
+/usr/include/assimp/quaternion.h:
+
+/usr/include/c++/6.3.1/cstring:
+
+/usr/include/assimp/vector2.inl:
+
+/usr/include/assimp/vector3.inl:
+
+/usr/include/assimp/color4.inl:
+
+/usr/include/assimp/quaternion.inl:
+
+/usr/include/assimp/matrix3x3.inl:
+
+/usr/include/assimp/matrix4x4.inl:
+
+/usr/include/assimp/config.h:
+
 gldrawable.h:
 
 drawing.h:
@@ -821,51 +907,7 @@ structs.h:
 
 /usr/include/glm/detail/_fixes.hpp:
 
-/usr/include/c++/6.3.1/cmath:
-
-/usr/include/math.h:
-
-/usr/include/bits/math-vector.h:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/include/bits/huge_val.h:
-
-/usr/include/bits/huge_valf.h:
-
-/usr/include/bits/huge_vall.h:
-
-/usr/include/bits/inf.h:
-
-/usr/include/bits/nan.h:
-
-/usr/include/bits/flt-eval-method.h:
-
-/usr/include/bits/fp-logb.h:
-
-/usr/include/bits/fp-fast.h:
-
-/usr/include/bits/mathcalls.h:
-
-/usr/include/bits/iscanonical.h:
-
 /usr/include/c++/6.3.1/climits:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/limits.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed/syslimits.h:
-
-/usr/include/limits.h:
-
-/usr/include/bits/posix1_lim.h:
-
-/usr/include/bits/local_lim.h:
-
-/usr/include/linux/limits.h:
-
-/usr/include/bits/posix2_lim.h:
-
-/usr/include/bits/xopen_lim.h:
 
 /usr/include/c++/6.3.1/cfloat:
 
@@ -1126,44 +1168,6 @@ hero.h:
 herobodypart.h:
 
 /usr/include/assimp/scene.h:
-
-/usr/include/assimp/types.h:
-
-/usr/include/c++/6.3.1/math.h:
-
-/usr/include/string.h:
-
-/usr/include/assimp/defs.h:
-
-/usr/include/assimp/vector3.h:
-
-/usr/include/assimp/Compiler/pushpack1.h:
-
-/usr/include/assimp/Compiler/poppack1.h:
-
-/usr/include/assimp/vector2.h:
-
-/usr/include/assimp/color4.h:
-
-/usr/include/assimp/matrix3x3.h:
-
-/usr/include/assimp/matrix4x4.h:
-
-/usr/include/assimp/quaternion.h:
-
-/usr/include/c++/6.3.1/cstring:
-
-/usr/include/assimp/vector2.inl:
-
-/usr/include/assimp/vector3.inl:
-
-/usr/include/assimp/color4.inl:
-
-/usr/include/assimp/quaternion.inl:
-
-/usr/include/assimp/matrix3x3.inl:
-
-/usr/include/assimp/matrix4x4.inl:
 
 /usr/include/assimp/texture.h:
 
