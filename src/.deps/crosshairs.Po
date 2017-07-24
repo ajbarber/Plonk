@@ -228,7 +228,33 @@ crosshairs.o: crosshairs.cpp /usr/include/stdc-predef.h crosshairs.h \
  /usr/include/glm/detail/func_integer_simd.inl \
  /usr/include/glm/simd/integer.h gl.h /usr/include/GL/glew.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h /usr/include/GL/glut.h \
- /usr/include/GL/freeglut_std.h /usr/include/SOIL/SOIL.h
+ /usr/include/GL/freeglut_std.h /usr/include/SOIL/SOIL.h bones.h \
+ /usr/include/assimp/scene.h /usr/include/assimp/types.h \
+ /usr/include/c++/6.3.1/math.h /usr/include/string.h \
+ /usr/include/assimp/defs.h /usr/include/assimp/vector3.h \
+ /usr/include/assimp/Compiler/pushpack1.h \
+ /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/vector2.h \
+ /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
+ /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
+ /usr/include/c++/6.3.1/cstring /usr/include/assimp/vector2.inl \
+ /usr/include/assimp/vector3.inl /usr/include/assimp/color4.inl \
+ /usr/include/assimp/quaternion.inl /usr/include/assimp/matrix3x3.inl \
+ /usr/include/c++/6.3.1/algorithm /usr/include/c++/6.3.1/bits/stl_algo.h \
+ /usr/include/c++/6.3.1/bits/algorithmfwd.h \
+ /usr/include/c++/6.3.1/bits/stl_heap.h \
+ /usr/include/c++/6.3.1/bits/uniform_int_dist.h \
+ /usr/include/assimp/matrix4x4.inl /usr/include/assimp/texture.h \
+ /usr/include/assimp/mesh.h /usr/include/assimp/light.h \
+ /usr/include/assimp/camera.h /usr/include/assimp/material.h \
+ /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
+ /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h util.h \
+ /usr/include/glm/gtc/type_ptr.hpp /usr/include/glm/gtc/quaternion.hpp \
+ /usr/include/glm/gtc/constants.hpp /usr/include/glm/gtc/constants.inl \
+ /usr/include/glm/gtc/quaternion.inl \
+ /usr/include/glm/gtc/quaternion_simd.inl \
+ /usr/include/glm/gtc/type_ptr.inl /usr/include/c++/6.3.1/list \
+ /usr/include/c++/6.3.1/bits/stl_list.h \
+ /usr/include/c++/6.3.1/bits/list.tcc bone.h
 
 /usr/include/stdc-predef.h:
 
@@ -855,3 +881,97 @@ gl.h:
 /usr/include/GL/freeglut_std.h:
 
 /usr/include/SOIL/SOIL.h:
+
+bones.h:
+
+/usr/include/assimp/scene.h:
+
+/usr/include/assimp/types.h:
+
+/usr/include/c++/6.3.1/math.h:
+
+/usr/include/string.h:
+
+/usr/include/assimp/defs.h:
+
+/usr/include/assimp/vector3.h:
+
+/usr/include/assimp/Compiler/pushpack1.h:
+
+/usr/include/assimp/Compiler/poppack1.h:
+
+/usr/include/assimp/vector2.h:
+
+/usr/include/assimp/color4.h:
+
+/usr/include/assimp/matrix3x3.h:
+
+/usr/include/assimp/matrix4x4.h:
+
+/usr/include/assimp/quaternion.h:
+
+/usr/include/c++/6.3.1/cstring:
+
+/usr/include/assimp/vector2.inl:
+
+/usr/include/assimp/vector3.inl:
+
+/usr/include/assimp/color4.inl:
+
+/usr/include/assimp/quaternion.inl:
+
+/usr/include/assimp/matrix3x3.inl:
+
+/usr/include/c++/6.3.1/algorithm:
+
+/usr/include/c++/6.3.1/bits/stl_algo.h:
+
+/usr/include/c++/6.3.1/bits/algorithmfwd.h:
+
+/usr/include/c++/6.3.1/bits/stl_heap.h:
+
+/usr/include/c++/6.3.1/bits/uniform_int_dist.h:
+
+/usr/include/assimp/matrix4x4.inl:
+
+/usr/include/assimp/texture.h:
+
+/usr/include/assimp/mesh.h:
+
+/usr/include/assimp/light.h:
+
+/usr/include/assimp/camera.h:
+
+/usr/include/assimp/material.h:
+
+/usr/include/assimp/material.inl:
+
+/usr/include/assimp/anim.h:
+
+/usr/include/assimp/metadata.h:
+
+/usr/include/assimp/postprocess.h:
+
+util.h:
+
+/usr/include/glm/gtc/type_ptr.hpp:
+
+/usr/include/glm/gtc/quaternion.hpp:
+
+/usr/include/glm/gtc/constants.hpp:
+
+/usr/include/glm/gtc/constants.inl:
+
+/usr/include/glm/gtc/quaternion.inl:
+
+/usr/include/glm/gtc/quaternion_simd.inl:
+
+/usr/include/glm/gtc/type_ptr.inl:
+
+/usr/include/c++/6.3.1/list:
+
+/usr/include/c++/6.3.1/bits/stl_list.h:
+
+/usr/include/c++/6.3.1/bits/list.tcc:
+
+bone.h:

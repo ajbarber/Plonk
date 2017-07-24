@@ -7,17 +7,26 @@ Bones::Bones(Bones *rhs) : bones(rhs->bones) {}
 
 Bones::Bones(const aiMesh& aiMesh, const aiNode& aiNode) :
     bones(vector<shared_ptr<Bone>>(aiMesh.mNumBones)),
-    blendWeights(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{0,0,0,0}))
+    blendWeights(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{0,0,0,0})),
+    blendIndices(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{0,0,0,0}))
 {
     int err = Bones::load(aiMesh, aiNode);
 }
 
 std::vector<glm::mat4> Bones::getTransform(float seconds, const aiAnimation& animation) {
-    std::vector<glm::mat4> transforms = std::vector<glm::mat4>(bones.size());
-    for (auto bone: bones) {
-         transforms.push_back(bone->getTransform(seconds, animation));
+    std::vector<glm::mat4> transforms;// = std::vector<glm::mat4>(bones.size());
+    for (auto& bone: bones) {
+         transforms.push_back(bone->worldToBone * bone->getTransform(seconds, animation));
     }
     return transforms;
+}
+
+std::vector<glm::vec4> Bones::getBlendWeights() {
+    return blendWeights;
+}
+
+std::vector<glm::vec4> Bones::getBlendIndices() {
+    return blendIndices;
 }
 
 /*
@@ -26,7 +35,7 @@ std::vector<glm::mat4> Bones::getTransform(float seconds, const aiAnimation& ani
  */
 int Bones::load(const aiMesh& aimesh, const aiNode& ainode)
 {   
-    unordered_map<string, const shared_ptr<Bone>> boneMap;
+    unordered_map<string, const shared_ptr<Bone>> boneMap;    
     aiNode& node = const_cast<aiNode&>(ainode);
     glm::mat4 inverseGlobal = toglm(node.mTransformation.Inverse());
 
@@ -55,8 +64,6 @@ int Bones::load(const aiMesh& aimesh, const aiNode& ainode)
 
     }
 
-
-
     for (int idx = 0; idx < aimesh.mNumBones; idx++)
     {
         const aiBone& aibone = *aimesh.mBones[idx];
@@ -65,18 +72,32 @@ int Bones::load(const aiMesh& aimesh, const aiNode& ainode)
         bone->parent = boneMap[bone->parentName];
         bones[idx]=bone;
 
+
+
         for (int j = 0; j < aibone.mNumWeights; j++)
         {
             aiVertexWeight curWeight = aibone.mWeights[j];
 
-            if (blendWeights[curWeight.mVertexId].x == 0)
-                blendWeights[curWeight.mVertexId].x = curWeight.mWeight;
-            else if (blendWeights[curWeight.mVertexId].y == 0)
-                blendWeights[curWeight.mVertexId].y = curWeight.mWeight;
-            else if (blendWeights[curWeight.mVertexId].z == 0)
-                blendWeights[curWeight.mVertexId].z = curWeight.mWeight;
-            else if (blendWeights[curWeight.mVertexId].w == 0)
-                blendWeights[curWeight.mVertexId].w = curWeight.mWeight;
+            auto i = curWeight.mVertexId;
+
+            if (blendWeights[i].x == 0)
+            {
+                blendWeights[i].x = curWeight.mWeight;
+                blendIndices[i].x = idx;
+            }
+            else if (blendWeights[i].y == 0)
+            {
+                blendWeights[i].y = curWeight.mWeight;
+                blendIndices[i].y = idx;
+            }
+            else if (blendWeights[i].z == 0) {
+                blendWeights[i].z = curWeight.mWeight;
+                blendIndices[i].z = idx;
+            }
+            else if (blendWeights[i].w == 0) {
+                blendWeights[i].w = curWeight.mWeight;
+                blendIndices[i].w = idx;
+            }
         }
 
     }

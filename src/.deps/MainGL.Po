@@ -303,19 +303,19 @@ MainGL.o: MainGL.cpp /usr/include/stdc-predef.h MainGL.h gl.h \
  /usr/include/glm/integer.hpp /usr/include/glm/detail/func_integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
  /usr/include/glm/detail/func_integer_simd.inl \
- /usr/include/glm/simd/integer.h hero.h herobodypart.h \
- /usr/include/assimp/scene.h /usr/include/assimp/texture.h \
- /usr/include/assimp/mesh.h /usr/include/assimp/light.h \
- /usr/include/assimp/camera.h /usr/include/assimp/material.h \
- /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
- /usr/include/assimp/metadata.h bones.h /usr/include/assimp/postprocess.h \
- util.h /usr/include/glm/gtc/type_ptr.hpp \
- /usr/include/glm/gtc/quaternion.hpp /usr/include/glm/gtc/constants.hpp \
- /usr/include/glm/gtc/constants.inl /usr/include/glm/gtc/quaternion.inl \
+ /usr/include/glm/simd/integer.h bones.h /usr/include/assimp/scene.h \
+ /usr/include/assimp/texture.h /usr/include/assimp/mesh.h \
+ /usr/include/assimp/light.h /usr/include/assimp/camera.h \
+ /usr/include/assimp/material.h /usr/include/assimp/material.inl \
+ /usr/include/assimp/anim.h /usr/include/assimp/metadata.h \
+ /usr/include/assimp/postprocess.h util.h \
+ /usr/include/glm/gtc/type_ptr.hpp /usr/include/glm/gtc/quaternion.hpp \
+ /usr/include/glm/gtc/constants.hpp /usr/include/glm/gtc/constants.inl \
+ /usr/include/glm/gtc/quaternion.inl \
  /usr/include/glm/gtc/quaternion_simd.inl \
  /usr/include/glm/gtc/type_ptr.inl /usr/include/c++/6.3.1/list \
  /usr/include/c++/6.3.1/bits/stl_list.h \
- /usr/include/c++/6.3.1/bits/list.tcc bone.h \
+ /usr/include/c++/6.3.1/bits/list.tcc bone.h hero.h herobodypart.h \
  /usr/include/c++/6.3.1/iostream /usr/include/c++/6.3.1/chrono \
  /usr/include/c++/6.3.1/ratio /usr/include/c++/6.3.1/bits/parse_numbers.h \
  GLSLShader.h /usr/include/c++/6.3.1/map \
@@ -1163,9 +1163,7 @@ structs.h:
 
 /usr/include/glm/simd/integer.h:
 
-hero.h:
-
-herobodypart.h:
+bones.h:
 
 /usr/include/assimp/scene.h:
 
@@ -1184,8 +1182,6 @@ herobodypart.h:
 /usr/include/assimp/anim.h:
 
 /usr/include/assimp/metadata.h:
-
-bones.h:
 
 /usr/include/assimp/postprocess.h:
 
@@ -1212,6 +1208,10 @@ util.h:
 /usr/include/c++/6.3.1/bits/list.tcc:
 
 bone.h:
+
+hero.h:
+
+herobodypart.h:
 
 /usr/include/c++/6.3.1/iostream:
 

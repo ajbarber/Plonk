@@ -1,14 +1,21 @@
 #include "bone.h"
 #include "util.h"
 #include <string>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 Bone::Bone(Bone* bone): name(bone->name), parentName(bone->parentName),
                         boneToParent(bone->boneToParent), worldToBone(bone->worldToBone),
-                        parent(bone->parent) {}
+                        inverseGlobal(bone->inverseGlobal), parent(bone->parent) {}
 
- glm::mat4 Bone::getTransform(float animationTime, const aiAnimation& animation)
+ glm::mat4 Bone::getTransform(float seconds, const aiAnimation& animation)
  {
      //return glm::mat4(1.0f);
+
+     float ticksPerSecond = animation.mTicksPerSecond != 0 ?
+                             animation.mTicksPerSecond : 25.0f;
+     float ticks = seconds * ticksPerSecond;
+     float animationTime = fmod(ticks, animation.mDuration);
 
      if (name.empty())
         return glm::mat4(1.0f);
@@ -18,15 +25,15 @@ Bone::Bone(Bone* bone): name(bone->name), parentName(bone->parentName),
      auto scale = calcScalingMatrix(animationTime, channel);
      auto rotate = calcRotationMatrix(animationTime, channel);
      auto translate = calcTranslationMatrix(animationTime, channel);
-
-     auto currentTx =  inverseGlobal * worldToBone * boneToParent * scale * rotate * translate ;
-     auto parentTx = (parent == nullptr) ? glm::mat4(1.0f) : parent->getTransform(animationTime, animation);
+     
+     //return glm::translate(glm::mat4(1), glm::vec3(100,1,0));
+     auto currentTx = translate * rotate * scale ;
+     auto parentTx = (parent == nullptr) ? inverseGlobal : parent->getTransform(animationTime, animation);
      return parentTx * currentTx;
  }
 
  const aiNodeAnim& Bone::findChannel(std::string name, const aiAnimation& animation)
  {
-
      for (auto i = 0 ; i < animation.mNumChannels; i++)
      {
          if (name.compare(animation.mChannels[i]->mNodeName.C_Str())==0)

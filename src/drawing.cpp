@@ -39,6 +39,10 @@ std::vector<glm::mat4> Drawing::getTransforms(float seconds) const
     return std::vector<glm::mat4>{glm::mat4(1.0)};
 }
 
+std::shared_ptr<Bones> Drawing::getSkeleton() const {
+    return nullptr;
+}
+
 
 
 

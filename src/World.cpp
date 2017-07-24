@@ -67,12 +67,8 @@ void World::destroy()
 
 void World::loadModel()
 {
-
-
     sceneRaw = importer.ReadFile("boblampclean.md5mesh",
         aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
-
-    //aiScene* sceneRawnc = const_cast<aiScene*>(sceneRaw);
 
     if(!sceneRaw)
     {
@@ -121,11 +117,15 @@ void World::buildMesh()
             //add attributes and uniforms
             shader.AddAttribute("vVertex");
             shader.AddAttribute("vNormal");
+            shader.AddAttribute("texcoord");
+            shader.AddAttribute("blendWeights");
+            shader.AddAttribute("blendIndices");
             shader.AddUniform("MVP");
             shader.AddUniform("MV");
             shader.AddUniform("M");
             shader.AddUniform("N");
             shader.AddUniform("S");
+            shader.AddUniform("TX");
             shader.AddUniform("light_position");
             shader.AddUniform("diffuse_color");
             shader.AddUniform("bIsLightPass");
@@ -281,22 +281,25 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLight
         glBindVertexArray(heroDrawables[idx]->getVaoID()); {
 
             std::vector<glm::mat4> txs = heroDrawables[idx]->getDrawing().getTransforms(seconds);
+            //glm::mat4 TT = glm::translate(glm::mat4(1), glm::vec3(20,1,0));
+            //std::vector<glm::mat4> txs = std::vector<glm::mat4>(100, TT);
             //set the sphere's transform
             glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));
             glm::mat4 M = T;
             glm::mat4 MV = View*M;
             glm::mat4 MVP = Proj*MV;
-            //set the shader uniforms
+            //set the shader uniformss
             glUniformMatrix4fv(shader("S"), 1, GL_FALSE, glm::value_ptr(S));
             glUniformMatrix4fv(shader("M"), 1, GL_FALSE, glm::value_ptr(M));
             glUniformMatrix4fv(shader("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
             glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(MV));
-
+            glUniformMatrix4fv(shader("TX"), txs.size(), GL_FALSE, glm::value_ptr(txs[0]));
             glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
             glUniform3f(shader("diffuse_color"), 1.0f, 1.0f, 1.0f);
             glUniform1i(shader("tex"), 0);
             //draw sphere triangles
             heroDrawables[idx]->bindTexture();
+            GL_CHECK_ERRORS
 
 
 

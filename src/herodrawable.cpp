@@ -8,16 +8,21 @@ HeroBodyPartDrawable::HeroBodyPartDrawable(const Drawing& drawing): GLDrawable(d
 
 int HeroBodyPartDrawable::bindDrawing()
 {
-    GLuint verticesVBO;
-    GLuint indicesVBO;
+    GLuint verticesVBO, indicesVBO;
+    GLuint blendWtsVBO, blendIdxVBO;
 
     std::vector<Vertex> vertices = drawing.getVertices();
-    std::vector<GLushort> indices = drawing.getIndices();    
+    std::vector<GLushort> indices = drawing.getIndices();
+    auto bones = drawing.getSkeleton();
+    std::vector<glm::vec4> blendIdx = bones->getBlendIndices();
+    std::vector<glm::vec4> blendWts = bones->getBlendWeights();
 
     //setup cube vao and vbo stuff
     glGenVertexArrays(1, &vaoID);
     glGenBuffers(1, &verticesVBO);
     glGenBuffers(1, &indicesVBO);
+    glGenBuffers(1, &blendWtsVBO);
+    glGenBuffers(1, &blendIdxVBO);
     glBindVertexArray(vaoID);
 
     glBindBuffer (GL_ARRAY_BUFFER, verticesVBO);
@@ -36,13 +41,27 @@ int HeroBodyPartDrawable::bindDrawing()
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,sizeof(Vertex), (const GLvoid*)(offsetof(Vertex, tex)));
     GL_CHECK_ERRORS
-    //enable vertex attribute array for blendweights
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE,sizeof(glm::vec4), 0);
-    GL_CHECK_ERRORS
     //pass cube indices to element array buffer
     glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, indicesVBO);
     glBufferData (GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(GLushort), &indices[0], GL_STATIC_DRAW);
+     GL_CHECK_ERRORS
+
+    //enable array buffer for blendweights
+    glBindBuffer(GL_ARRAY_BUFFER, blendWtsVBO);
+    glBufferData(GL_ARRAY_BUFFER, blendWts.size()*sizeof(glm::vec4), &blendWts[0], GL_STATIC_DRAW);
+    GL_CHECK_ERRORS
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE,sizeof(glm::vec4),0);
+
+    //enable array buffer for blend indices
+    glBindBuffer(GL_ARRAY_BUFFER, blendIdxVBO);
+    glBufferData(GL_ARRAY_BUFFER, blendIdx.size()*sizeof(glm::vec4), &blendIdx[0], GL_STATIC_DRAW);
+    GL_CHECK_ERRORS
+
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE,sizeof(glm::vec4),0);
+
 
     numTriangles = indices.size();
     fprintf(stderr, "Handle : %d: ", *drawing.getTexture() );

@@ -23,11 +23,13 @@ public:
     Bones(const aiMesh& aiMesh, const aiNode& aiNode);
     std::vector<glm::mat4> getTransform(float seconds, const aiAnimation& animation);
     std::vector<glm::vec4> getBlendWeights();
+    std::vector<glm::vec4> getBlendIndices();
 
 private:
 
     int load(const aiMesh& aiMesh,  const aiNode& aiNode);
     std::vector<glm::vec4> blendWeights;
+    std::vector<glm::vec4> blendIndices;
 
     //each vertices list of composing bones
     vector<shared_ptr<Bone>> bones;

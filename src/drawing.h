@@ -5,6 +5,7 @@
 #include <memory>
 #include "structs.h"
 #include "gl.h"
+#include "bones.h"
 
 class Drawing
 {
@@ -21,6 +22,7 @@ public:
     virtual std::vector<glm::vec3> getPoints() const;
     virtual std::shared_ptr<GLuint> getTexture() const;    
     virtual std::vector<glm::mat4> getTransforms(float seconds) const;
+    virtual std::shared_ptr<Bones> getSkeleton() const;
 
 protected:
 

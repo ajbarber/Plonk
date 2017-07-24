@@ -11,9 +11,9 @@
 
 HeroBodyPart::HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName)
 {
-    load(mesh, textureFileName);
+    load(mesh, textureFileName);    
     makeSkeleton(scene, mesh);
-    animation = std::shared_ptr<aiAnimation>(scene.mAnimations[0]);
+    animation = std::unique_ptr<aiAnimation>(scene.mAnimations[0]);
 }
 
 void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
@@ -61,6 +61,10 @@ void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
 void HeroBodyPart::makeSkeleton(const aiScene& scene, const aiMesh& mesh)
 {
     bones = std::make_shared<Bones>(mesh, *scene.mRootNode);
+}
+
+std::shared_ptr<Bones> HeroBodyPart::getSkeleton() const {
+    return bones;
 }
 
 std::vector<glm::mat4> HeroBodyPart::getTransforms(float seconds) const
