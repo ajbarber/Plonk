@@ -230,7 +230,9 @@ bones.o: bones.cpp /usr/include/stdc-predef.h bones.h \
  /usr/include/glm/gtc/quaternion.hpp /usr/include/glm/gtc/constants.hpp \
  /usr/include/glm/gtc/constants.inl /usr/include/glm/gtc/quaternion.inl \
  /usr/include/glm/gtc/quaternion_simd.inl \
- /usr/include/glm/gtc/type_ptr.inl /usr/include/c++/6.3.1/vector \
+ /usr/include/glm/gtc/type_ptr.inl \
+ /usr/include/glm/gtc/matrix_transform.hpp \
+ /usr/include/glm/gtc/matrix_transform.inl /usr/include/c++/6.3.1/vector \
  /usr/include/c++/6.3.1/bits/stl_uninitialized.h \
  /usr/include/c++/6.3.1/bits/stl_vector.h \
  /usr/include/c++/6.3.1/bits/stl_bvector.h \
@@ -254,7 +256,9 @@ bones.o: bones.cpp /usr/include/stdc-predef.h bones.h \
  /usr/include/c++/6.3.1/unordered_map \
  /usr/include/c++/6.3.1/bits/hashtable.h \
  /usr/include/c++/6.3.1/bits/hashtable_policy.h \
- /usr/include/c++/6.3.1/bits/unordered_map.h
+ /usr/include/c++/6.3.1/bits/unordered_map.h \
+ /usr/include/glm/gtc/matrix_inverse.hpp \
+ /usr/include/glm/gtc/matrix_inverse.inl
 
 /usr/include/stdc-predef.h:
 
@@ -906,6 +910,10 @@ util.h:
 
 /usr/include/glm/gtc/type_ptr.inl:
 
+/usr/include/glm/gtc/matrix_transform.hpp:
+
+/usr/include/glm/gtc/matrix_transform.inl:
+
 /usr/include/c++/6.3.1/vector:
 
 /usr/include/c++/6.3.1/bits/stl_uninitialized.h:
@@ -965,3 +973,7 @@ bone.h:
 /usr/include/c++/6.3.1/bits/hashtable_policy.h:
 
 /usr/include/c++/6.3.1/bits/unordered_map.h:
+
+/usr/include/glm/gtc/matrix_inverse.hpp:
+
+/usr/include/glm/gtc/matrix_inverse.inl:

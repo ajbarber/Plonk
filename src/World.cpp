@@ -296,8 +296,7 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLight
             glUniformMatrix4fv(shader("TX"), txs.size(), GL_FALSE, glm::value_ptr(txs[0]));
             glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
             glUniform3f(shader("diffuse_color"), 1.0f, 1.0f, 1.0f);
-            glUniform1i(shader("tex"), 0);
-            //draw sphere triangles
+            glUniform1i(shader("tex"), 0);           //draw sphere triangles
             heroDrawables[idx]->bindTexture();
             GL_CHECK_ERRORS
 

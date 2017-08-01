@@ -16,15 +16,19 @@ public:
     std::string name;
     std::string parentName;
     glm::mat4 worldToBone;
-    glm::mat4 boneToParent;
     glm::mat4 inverseGlobal;
+    glm::mat4 transform;
     std::shared_ptr<Bone> parent;
 
-    glm::mat4 getTransform(float seconds, const aiAnimation& animation);
+    void updateTransform(float seconds, 
+                        const aiAnimation& animation,
+                        glm::mat4 parentTransform,
+                        glm::mat4 defaultTransform);
 
 private:
 
-    const aiNodeAnim& findChannel(std::string name, const aiAnimation& animation);
+    const aiNodeAnim* findChannel(const std::string name, const aiAnimation* animation);
+    int getStartKey(float animationTime);
 
     glm::mat4 calcScalingMatrix(float animationTime, const aiNodeAnim& channel);
     glm::mat4 calcRotationMatrix(float animationTime, const aiNodeAnim& channel);

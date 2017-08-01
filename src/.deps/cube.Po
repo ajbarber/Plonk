@@ -251,9 +251,15 @@ cube.o: cube.cpp /usr/include/stdc-predef.h cube.h \
  /usr/include/glm/gtc/constants.hpp /usr/include/glm/gtc/constants.inl \
  /usr/include/glm/gtc/quaternion.inl \
  /usr/include/glm/gtc/quaternion_simd.inl \
- /usr/include/glm/gtc/type_ptr.inl /usr/include/c++/6.3.1/list \
+ /usr/include/glm/gtc/type_ptr.inl \
+ /usr/include/glm/gtc/matrix_transform.hpp \
+ /usr/include/glm/gtc/matrix_transform.inl /usr/include/c++/6.3.1/list \
  /usr/include/c++/6.3.1/bits/stl_list.h \
- /usr/include/c++/6.3.1/bits/list.tcc bone.h
+ /usr/include/c++/6.3.1/bits/list.tcc bone.h \
+ /usr/include/c++/6.3.1/unordered_map \
+ /usr/include/c++/6.3.1/bits/hashtable.h \
+ /usr/include/c++/6.3.1/bits/hashtable_policy.h \
+ /usr/include/c++/6.3.1/bits/unordered_map.h
 
 /usr/include/stdc-predef.h:
 
@@ -967,6 +973,10 @@ util.h:
 
 /usr/include/glm/gtc/type_ptr.inl:
 
+/usr/include/glm/gtc/matrix_transform.hpp:
+
+/usr/include/glm/gtc/matrix_transform.inl:
+
 /usr/include/c++/6.3.1/list:
 
 /usr/include/c++/6.3.1/bits/stl_list.h:
@@ -974,3 +984,11 @@ util.h:
 /usr/include/c++/6.3.1/bits/list.tcc:
 
 bone.h:
+
+/usr/include/c++/6.3.1/unordered_map:
+
+/usr/include/c++/6.3.1/bits/hashtable.h:
+
+/usr/include/c++/6.3.1/bits/hashtable_policy.h:
+
+/usr/include/c++/6.3.1/bits/unordered_map.h:

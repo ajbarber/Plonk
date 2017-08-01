@@ -18,6 +18,7 @@ public:
 private:
     void load(const aiMesh& mesh, std::string textureFileName);
     std::unique_ptr<aiAnimation> animation;
+    std::unique_ptr<aiNode> node;
     std::shared_ptr<Bones> bones;
     void makeSkeleton(const aiScene& scene, const aiMesh& mesh);
     glm::mat4 inverseGlobal;
