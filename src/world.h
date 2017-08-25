@@ -38,31 +38,29 @@ public:
 	static World	*getInstance();
 	static void		destroy();	
     void render(float time);
+    void setup(const std::string fn);
     float getTime();
     void renderAnimation();
     void resize(int w, int h);
     void mouseMove(int x, int y);
     void mouseClick(bool left, bool right, bool down, int x, int y);
     void onMouseWheel(int dir);
-
-	
+   
 private:
 
     std::chrono::system_clock::time_point t_start;
 
     bool checkErrors();
+    std::string fileName;
 
-	static World	*instance;
+	static World *instance;
 
     Assimp::Importer importer;
-    const aiScene* sceneRaw;
+    const aiScene *sceneRaw;
 
     //shadowmapping and flat shader
     GLSLShader shader, flatshader;
 
-    std::unique_ptr<GLDrawable> sphereDrawable;
-    std::unique_ptr<GLDrawable> cubeDrawable;
-    std::unique_ptr<GLDrawable> floorDrawable;
     std::unique_ptr<GLDrawable> crossHairDrawable;
     std::unique_ptr<Hero> hero;
     std::vector<std::unique_ptr<GLDrawable>> heroDrawables;
@@ -94,15 +92,10 @@ private:
     glm::mat4 BP;   //light bias and projection matrix combined
     glm::mat4 S;    //light's combined MVPB matrix
 
-    void setup();
-    void loadModel();
+    void loadModel(const std::string fn);
     World();
     void buildMesh();
-    void fillSphereData(float radius, unsigned int slices, unsigned int stacks, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
-    void fillPlaneData(const float width, const float depth, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
     void drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLightPass);
-    void fillCubeData(const float& size, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
-
 };
 
 #endif // Game_h

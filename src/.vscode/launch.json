@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/plonk",
-            "args": [],
+            "args": ["boblampclean.md5mesh"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

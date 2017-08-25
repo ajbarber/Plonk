@@ -8,7 +8,7 @@ MainGL::~MainGL()
 {	
 }
 
-int main(int argx, char **argv)
+int main(int argx, char *argv[])
 {
     sf::ContextSettings settings;
 	
@@ -34,6 +34,9 @@ int main(int argx, char **argv)
     }
     err = glGetError(); //this is to ignore INVALID ENUM error 1282
     GL_CHECK_ERRORS
+
+    cout<<"Loading model "<<argv[1]<<endl;
+    World::getInstance()->setup(argv[1]);
 	
 	bool running = true;
     while (running)
@@ -88,9 +91,6 @@ int main(int argx, char **argv)
         window.display();
     }
 }
-
-
-
 
 bool MainGL::checkErrors()
 {

@@ -16,7 +16,6 @@ World *World::instance = 0;
 
 World::World()
 {
-	setup();
 }
 
 World::~World()
@@ -55,10 +54,11 @@ void World::destroy()
 	World::instance = 0;
 }
 
-void World::loadModel()
+void World::loadModel(const std::string fn)
 {
-    sceneRaw = importer.ReadFile("boblampclean.md5mesh",
-        aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
+    sceneRaw = importer.ReadFile(fn,
+        aiProcess_Triangulate | aiProcess_GenSmoothNormals
+        | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
 
     if(!sceneRaw)
     {
@@ -68,19 +68,21 @@ void World::loadModel()
     hero = make_unique<Hero>(*sceneRaw);
 }
 
-void World::setup()
+void World::setup(const std::string fileName)
 {
     t_start = std::chrono::high_resolution_clock::now();
 
-    World::loadModel();
+    World::loadModel(fileName);
 
 	World::buildMesh();
 }
 
 float World::getTime() {
 
-    std::chrono::system_clock::time_point t_now = std::chrono::high_resolution_clock::now();
-    float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
+    std::chrono::system_clock::time_point t_now 
+        = std::chrono::high_resolution_clock::now();
+    float time 
+        = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
     return time;
 }
 

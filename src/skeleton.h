@@ -13,7 +13,6 @@ public:
 
 private:
     std::vector<Bone> bones;
-
 };
 
 #endif // SKELETON_H
