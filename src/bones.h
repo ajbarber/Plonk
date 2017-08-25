@@ -30,21 +30,20 @@ public:
 
 private:
     
-    int load(const aiScene& scene, const aiMesh& aiMesh);
+    void load(const aiScene& scene, const aiMesh& aiMesh);
     void makeBonesMap(const aiScene& aiscene);
     void propagateNodes(const aiNode& ainode,
                            const aiAnimation& aiAnim,
                            glm::mat4 parentTransform,
                            glm::mat4 inverseGlobal,
                            float seconds);
-    std::vector<glm::vec4> blendWeights;
-    std::vector<glm::vec4> blendIndices;
 
     //each vertices list of composing bones
     vector<shared_ptr<Bone>> bones;
-
+    std::vector<glm::vec4> blendWeights;
+    std::vector<glm::vec4> blendIndices;
+   
     unordered_map<string, const shared_ptr<Bone>> boneMap; 
-
 
 };
 

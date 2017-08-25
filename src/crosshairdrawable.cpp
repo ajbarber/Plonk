@@ -5,7 +5,7 @@ CrossHairDrawable::CrossHairDrawable(const Drawing& drawing): GLDrawable(drawing
 
 }
 
-int CrossHairDrawable::bindDrawing()
+void CrossHairDrawable::bindDrawing()
 {
     GLuint lightVerticesVBO;
 
@@ -27,7 +27,6 @@ int CrossHairDrawable::bindDrawing()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0,0);
 
     GL_CHECK_ERRORS
-    return 1;
 
 }
 

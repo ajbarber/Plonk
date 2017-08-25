@@ -3,28 +3,20 @@
 
 #include "gl.h"
 #include <SFML/Window.hpp>
-#include "World.h"
+#include "world.h"
 #include <stdio.h>
-
-
 
 class MainGL
 {
 public:
     MainGL(int argc = 0, char **argv = 0);
     ~MainGL();
-	
-	int main(int argx, char **argv);
-    
-       
-private:
 
+	int main(int argx, char **argv);
+
+private:
     
-	static bool checkErrors();	
-	
-   
-    
-    
+	static bool checkErrors();	 
 };
 
 

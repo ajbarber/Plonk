@@ -7,7 +7,7 @@ class CrossHairDrawable: public GLDrawable
 {
 public:
     CrossHairDrawable(const Drawing& drawing);
-    int bindDrawing();
+    void bindDrawing();
 };
 
 #endif // CROSSHAIRDRAWABLE_H

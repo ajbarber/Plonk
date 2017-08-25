@@ -7,11 +7,6 @@ class SoilFactory
 {
 public:
     static std::shared_ptr<GLuint> load(std::string fileName);
-
-
-private:     
-
-
 };
 
 #endif // SOILFACTOR_H

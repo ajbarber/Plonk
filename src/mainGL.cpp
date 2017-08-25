@@ -1,8 +1,7 @@
-#include "MainGL.h"
+#include "mainGL.h"
 
 MainGL::MainGL(int argc, char **argv)
 {
-    	
 }
 
 MainGL::~MainGL()
@@ -11,7 +10,6 @@ MainGL::~MainGL()
 
 int main(int argx, char **argv)
 {
-	
     sf::ContextSettings settings;
 	
     settings.depthBits = 24;
@@ -19,32 +17,23 @@ int main(int argx, char **argv)
     settings.majorVersion = 3;
     settings.minorVersion = 3;
 
-    //settings.antialiasingLevel = 2; // Optional
-
     sf::Window window(sf::VideoMode(1024, 768, 32), "OpenGL", sf::Style::Titlebar | sf::Style::Close, settings);
-    //sf::Window window(sf::VideoMode(800, 600,32), "OpenGL", sf::Style::Close, settings);
-
 
     glViewport (0, 0, (GLsizei) 1024, (GLsizei) 768);
     glewExperimental = GL_TRUE;
 
     GLenum err = glewInit();
 
-        if (GLEW_OK != err)	{
-            cerr<<"Error: "<<glewGetErrorString(err)<<endl;
-        } else {
-            if (GLEW_VERSION_3_3)
-            {
-                cout<<"Driver supports OpenGL 3.3\nDetails:"<<endl;
-            }
+    if (GLEW_OK != err)	{
+        cerr<<"Error: "<<glewGetErrorString(err)<<endl;
+    } else {
+        if (GLEW_VERSION_3_3)
+        {
+            cout<<"Driver supports OpenGL 3.3\nDetails:"<<endl;
         }
-        err = glGetError(); //this is to ignore INVALID ENUM error 1282
-        GL_CHECK_ERRORS
-
-
-
-				
-
+    }
+    err = glGetError(); //this is to ignore INVALID ENUM error 1282
+    GL_CHECK_ERRORS
 	
 	bool running = true;
     while (running)
@@ -76,26 +65,26 @@ int main(int argx, char **argv)
                     break;
                 case sf::Event::MouseButtonReleased:
                     World::getInstance()->mouseClick(windowEvent.mouseButton.button == sf::Mouse::Middle,
-                                 ccccc                 windowEvent.mouseButton.button == sf::Mouse::Right,
+                                                  windowEvent.mouseButton.button == sf::Mouse::Right,
                                                   false,
                                                   windowEvent.mouseButton.x,
                                                   windowEvent.mouseButton.y);
                     break;
                 case sf::Event::MouseWheelMoved:
                     World::getInstance()->onMouseWheel(windowEvent.mouseWheel.delta>0 ? 1 :0 );
+                    break;
                 case sf::Event::KeyPressed:
-                if (windowEvent.key.code == sf::Keyboard::Escape)
-                    running = false;
-                break;
+                    if (windowEvent.key.code == sf::Keyboard::Escape)
+                        running = false;
+                    break;
+                default:
+                    break;
+
             }
         }
 
-
-        World::getInstance()->update();
-        World::getInstance()->render();
-
-        //World::getInstance()->renderAnimation();
-
+        float time = World::getInstance()->getTime();
+        World::getInstance()->render(time);
         window.display();
     }
 }
@@ -115,7 +104,6 @@ bool MainGL::checkErrors()
 		fprintf(stderr, "ERROR!!! OpenGL error: %s\n", gluErrorString(gl_error) );
 		retVal = true;
 	}        
-
 	return retVal;
 }
 

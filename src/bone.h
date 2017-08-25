@@ -5,7 +5,6 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-
 class Bone
 {
 public:
@@ -15,9 +14,10 @@ public:
     Bone(Bone* bone);
     std::string name;
     std::string parentName;
+    glm::mat4 transform;
     glm::mat4 worldToBone;
     glm::mat4 inverseGlobal;
-    glm::mat4 transform;
+  
     std::shared_ptr<Bone> parent;
 
     void updateTransform(float seconds, 
@@ -41,7 +41,6 @@ private:
     aiVector3D calcInterpolatedPosition(float AnimationTime, const aiNodeAnim& channel);
     aiQuaternion calcInterpolatedRotation(float AnimationTime, const aiNodeAnim& channel);
     aiVector3D calcInterpolatedScaling(float animationTime, const aiNodeAnim& channel);
-
 
 };
 

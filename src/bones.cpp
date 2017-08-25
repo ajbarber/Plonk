@@ -11,7 +11,8 @@ Bones::Bones(const aiScene& scene, const aiMesh& aiMesh) :
     blendWeights(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{0,0,0,0})),
     blendIndices(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{-1,-1,-1,-1}))
 {
-    int err = Bones::load(scene, aiMesh);
+    
+    Bones::load(scene, aiMesh);
 }
 
 std::vector<glm::mat4> Bones::getTransform(float seconds,
@@ -20,6 +21,7 @@ std::vector<glm::mat4> Bones::getTransform(float seconds,
 {
     std::vector<glm::mat4> transforms;// = std::vector<glm::mat4>(bones.size());
     auto global = node.mTransformation;
+    
     auto inverse = glm::inverse(toglm(global));
     propagateNodes(node, animation, glm::mat4(1.0), inverse, seconds);
 
@@ -46,10 +48,10 @@ std::vector<glm::vec4> Bones::getBlendIndices() {
 
 void Bones::makeBonesMap(const aiScene& aiScene) 
 {
-    for (auto i = 0; i < aiScene.mNumMeshes; i++)
+    for (std::size_t i = 0; i < aiScene.mNumMeshes; i++)
     {
         const aiMesh* aimesh = aiScene.mMeshes[i];
-        for (auto j = 0; j < aimesh->mNumBones; j++)
+        for (std::size_t j = 0; j < aimesh->mNumBones; j++)
         {
             auto bone = make_shared<Bone>();
             const aiBone& aibone = *aimesh->mBones[j];
@@ -87,18 +89,18 @@ void Bones::propagateNodes(const aiNode& ainode,
         bone->inverseGlobal = inverseGlobal;
     }
 
-    for (auto i = 0; i < ainode.mNumChildren; i++ )
+    for (std::size_t i = 0; i < ainode.mNumChildren; i++ )
     {
         const aiNode* child = ainode.mChildren[i];
         propagateNodes(*child, aiAnim, nodeTransform, inverseGlobal, seconds);
     }
 }
 
-int Bones::load(const aiScene& aiscene, const aiMesh& aimesh)
+void Bones::load(const aiScene& aiscene, const aiMesh& aimesh)
 {   
     makeBonesMap(aiscene);
 
-    for (int idx = 0; idx < aimesh.mNumBones; idx++)
+    for (std::size_t idx = 0; idx < aimesh.mNumBones; idx++)
     {
         const aiBone& aibone = *aimesh.mBones[idx];
         string name(aibone.mName.data);
@@ -106,7 +108,7 @@ int Bones::load(const aiScene& aiscene, const aiMesh& aimesh)
         bone->parent = boneMap[bone->parentName];
         bones[idx]=bone;
 
-        for (int j = 0; j < aibone.mNumWeights; j++)
+        for (std::size_t j = 0; j < aibone.mNumWeights; j++)
         {
             aiVertexWeight curWeight = aibone.mWeights[j];
 
@@ -131,19 +133,8 @@ int Bones::load(const aiScene& aiscene, const aiMesh& aimesh)
                 blendWeights[i].y-blendWeights[i].x;
                 blendIndices[i].w = idx;
             }
-    
         }
-
     }
-
-      for (int i =0 ;i < blendIndices.size(); i++)
-        {
-            fprintf(stdout, "Index: : %d: blendIndex: %f , weight: %f\n", i, blendIndices[i].x, blendWeights[i].x);
-
-        }
-
-    return 0;
-
 }
 
 

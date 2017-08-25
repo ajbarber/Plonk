@@ -10,6 +10,4 @@ struct Vertex {
     glm::vec2 tex;
 };
 
-
-
 #endif // STRUCTS

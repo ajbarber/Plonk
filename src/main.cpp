@@ -45,21 +45,15 @@ const GLchar* fragmentSource = R"glsl(
 int main(int argx, char **argv)
 {
 	auto t_start = std::chrono::high_resolution_clock::now();
-	//sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    //sf::CircleShape shape(100.f);
-    //shape.setFillColor(sf::Color::Green);
 	sf::ContextSettings settings;
 	
 	settings.depthBits = 24;
 	settings.stencilBits = 8;
 	//settings.antialiasingLevel = 2; // Optional
 
-    sf::Window window(sf::VideoMode(800, 600, 32), "OpenGL", sf::Style::Titlebar | sf::Style::Close, settings);
-	//sf::Window window(sf::VideoMode(800, 600,32), "OpenGL", sf::Style::Close, settings);
-	
+    sf::Window window(sf::VideoMode(800, 600, 32), "OpenGL", sf::Style::Titlebar | sf::Style::Close, settings);	
 	glewExperimental = GL_TRUE;
 	glewInit();
-	
 	
 	//Create VAO	
 	GLuint vao;
@@ -75,7 +69,6 @@ int main(int argx, char **argv)
 		 0.5f, -0.5f, // Vertex 2 (X, Y)
 		-0.5f, -0.5f  // Vertex 3 (X, Y)
 	};
-	
 	
 	glBindBuffer(GL_ARRAY_BUFFER, vbo); //make vbo active
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); //copy vertex data to buffer
@@ -97,7 +90,6 @@ int main(int argx, char **argv)
 	glShaderSource(fragmentShader, 1, &unifSource, NULL);
 	glCompileShader(fragmentShader);
 		
-	
 	//compile shaders into one program
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
@@ -121,10 +113,6 @@ int main(int argx, char **argv)
 	GLint uniColor = glGetUniformLocation(shaderProgram, "triangleColor");
 	//glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
 	
-		
-	//fprintf(stderr,"%u\n", vbo);
-	
-
     bool running = true;
 	while (running)
 	{
@@ -137,10 +125,6 @@ int main(int argx, char **argv)
 					running = false;
 					break;
 				
-//				case sf::Event::KeyPressed:
-//				if (windowEvent.key.code == sf::Keyboard::Escape)
-//					running = false;
-//				break;
 			}
 		}
 								
@@ -152,13 +136,9 @@ int main(int argx, char **argv)
 		// clear the screen to black
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		//t res =glGetError();
-		//window.clear();
 		
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		window.display();
-
-		
 					
 	}
 	glDeleteProgram(shaderProgram);

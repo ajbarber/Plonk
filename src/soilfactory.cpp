@@ -3,7 +3,6 @@
 #include "../lib/soil/src/SOIL.h"
 #include <assert.h>
 
-
 std::shared_ptr<GLuint> SoilFactory::load(std::string fileName)
 { 
     GLuint* textureHdl = new GLuint();

@@ -1,6 +1,5 @@
 #include "drawing.h"
 
-
 Drawing::Drawing(const Drawing& rhs): vertices(rhs.vertices),
     indices(rhs.indices), points(rhs.points), texture(rhs.texture) {}
 

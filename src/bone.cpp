@@ -14,8 +14,6 @@ Bone::Bone(Bone* bone): name(bone->name), parentName(bone->parentName),
                             glm::mat4 parentTransform,
                             glm::mat4 defaultTransform)
  {
-     //return glm::mat4(1.0f);
-
      float ticksPerSecond = animation.mTicksPerSecond != 0 ?
                              animation.mTicksPerSecond : 25.0f;
      float ticks = seconds * ticksPerSecond;
@@ -46,7 +44,7 @@ Bone::Bone(Bone* bone): name(bone->name), parentName(bone->parentName),
 
  const aiNodeAnim* Bone::findChannel(const std::string name, const aiAnimation* animation)
  {
-     for (auto i = 0 ; i < animation->mNumChannels; i++)
+     for (std::size_t i = 0 ; i < animation->mNumChannels; i++)
      {
          const aiNodeAnim* node = animation->mChannels[i];
          if (std::string(node->mNodeName.data) == name)

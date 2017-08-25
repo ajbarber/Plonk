@@ -107,14 +107,12 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = GLSLShader.$(OBJEXT) MainGL.$(OBJEXT) \
-	World.$(OBJEXT) Camera.$(OBJEXT) sphere.$(OBJEXT) \
-	drawing.$(OBJEXT) gldrawable.$(OBJEXT) \
-	spheredrawable.$(OBJEXT) cubedrawable.$(OBJEXT) cube.$(OBJEXT) \
-	floordrawable.$(OBJEXT) floor.$(OBJEXT) \
-	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT) \
-	bones.$(OBJEXT) bone.$(OBJEXT) herobodypart.$(OBJEXT) \
-	hero.$(OBJEXT) herodrawable.$(OBJEXT) soilfactory.$(OBJEXT)
+am_plonk_OBJECTS = GLSLShader.$(OBJEXT) mainGL.$(OBJEXT) \
+	world.$(OBJEXT) util.$(OBJEXT) drawing.$(OBJEXT) \
+	gldrawable.$(OBJEXT) crosshairdrawable.$(OBJEXT) \
+	crosshairs.$(OBJEXT) bones.$(OBJEXT) bone.$(OBJEXT) \
+	herobodypart.$(OBJEXT) hero.$(OBJEXT) herodrawable.$(OBJEXT) \
+	soilfactory.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_DEPENDENCIES = ../lib/soil/src/libSOIL.a
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -326,7 +324,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++14
 AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++14
-plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp bone.cpp herobodypart.cpp hero.cpp herodrawable.cpp soilfactory.cpp
+plonk_SOURCES = GLSLShader.cpp mainGL.cpp world.cpp util.cpp drawing.cpp gldrawable.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp bone.cpp herobodypart.cpp hero.cpp herodrawable.cpp soilfactory.cpp
 
 #plonk_DEPENDENCIES = ../lib/soil/src/libSOIL.a
 plonk_LDADD = ../lib/soil/src/libSOIL.a
@@ -423,26 +421,20 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Camera.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GLSLShader.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MainGL.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/World.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bone.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bones.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crosshairdrawable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crosshairs.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cube.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cubedrawable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/drawing.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/floor.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/floordrawable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gldrawable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hero.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/herobodypart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/herodrawable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainGL.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soilfactory.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sphere.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spheredrawable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/world.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

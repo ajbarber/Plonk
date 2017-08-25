@@ -17,7 +17,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
-
 //screen dimensions
 const int WIDTH  = 1024;
 const int HEIGHT = 768;
@@ -25,9 +24,6 @@ const int HEIGHT = 768;
 //shadowmap texture dimensions
 const int SHADOWMAP_WIDTH = 512;
 const int SHADOWMAP_HEIGHT = 512;
-
-
-
 
 using namespace std;
 
@@ -71,7 +67,6 @@ private:
     std::unique_ptr<Hero> hero;
     std::vector<std::unique_ptr<GLDrawable>> heroDrawables;
 
-
     //projection, modelview matrices
     glm::mat4  P = glm::mat4(1);
     glm::mat4  MV = glm::mat4(1);
@@ -107,9 +102,7 @@ private:
     void fillPlaneData(const float width, const float depth, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
     void drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLightPass);
     void fillCubeData(const float& size, std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
-	
-		
-		
+
 };
 
 #endif // Game_h

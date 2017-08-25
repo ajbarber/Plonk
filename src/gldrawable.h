@@ -11,7 +11,7 @@ public:
     GLDrawable(const Drawing &drawing);
 
     virtual ~GLDrawable();
-    virtual int bindDrawing() = 0;
+    virtual void bindDrawing() = 0;
     virtual int bindTexture() { return 0; }
     virtual GLuint getVaoID();
     virtual GLuint getNumTriangles();

@@ -9,10 +9,8 @@ class HeroBodyPartDrawable : public GLDrawable
 public:
     HeroBodyPartDrawable(const Drawing& drawing);
 
-    int bindDrawing();
-
+    void bindDrawing();
     int bindTexture();
-
     bool checkErrors();
 };
 

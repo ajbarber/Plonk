@@ -1,24 +1,14 @@
-#include "World.h"
-#include "Camera.h"
+#include "world.h"
 #include "structs.h"
 #include "drawing.h"
-#include "AssimpConverter.h"
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "drawing.h"
-#include "sphere.h"
-#include "spheredrawable.h"
-#include "cube.h"
-#include "cubedrawable.h"
-#include "floor.h"
-#include "floordrawable.h"
 #include "crosshairs.h"
 #include "crosshairdrawable.h"
 #include "herodrawable.h"
 #include "herobodypart.h"
 #include "hero.h"
-
-
 
 using namespace std;
 
@@ -96,7 +86,6 @@ float World::getTime() {
 
 void World::buildMesh()
 {
-		
     //load the flat shader
         flatshader.LoadFromFile(GL_VERTEX_SHADER, "shaders/shader.vert");
         flatshader.LoadFromFile(GL_FRAGMENT_SHADER, "shaders/shader.frag");
@@ -137,28 +126,15 @@ void World::buildMesh()
 
         GL_CHECK_ERRORS
 
-        unique_ptr<Drawing> sphere(new Sphere(1.0f, 10, 10));
-        sphereDrawable = make_unique<SphereDrawable>(*sphere);
-        int err = sphereDrawable->bindDrawing();
-
-        unique_ptr<Drawing> cube(new Cube(2.0f));
-        cubeDrawable = make_unique<SphereDrawable>(*cube);
-        err = cubeDrawable->bindDrawing();
-
-        unique_ptr<Drawing> floor(new Floor(100,100));
-        floorDrawable = make_unique<FloorDrawable>(*floor);
-        err = floorDrawable->bindDrawing();
-
         unique_ptr<Drawing> crossHair(new CrossHair());
         crossHairDrawable = make_unique<CrossHairDrawable>(*crossHair);
-        err = crossHairDrawable->bindDrawing();
-        unsigned int i = 0;
+        crossHairDrawable->bindDrawing();
 
-        for (int idx = 0; idx< hero->getBodyParts().size(); idx ++)
+        for (std::size_t idx = 0; idx< hero->getBodyParts().size(); idx++)
         {
             HeroBodyPartDrawable* hbpd = new HeroBodyPartDrawable(*hero->getBodyParts()[idx]);
             heroDrawables.push_back(std::unique_ptr<GLDrawable>(hbpd));
-            err = heroDrawables[idx]->bindDrawing();
+            heroDrawables[idx]->bindDrawing();
         }
 
         //get light position from spherical coordinates
@@ -198,7 +174,6 @@ void World::buildMesh()
         //unbind FBO
         glBindFramebuffer(GL_FRAMEBUFFER,0);
 
-
         //set the light MV, P and bias matrices
         MV_L = glm::lookAt(lightPosOS,glm::vec3(0,0,0),glm::vec3(0,1,0));
         P_L  = glm::perspective(50.0f,1.0f,1.0f, 25.0f);
@@ -211,8 +186,6 @@ void World::buildMesh()
         glEnable(GL_CULL_FACE);
 
         cout<<"Initialization successfull"<<endl;
-
-	
 }
 
 
@@ -223,67 +196,13 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLight
 
     //bind the current shader
     shader.Use();
-    //render plane first
-    glBindVertexArray(floorDrawable->getVaoID()); {
-        //set the shader uniforms
-        glUniform3fv(shader("light_position"),1, &(lightPosOS.x));
-        glUniformMatrix4fv(shader("S"), 1, GL_FALSE, glm::value_ptr(S));
-        glUniformMatrix4fv(shader("M"), 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
-        glUniform1i(shader("bIsLightPass"), isLightPass);
-        glUniformMatrix4fv(shader("MVP"), 1, GL_FALSE, glm::value_ptr(Proj*View));
-        glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(View));
-        glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(View))));
-        glUniform3f(shader("diffuse_color"), 1.0f,1.0f,1.0f);
-            //draw plane triangles
-            glDrawElements(GL_TRIANGLES, floorDrawable->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
-    }
 
-    //render the cube
-    glBindVertexArray(cubeDrawable->getVaoID()); {
-        //set the cube's transform
-        glm::mat4 T = glm::translate(glm::mat4(1),  glm::vec3(-1,1,0));
-        glm::mat4 M = T;
-        glm::mat4 MV = View*M;
-        glm::mat4 MVP = Proj*MV;
-        //pass shader uniforms
-        glUniformMatrix4fv(shader("S"), 1, GL_FALSE, glm::value_ptr(S));
-        glUniformMatrix4fv(shader("M"), 1, GL_FALSE, glm::value_ptr(M));
-        glUniformMatrix4fv(shader("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-        glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(MV));
-        glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
-        glUniform3f(shader("diffuse_color"), 1.0f,0.0f,0.0f);
-            //draw cube triangles
-            glDrawElements(GL_TRIANGLES, cubeDrawable->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
-    }
-    //render the sphere
-    glBindVertexArray(sphereDrawable->getVaoID()); {
-        //set the sphere's transform
-        glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));
-        glm::mat4 M = T;
-        glm::mat4 MV = View*M;
-        glm::mat4 MVP = Proj*MV;
-        //set the shader uniforms
-        glUniformMatrix4fv(shader("S"), 1, GL_FALSE, glm::value_ptr(S));
-        glUniformMatrix4fv(shader("M"), 1, GL_FALSE, glm::value_ptr(M));
-        glUniformMatrix4fv(shader("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-        glUniformMatrix4fv(shader("MV"), 1, GL_FALSE, glm::value_ptr(MV));
-        glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
-        glUniform3f(shader("diffuse_color"), 0.0f, 0.0f, 1.0f);
-            //draw sphere triangles
-            glDrawElements(GL_TRIANGLES, sphereDrawable->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
-    }
-
-    //render the hero
-
-    for (int idx =0 ; idx< heroDrawables.size(); idx++)
+    //render the model with animation
+    for (std::size_t idx =0 ; idx< heroDrawables.size(); idx++)
     {
-
         glBindVertexArray(heroDrawables[idx]->getVaoID()); {
 
             std::vector<glm::mat4> txs = heroDrawables[idx]->getDrawing().getTransforms(seconds);
-            //glm::mat4 TT = glm::translate(glm::mat4(1), glm::vec3(20,1,0));
-            //std::vector<glm::mat4> txs = std::vector<glm::mat4>(100, TT);
-            //set the sphere's transform
             glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(1,1,0));
             glm::mat4 M = T;
             glm::mat4 MV = View*M;
@@ -296,16 +215,13 @@ void World::drawScene(glm::mat4 View, glm::mat4 Proj, float seconds, int isLight
             glUniformMatrix4fv(shader("TX"), txs.size(), GL_FALSE, glm::value_ptr(txs[0]));
             glUniformMatrix3fv(shader("N"), 1, GL_FALSE, glm::value_ptr(glm::inverseTranspose(glm::mat3(MV))));
             glUniform3f(shader("diffuse_color"), 1.0f, 1.0f, 1.0f);
-            glUniform1i(shader("tex"), 0);           //draw sphere triangles
+            glUniform1i(shader("tex"), 0);        
             heroDrawables[idx]->bindTexture();
             GL_CHECK_ERRORS
-
-
 
             glDrawElements(GL_TRIANGLES, heroDrawables[idx]->getNumTriangles(), GL_UNSIGNED_SHORT, 0);
         }
     }
-
 
     //unbind shader
     shader.UnUse();
@@ -368,7 +284,6 @@ void World::render(float seconds)
         //unbind the vertex array object
         glBindVertexArray(0);
 
-
 }
 
 void World::resize(int w, int h)
@@ -401,7 +316,6 @@ void World::mouseMove(int x, int y)
     }
     oldX = x;
     oldY = y;
-
 }
 
 
@@ -447,9 +361,7 @@ void World::onMouseWheel(int dir) {
     //update light's MV matrix
     MV_L = glm::lookAt(lightPosOS,glm::vec3(0,0,0),glm::vec3(0,1,0));
     S = BP*MV_L;
-
 }
-
 
 bool World::checkErrors()
 {
@@ -467,40 +379,6 @@ bool World::checkErrors()
 
     return retVal;
 }
-
-
-void World::renderAnimation()
-{
-
-    //mesh.Render();
-   // checkErrors();
-
-    // clear the screen to blackGL_CHECK_ERRORS;
-//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    for (unsigned int i = 0; i < animatedModel->GetNumMeshes(); ++i)
-//    {
-//        const SA::sAnimatedMesh& animMesh = animatedModel->GetMesh(i);
-
-//        glBegin(GL_TRIANGLES);
-//        for (unsigned int i = 0; i < animMesh.NumIndices; ++i)
-//        {
-//            unsigned int index = animMesh.pIndices[i];
-//            glm::vec3 n = animMesh.pNormals[index];
-//            glm::vec3 v = animMesh.pTransformedVertices[index];
-
-//            glColor4f(n.x, n.y, n.z, 1);
-//            glVertex3f(v.x, v.y, v.z);
-//        }
-//        glEnd();
-//        checkErrors();
-//    }
-}
-
-
-
-
-
 
 
 

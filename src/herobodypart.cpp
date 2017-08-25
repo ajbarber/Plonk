@@ -56,7 +56,7 @@ void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
 }
 
 /*
- * Return array o
+ * Return Bones
  *
  * */
 void HeroBodyPart::makeSkeleton(const aiScene& scene, const aiMesh& mesh)

@@ -107,14 +107,12 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_plonk_OBJECTS = GLSLShader.$(OBJEXT) MainGL.$(OBJEXT) \
-	World.$(OBJEXT) Camera.$(OBJEXT) sphere.$(OBJEXT) \
-	drawing.$(OBJEXT) gldrawable.$(OBJEXT) \
-	spheredrawable.$(OBJEXT) cubedrawable.$(OBJEXT) cube.$(OBJEXT) \
-	floordrawable.$(OBJEXT) floor.$(OBJEXT) \
-	crosshairdrawable.$(OBJEXT) crosshairs.$(OBJEXT) \
-	bones.$(OBJEXT) bone.$(OBJEXT) herobodypart.$(OBJEXT) \
-	hero.$(OBJEXT) herodrawable.$(OBJEXT) soilfactory.$(OBJEXT)
+am_plonk_OBJECTS = GLSLShader.$(OBJEXT) mainGL.$(OBJEXT) \
+	world.$(OBJEXT) util.$(OBJEXT) drawing.$(OBJEXT) \
+	gldrawable.$(OBJEXT) crosshairdrawable.$(OBJEXT) \
+	crosshairs.$(OBJEXT) bones.$(OBJEXT) bone.$(OBJEXT) \
+	herobodypart.$(OBJEXT) hero.$(OBJEXT) herodrawable.$(OBJEXT) \
+	soilfactory.$(OBJEXT)
 plonk_OBJECTS = $(am_plonk_OBJECTS)
 plonk_DEPENDENCIES = ../lib/soil/src/libSOIL.a
 AM_V_lt = $(am__v_lt_$(V))
@@ -326,7 +324,7 @@ top_builddir = ..
 top_srcdir = ..
 AM_CXXFLAGS = -Wall -g3 -gdwarf -g2 -std=c++14
 AM_CPPFLAGS = -Wall -g3 -gdwarf -g2 -std=c++14
-plonk_SOURCES = GLSLShader.cpp MainGL.cpp World.cpp Camera.cpp sphere.cpp drawing.cpp gldrawable.cpp spheredrawable.cpp cubedrawable.cpp cube.cpp floordrawable.cpp floor.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp bone.cpp herobodypart.cpp hero.cpp herodrawable.cpp soilfactory.cpp
+plonk_SOURCES = GLSLShader.cpp mainGL.cpp world.cpp util.cpp drawing.cpp gldrawable.cpp crosshairdrawable.cpp crosshairs.cpp bones.cpp bone.cpp herobodypart.cpp hero.cpp herodrawable.cpp soilfactory.cpp
 
 #plonk_DEPENDENCIES = ../lib/soil/src/libSOIL.a
 plonk_LDADD = ../lib/soil/src/libSOIL.a
@@ -423,26 +421,20 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/Camera.Po
 include ./$(DEPDIR)/GLSLShader.Po
-include ./$(DEPDIR)/MainGL.Po
-include ./$(DEPDIR)/World.Po
 include ./$(DEPDIR)/bone.Po
 include ./$(DEPDIR)/bones.Po
 include ./$(DEPDIR)/crosshairdrawable.Po
 include ./$(DEPDIR)/crosshairs.Po
-include ./$(DEPDIR)/cube.Po
-include ./$(DEPDIR)/cubedrawable.Po
 include ./$(DEPDIR)/drawing.Po
-include ./$(DEPDIR)/floor.Po
-include ./$(DEPDIR)/floordrawable.Po
 include ./$(DEPDIR)/gldrawable.Po
 include ./$(DEPDIR)/hero.Po
 include ./$(DEPDIR)/herobodypart.Po
 include ./$(DEPDIR)/herodrawable.Po
+include ./$(DEPDIR)/mainGL.Po
 include ./$(DEPDIR)/soilfactory.Po
-include ./$(DEPDIR)/sphere.Po
-include ./$(DEPDIR)/spheredrawable.Po
+include ./$(DEPDIR)/util.Po
+include ./$(DEPDIR)/world.Po
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
