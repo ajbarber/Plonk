@@ -1,7 +1,6 @@
 #include "herobodypart.h"
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <list>
