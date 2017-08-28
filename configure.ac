@@ -4,7 +4,8 @@
 AC_PREREQ([2.69])
 AC_INIT(plonk, 1.00,aj_barber@yahoo.com.au)
 AM_INIT_AUTOMAKE(plonk,1.0)
-AC_CONFIG_SRCDIR([src/main.cpp])
+
+AC_CONFIG_SRCDIR([src/mainGL.cpp])
 AC_CONFIG_MACRO_DIR([m4])
 # AC_CONFIG_HEADERS([config.h])
 

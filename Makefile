@@ -163,7 +163,7 @@ CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in compile config.guess \
-	config.sub install-sh ltmain.sh missing
+	config.sub depcomp install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -222,7 +222,7 @@ CPPFLAGS =
 CXX = g++
 CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g3 -gdwarf -g2
+CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"plonk\" -DPACKAGE_TARNAME=\"plonk\" -DPACKAGE_VERSION=\"1.00\" -DPACKAGE_STRING=\"plonk\ 1.00\" -DPACKAGE_BUGREPORT=\"aj_barber@yahoo.com.au\" -DPACKAGE_URL=\"\" -DPACKAGE=\"plonk\" -DVERSION=\"1.0\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -DHAVE_GL_GL_H=1 -DHAVE_GL=1 -DHAVE_GL_GLU_H=1 -DHAVE_GLU=1 -DHAVE_GL_GLUT_H=1 -DHAVE_GLUT=1 -DHAVE_GLEW=1
 DEPDIR = .deps
