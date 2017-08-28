@@ -84,7 +84,7 @@ void Bones::propagateNodes(const aiNode& ainode,
         if (ainode.mParent)
         {
             std::string parentName(ainode.mParent->mName.data);
-            bone->parentName = parentName;igerVNC/tigervnc
+            bone->parentName = parentName;
         }
         bone->inverseGlobal = inverseGlobal;
     }
