@@ -15,14 +15,19 @@ then
 $> make
 
 ```
+If you get any automake errors such as groaning about `aclocal-x.xx` try a `autoreconf -f -i` then `configure/make` again.
 
+### Example dependencies using Arch linux based distribution
+```
+$> pacman -S assimp sfml glm soil
+```
 ### Example dependencies using an ubuntu based distribution:
 
 ```
 $> sudo apt-get install gcc g++ pkg-config make libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev libglew-dev libsoil-dev libglm-dev libpng-dev libsfml-dev libassimp-dev
 ```
 
-If you have problems the output of the configure script might provide clues as to what libs are missing on your system. 
+If you have problems the output of the configure script might provide clues as to what libs are missing on your system.
 
 ### Usage
 
