@@ -27,16 +27,14 @@ const int SHADOWMAP_HEIGHT = 512;
 
 using namespace std;
 
-
 class World
 {
-public: 
+public:
+    ~World();
 
-	~World();
-	
-	static World	*init();
-	static World	*getInstance();
-	static void		destroy();	
+    static World	*init();
+    static World	*getInstance();
+    static void		destroy();
     void render(float time);
     void setup(const std::string fn);
     float getTime();
@@ -45,15 +43,14 @@ public:
     void mouseMove(int x, int y);
     void mouseClick(bool left, bool right, bool down, int x, int y);
     void onMouseWheel(int dir);
-   
-private:
 
+private:
     std::chrono::system_clock::time_point t_start;
 
     bool checkErrors();
     std::string fileName;
 
-	static World *instance;
+    static World *instance;
 
     Assimp::Importer importer;
     const aiScene *sceneRaw;

@@ -12,12 +12,10 @@ public:
     MainGL(int argc = 0, char **argv = 0);
     ~MainGL();
 
-	int main(int argx, char **argv);
+    int main(int argx, char **argv);
 
 private:
-    
-	static bool checkErrors();	 
+    static bool checkErrors();
 };
-
 
 #endif // mainGL_h

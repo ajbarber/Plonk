@@ -8,7 +8,6 @@
 class Bone
 {
 public:
-
     Bone() : parent(nullptr) {}
 
     Bone(Bone* bone);
@@ -17,16 +16,15 @@ public:
     glm::mat4 transform;
     glm::mat4 worldToBone;
     glm::mat4 inverseGlobal;
-  
+
     std::shared_ptr<Bone> parent;
 
-    void updateTransform(float seconds, 
+    void updateTransform(float seconds,
                         const aiAnimation& animation,
                         glm::mat4 parentTransform,
                         glm::mat4 defaultTransform);
 
 private:
-
     const aiNodeAnim* findChannel(const std::string name, const aiAnimation* animation);
     int getStartKey(float animationTime);
 
@@ -41,7 +39,6 @@ private:
     aiVector3D calcInterpolatedPosition(float AnimationTime, const aiNodeAnim& channel);
     aiQuaternion calcInterpolatedRotation(float AnimationTime, const aiNodeAnim& channel);
     aiVector3D calcInterpolatedScaling(float animationTime, const aiNodeAnim& channel);
-
 };
 
 #endif // BONE_H

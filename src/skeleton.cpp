@@ -8,5 +8,3 @@ std::vector<Bone> Skeleton::getBones()
 {
     return this->bones;
 }
-
-

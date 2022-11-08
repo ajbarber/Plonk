@@ -7,10 +7,9 @@
 #include "soilfactory.h"
 #include "structs.h"
 
-
 HeroBodyPart::HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName)
 {
-    load(mesh, textureFileName);    
+    load(mesh, textureFileName);
     makeSkeleton(scene, mesh);
     animation = std::unique_ptr<aiAnimation>(scene.mAnimations[0]);
     node = std::unique_ptr<aiNode>(scene.mRootNode);
@@ -30,13 +29,11 @@ void HeroBodyPart::load(const aiMesh& mesh, std::string textureFileName)
         glm::vec3 normal(n.x, n.y, n.z);
         glm::vec2 tex(texCoord.x, texCoord.y);
 
-
         Vertex vert = Vertex { pos = pos,
                                normal = normal,
                                tex = tex};
 
         vertices.push_back(vert);
-
     }
 
     //texture = nullptr;
@@ -71,10 +68,3 @@ std::vector<glm::mat4> HeroBodyPart::getTransforms(float seconds) const
 {
     return bones->getTransform(seconds, *node, *animation);
 }
-
-
-
-
-
-
-

@@ -41,13 +41,3 @@ std::vector<glm::mat4> Drawing::getTransforms(float seconds) const
 std::shared_ptr<Bones> Drawing::getSkeleton() const {
     return nullptr;
 }
-
-
-
-
-
-
-
-
-
-

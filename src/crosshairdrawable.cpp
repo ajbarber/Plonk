@@ -27,7 +27,4 @@ void CrossHairDrawable::bindDrawing()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0,0);
 
     GL_CHECK_ERRORS
-
 }
-
-

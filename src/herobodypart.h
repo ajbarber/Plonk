@@ -7,11 +7,10 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-
 class HeroBodyPart : public Drawing
 {
 public:
-    HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName);   
+    HeroBodyPart(const aiScene& scene, const aiMesh& mesh, std::string textureFileName);
     std::vector<glm::mat4> getTransforms(float seconds) const;
     std::shared_ptr<Bones> getSkeleton() const;
 

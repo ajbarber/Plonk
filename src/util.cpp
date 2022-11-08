@@ -3,7 +3,7 @@
 glm::mat4 toglm(const aiMatrix4x4& in_mat)
 {
     glm::mat4 tmp;
-    
+
     tmp[0][0] = in_mat[0][0];
     tmp[0][1] = in_mat[1][0];
     tmp[0][2] = in_mat[2][0];
@@ -31,7 +31,6 @@ glm::mat4 toscalingmat(const aiVector3D& vec)
     glm::vec3 scaling(vec.x, vec.y, vec.z);
     return glm::scale(glm::mat4(1.0f), scaling);
 }
-
 
 glm::mat4 totranslationmat(const aiVector3D& vec)
 {

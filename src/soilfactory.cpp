@@ -4,7 +4,7 @@
 #include <assert.h>
 
 std::shared_ptr<GLuint> SoilFactory::load(std::string fileName)
-{ 
+{
     GLuint* textureHdl = new GLuint();
 
     int width, height, channels;
@@ -36,4 +36,3 @@ std::shared_ptr<GLuint> SoilFactory::load(std::string fileName)
     }
     return res;
 }
-

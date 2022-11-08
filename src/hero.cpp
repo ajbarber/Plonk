@@ -53,4 +53,3 @@ std::string Hero::getMaterial(const aiScene& scene, int idx)
     }
     return res;
 }
-

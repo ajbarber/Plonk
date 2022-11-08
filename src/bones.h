@@ -12,15 +12,11 @@
 #include <unordered_map>
 #include <memory>
 
-
 using namespace std;
-
 
 class Bones
 {
-
 public:
-
     Bones(Bones* bones);
     Bones(const aiScene& scene, const aiMesh& aiMesh);
     std::vector<glm::mat4> getTransform(float seconds, const aiNode& node,
@@ -29,7 +25,6 @@ public:
     std::vector<glm::vec4> getBlendIndices();
 
 private:
-    
     void load(const aiScene& scene, const aiMesh& aiMesh);
     void makeBonesMap(const aiScene& aiscene);
     void propagateNodes(const aiNode& ainode,
@@ -42,9 +37,7 @@ private:
     vector<shared_ptr<Bone>> bones;
     std::vector<glm::vec4> blendWeights;
     std::vector<glm::vec4> blendIndices;
-   
-    unordered_map<string, const shared_ptr<Bone>> boneMap; 
-
+    unordered_map<string, const shared_ptr<Bone>> boneMap;
 };
 
 #endif // BONES_H

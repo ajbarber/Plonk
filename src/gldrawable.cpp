@@ -23,5 +23,3 @@ GLuint GLDrawable::getNumTriangles()
 const Drawing& GLDrawable::getDrawing() const {
     return drawing;
 }
-
-

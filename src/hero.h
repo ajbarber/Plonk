@@ -13,7 +13,6 @@ public:
     vector<unique_ptr<HeroBodyPart>>& getBodyParts();
     ~Hero() {}
 
-
 private:
     vector<unique_ptr<HeroBodyPart>> bodyParts;
     string getMaterial(const aiScene& scene, int idx);

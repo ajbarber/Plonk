@@ -11,23 +11,22 @@ Bones::Bones(const aiScene& scene, const aiMesh& aiMesh) :
     blendWeights(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{0,0,0,0})),
     blendIndices(vector<glm::vec4>(aiMesh.mNumVertices, glm::vec4{-1,-1,-1,-1}))
 {
-    
     Bones::load(scene, aiMesh);
 }
 
 std::vector<glm::mat4> Bones::getTransform(float seconds,
-                    const aiNode& node,
-                    const aiAnimation& animation) 
+                                           const aiNode& node,
+                                           const aiAnimation& animation)
 {
     std::vector<glm::mat4> transforms;// = std::vector<glm::mat4>(bones.size());
     auto global = node.mTransformation;
-    
+
     auto inverse = glm::inverse(toglm(global));
     propagateNodes(node, animation, glm::mat4(1.0), inverse, seconds);
 
     for (auto& bone: bones) {
-         transforms.push_back(bone->inverseGlobal * 
-         bone->transform * bone->worldToBone) ;
+        transforms.push_back(bone->inverseGlobal *
+                             bone->transform * bone->worldToBone) ;
     }
 
     return transforms;
@@ -45,8 +44,7 @@ std::vector<glm::vec4> Bones::getBlendIndices() {
  * Create vector of Bone indexed by
  * vertex id
  */
-
-void Bones::makeBonesMap(const aiScene& aiScene) 
+void Bones::makeBonesMap(const aiScene& aiScene)
 {
     for (std::size_t i = 0; i < aiScene.mNumMeshes; i++)
     {
@@ -77,7 +75,7 @@ void Bones::propagateNodes(const aiNode& ainode,
     if (boneMap.find(nodeName) != boneMap.end())
     {
         auto& bone = boneMap[nodeName];
-    
+
         bone->updateTransform(seconds, aiAnim, parentTransform, nodeTransform);
         nodeTransform = bone->transform;
 
@@ -97,7 +95,7 @@ void Bones::propagateNodes(const aiNode& ainode,
 }
 
 void Bones::load(const aiScene& aiscene, const aiMesh& aimesh)
-{   
+{
     makeBonesMap(aiscene);
 
     for (std::size_t idx = 0; idx < aimesh.mNumBones; idx++)
@@ -130,16 +128,9 @@ void Bones::load(const aiScene& aiscene, const aiMesh& aimesh)
             }
             else if (blendIndices[i].w == -1) {
                 blendWeights[i].w = 1.0-blendWeights[i].z-
-                blendWeights[i].y-blendWeights[i].x;
+                    blendWeights[i].y-blendWeights[i].x;
                 blendIndices[i].w = idx;
             }
         }
     }
 }
-
-
-
-
-
-
-

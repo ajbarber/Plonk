@@ -5,13 +5,13 @@ MainGL::MainGL(int argc, char **argv)
 }
 
 MainGL::~MainGL()
-{	
+{
 }
 
 int main(int argx, char *argv[])
 {
     sf::ContextSettings settings;
-	
+
     settings.depthBits = 24;
     settings.stencilBits = 8;
     settings.majorVersion = 3;
@@ -35,54 +35,49 @@ int main(int argx, char *argv[])
     err = glGetError(); //this is to ignore INVALID ENUM error 1282
     GL_CHECK_ERRORS
 
-    cout<<"Loading model "<<argv[1]<<endl;
+        cout<<"Loading model "<<argv[1]<<endl;
     World::getInstance()->setup(argv[1]);
-	
-	bool running = true;
+
+    bool running = true;
     while (running)
     {
-
         sf::Event windowEvent;
         while (window.pollEvent(windowEvent))
         {
             switch (windowEvent.type)
             {
-                case sf::Event::Closed:
+            case sf::Event::Closed:
+                running = false;
+                break;
+            case sf::Event::Resized:
+                World::getInstance()->resize(windowEvent.size.width, windowEvent.size.height);
+                break;
+            case sf::Event::MouseMoved:
+                World::getInstance()->mouseMove(windowEvent.mouseMove.x, windowEvent.mouseMove.y);
+                break;
+            case sf::Event::MouseButtonPressed:
+                World::getInstance()->mouseClick(windowEvent.mouseButton.button == sf::Mouse::Middle,
+                                                 windowEvent.mouseButton.button == sf::Mouse::Right,
+                                                 true,
+                                                 windowEvent.mouseButton.x,
+                                                 windowEvent.mouseButton.y);
+                break;
+            case sf::Event::MouseButtonReleased:
+                World::getInstance()->mouseClick(windowEvent.mouseButton.button == sf::Mouse::Middle,
+                                                 windowEvent.mouseButton.button == sf::Mouse::Right,
+                                                 false,
+                                                 windowEvent.mouseButton.x,
+                                                 windowEvent.mouseButton.y);
+                break;
+            case sf::Event::MouseWheelMoved:
+                World::getInstance()->onMouseWheel(windowEvent.mouseWheel.delta>0 ? 1 :0 );
+                break;
+            case sf::Event::KeyPressed:
+                if (windowEvent.key.code == sf::Keyboard::Escape)
                     running = false;
-                    break;
-
-                case sf::Event::Resized:
-                    World::getInstance()->resize(windowEvent.size.width, windowEvent.size.height);
-                    break;
-
-                case sf::Event::MouseMoved:
-                    World::getInstance()->mouseMove(windowEvent.mouseMove.x, windowEvent.mouseMove.y);
-                    break;
-
-               case sf::Event::MouseButtonPressed:
-                    World::getInstance()->mouseClick(windowEvent.mouseButton.button == sf::Mouse::Middle,
-                                                     windowEvent.mouseButton.button == sf::Mouse::Right,
-                                                     true,
-                                                     windowEvent.mouseButton.x,
-                                                     windowEvent.mouseButton.y);
-                    break;
-                case sf::Event::MouseButtonReleased:
-                    World::getInstance()->mouseClick(windowEvent.mouseButton.button == sf::Mouse::Middle,
-                                                  windowEvent.mouseButton.button == sf::Mouse::Right,
-                                                  false,
-                                                  windowEvent.mouseButton.x,
-                                                  windowEvent.mouseButton.y);
-                    break;
-                case sf::Event::MouseWheelMoved:
-                    World::getInstance()->onMouseWheel(windowEvent.mouseWheel.delta>0 ? 1 :0 );
-                    break;
-                case sf::Event::KeyPressed:
-                    if (windowEvent.key.code == sf::Keyboard::Escape)
-                        running = false;
-                    break;
-                default:
-                    break;
-
+                break;
+            default:
+                break;
             }
         }
 
@@ -94,25 +89,14 @@ int main(int argx, char *argv[])
 
 bool MainGL::checkErrors()
 {
-	bool retVal = false;
-	GLenum	gl_error;
-
-	//-- Check for GL errors
-	gl_error = glGetError( );
-	if( gl_error != GL_NO_ERROR )
-	{
-		fprintf(stderr, "ERROR!!! OpenGL error: %s\n", gluErrorString(gl_error) );
-		retVal = true;
-	}        
-	return retVal;
+    bool retVal = false;
+    GLenum	gl_error;
+    //-- Check for GL errors
+    gl_error = glGetError( );
+    if( gl_error != GL_NO_ERROR )
+    {
+        fprintf(stderr, "ERROR!!! OpenGL error: %s\n", gluErrorString(gl_error) );
+        retVal = true;
+    }
+    return retVal;
 }
-
-
-
-
-
-
-
-
-
-
